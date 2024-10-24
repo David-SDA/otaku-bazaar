@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { faUser, faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
 export default function Header() {
     return (
@@ -15,8 +16,8 @@ export default function Header() {
                     <NavLink to={`/`} className='ms-4'>Categorie</NavLink>
                 </div>
                 <div>
-                    <NavLink to={`/login`}><FontAwesomeIcon icon={['fa', 'user']} />Login</NavLink>
-                    <NavLink to={`/register`}>Register</NavLink>
+                    <NavLink to={`/wishlist`}><FontAwesomeIcon icon={faClipboardList} className='me-4' /></NavLink>
+                    <NavLink to={`/login`}><FontAwesomeIcon icon={faUser} className='ms-4' /></NavLink>
                 </div>
             </nav>
         </header>
