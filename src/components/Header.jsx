@@ -37,32 +37,32 @@ export default function Header() {
                         categories.slice(0, 4).map((category) => (
                             <NavLink to={`/`} className='hidden lg:inline mx-4 py-1 group relative' key={category.id}>
                                 {category.label}
-                                <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                                <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                             </NavLink>
                         ))
                     }
                     <NavLink to={`/search`} className='hidden lg:inline mx-4 py-1 group relative'>
                         More
-                        <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                     </NavLink>
                 </div>
                 <div className='hidden lg:block'>
                     <NavLink to={`/search`} className='group relative me-4 py-1'>
                         <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-                        <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                     </NavLink>
                     <NavLink to={`/wishlist`} className='group relative mx-4 py-1'>
                         <FontAwesomeIcon icon={faClipboardList} size='lg'/>
-                        <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                     </NavLink>
                     <NavLink to={`/login`} className='group relative mx-4 py-1'>
                         <FontAwesomeIcon icon={faUser} size='lg' />
-                        <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                     </NavLink>
                 </div>
                 <div className='block bg-[#F6BD60] mx-3 py-2 px-3 rounded-md lg:hidden' onClick={handleToggleBurgerMenu}>
