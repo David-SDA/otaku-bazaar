@@ -9,6 +9,7 @@ import Contact from './components/pages/Contact';
 import Terms from './components/pages/legal/Terms';
 import Privacy from './components/pages/legal/Privacy';
 import Security from './components/pages/legal/Security';
+import NotFound from './components/pages/errors/NotFound';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
 					<Route path='/terms' element={<Terms />} />
 					<Route path='/privacy' element={<Privacy />} />
 					<Route path='/security' element={<Security />} />
+					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</main>
 			<Footer />
