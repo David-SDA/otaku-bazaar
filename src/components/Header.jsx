@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { faUser, faClipboardList, faMagnifyingGlass, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-export default function Header() {
+export default function Header(){
     const [categories, setCategories] = useState([]);
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);

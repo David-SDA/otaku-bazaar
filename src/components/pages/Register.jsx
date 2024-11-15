@@ -1,18 +1,21 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function Register() {
+export default function Register(){
+    // Elements nécessaires pour le traitement du formulaire
     const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
 
+    // Traitement du formulaire
     function submitHandler(data){
+        // Traitement à faire
         console.log(data);
         reset();
     }
 
     return (
-        <div className='container mx-auto text-neutral-800'>
-            <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] w-[500px] rounded-lg mt-10 py-10 px-7'>
-                <h1 className='text-center text-3xl font-bold mb-10'>Register</h1>
+        <div className='container mx-auto text-neutral-800 px-4'>
+            <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] max-w-[500px] rounded-lg my-10 py-10 px-4 sm:px-7'>
+                <h1 className='text-center text-xl sm:text-2xl font-bold mb-10'>Register</h1>
                 <div className='mb-5 flex flex-col'>
                     <label htmlFor='email' className='mb-1 font-bold'>Email</label>
                     <input {...register('email', {
@@ -21,14 +24,14 @@ export default function Register() {
                             value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             message: 'Email format is not right'
                         }
-                    })} type='email' id='email' autoComplete='email' className='w-full p-3 rounded-lg' />
+                    })} type='email' id='email' autoComplete='email' className='w-full p-3 rounded-lg shadow' />
                     {errors.email && <div className='italic text-red-700'>{errors.email.message}</div>}
                 </div>
                 <div className='mb-5 flex flex-col'>
                     <label htmlFor='username' className='mb-1 font-bold'>Username</label>
                     <input {...register('username', {
                         required: 'A username is required'
-                    })} type='text' id='username' autoComplete='username' className='w-full p-3 rounded-lg' />
+                    })} type='text' id='username' autoComplete='username' className='w-full p-3 rounded-lg shadow' />
                     {errors.username && <div className='italic text-red-700'>{errors.username.message}</div>}
                 </div>
                 <div className='mb-5 flex flex-col'>
@@ -43,15 +46,15 @@ export default function Register() {
                             value: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
                             message: 'Password need at least one uppercase letter, one lowercase lettre, one number and one special character'
                         }
-                    })} type='password' id='password' autoComplete='new-password' className='w-full p-3 rounded-lg' />
-                    {errors.password && <div className='italic max-w-[442px] text-red-700'>{errors.password.message}</div>}
+                    })} type='password' id='password' autoComplete='new-password' className='w-full p-3 rounded-lg shadow' />
+                    {errors.password && <div className='italic text-red-700'>{errors.password.message}</div>}
                 </div>
                 <div className='mb-5 flex flex-col'>
                     <label htmlFor='confirmPassword' className='mb-1 font-bold'>Confirm password</label>
                     <input {...register('confirmPassword', {
                         required: 'Password needs to be confirmed',
                         validate: (value) => value === getValues('password') || 'Passwords do not match'
-                    })} type='password' id='confirmPassword' autoComplete='new-password' className='w-full p-3 rounded-lg' />
+                    })} type='password' id='confirmPassword' autoComplete='new-password' className='w-full p-3 rounded-lg shadow' />
                     {errors.confirmPassword && <div className='italic text-red-700'>{errors.confirmPassword.message}</div>}
                 </div>
                 <div className='mb-8'>
@@ -64,10 +67,9 @@ export default function Register() {
                     {errors.use && <div className='italic text-red-700'>{errors.use.message}</div>}
                 </div>
                 <div className='flex justify-center'>
-                    <button type='submit' className='bg-[#F6BD60] py-3 px-6 rounded-lg font-bold'>Submit</button> 
+                    <button type='submit' className='bg-[#F6BD60] py-3 px-6 rounded-lg font-bold'>Register</button> 
                 </div>
             </form>
         </div>
-
     )
 }

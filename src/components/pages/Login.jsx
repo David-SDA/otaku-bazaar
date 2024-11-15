@@ -1,7 +1,42 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
 
 export default function Login() {
+    // Elements nécessaires pour le traitement du formulaire
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+    // Traitement du formulaire
+    function submitHandler(data){
+        // Traitement à faire
+        console.log(data);
+        reset();
+    }
     return (
-        <h1 className='text-center text-3xl font-bold'>Login</h1>
+        <div className='container mx-auto text-neutral-800 px-4'>
+            <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] max-w-[500px] rounded-lg my-10 py-10 px-4 sm:px-7'>
+                <h1 className='text-center text-xl sm:text-2xl font-bold mb-10'>Login</h1>
+                <div className='mb-5 flex flex-col'>
+                    <label htmlFor='email' className='mb-1 font-bold'>Email</label>
+                    <input {...register('email', {
+                        required: 'An email is required',
+                        pattern: {
+                            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: 'Email format is not right'
+                        }
+                    })} type='email' id='email' autoComplete='email' className='w-full p-3 rounded-lg shadow' />
+                    {errors.email && <div className='italic text-red-700'>{errors.email.message}</div>}
+                </div>
+                <div className='mb-5 flex flex-col'>
+                    <label htmlFor='password' className='mb-1 font-bold'>Password</label>
+                    <input {...register('password', {
+                        required: 'A password is required',
+                    })} type='password' id='password' autoComplete='new-password' className='w-full p-3 rounded-lg shadow' />
+                    {errors.password && <div className='italic text-red-700'>{errors.password.message}</div>}
+                </div>
+                <div className='flex justify-center'>
+                    <button type='submit' className='bg-[#F6BD60] py-3 px-6 rounded-lg font-bold'>Login</button> 
+                </div>
+            </form>
+        </div>
     )
 }
