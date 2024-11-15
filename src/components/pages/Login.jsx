@@ -12,7 +12,7 @@ export default function Login() {
         reset();
     }
     return (
-        <div className='container mx-auto text-neutral-800 px-4'>
+        <div className='container mx-auto px-4'>
             <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] max-w-[500px] rounded-lg my-10 py-10 px-4 sm:px-7'>
                 <h1 className='text-center text-xl sm:text-2xl font-bold mb-10'>Login</h1>
                 <div className='mb-5 flex flex-col'>

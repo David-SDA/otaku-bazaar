@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 
 export default function App() {
 	return (
-		<div className='flex flex-col min-h-screen'>
+		<div className='bg-[#f4f6ee] text-neutral-800 flex flex-col min-h-screen'>
 			<Header />
 			<main className='container mx-auto my-5 px-4 flex-grow'>
 				<Routes>
