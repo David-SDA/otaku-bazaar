@@ -40,9 +40,9 @@ export default function Header(){
 
     return (
         <header className='h-24 py-2 border-b-2 border-[#F6BD60] text-neutral-800 font-bold flex items-center relative'>
-            <nav className='container mx-auto flex justify-between items-center'>
+            <nav className='container mx-auto px-4 flex justify-between items-center'>
                 <div>
-                    <NavLink to={`/`} className='bg-[#F6BD60] py-5 px-20 ms-4 lg:me-7'>Logo</NavLink>
+                    <NavLink to={`/`} className='bg-[#F6BD60] py-5 px-20 lg:me-7'>Logo</NavLink>
                     {!isMobile && (
                         <>
                             {
@@ -62,25 +62,29 @@ export default function Header(){
                         </>
                     )}
                 </div>
-                <div className='hidden lg:block'>
-                    <NavLink to={`/search`} className='group relative me-4 py-1'>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                    </NavLink>
-                    <NavLink to={`/wishlist`} className='group relative mx-4 py-1'>
-                        <FontAwesomeIcon icon={faClipboardList} size='lg'/>
-                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                    </NavLink>
-                    <NavLink to={`/login`} className='group relative mx-4 py-1'>
-                        <FontAwesomeIcon icon={faUser} size='lg' />
-                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
-                    </NavLink>
-                </div>
+                {!isMobile && (
+                    <>
+                        <div className='hidden lg:block'>
+                            <NavLink to={`/search`} className='group relative me-4 py-1'>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
+                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                            </NavLink>
+                            <NavLink to={`/wishlist`} className='group relative mx-4 py-1'>
+                                <FontAwesomeIcon icon={faClipboardList} size='lg'/>
+                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                            </NavLink>
+                            <NavLink to={`/login`} className='group relative ms-4 py-1'>
+                                <FontAwesomeIcon icon={faUser} size='lg' />
+                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
+                            </NavLink>
+                        </div>
+                    </>
+                )}
                 {!isBurgerMenuOpen && (
-                    <div className='block bg-[#F6BD60] mx-3 py-2 px-3 rounded-md lg:hidden' onClick={handleToggleBurgerMenu}>
+                    <div className='block bg-[#F6BD60] py-2 px-3 rounded-md lg:hidden' onClick={handleToggleBurgerMenu}>
                         <FontAwesomeIcon icon={faBars} size='2xl' />
                     </div>
                 )}
