@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
+import Header from './components/layout/Header';
 import Home from './components/pages/Home';
 import Search from './components/pages/Search';
 import Login from './components/pages/Login';
@@ -10,7 +10,7 @@ import Terms from './components/pages/legal/Terms';
 import Privacy from './components/pages/legal/Privacy';
 import Security from './components/pages/legal/Security';
 import NotFound from './components/pages/errors/NotFound';
-import Footer from './components/Footer';
+import Footer from './components/layout/Footer';
 
 export default function App() {
 	return (
