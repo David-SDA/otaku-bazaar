@@ -4,7 +4,7 @@ import pomme from '../../assets/images/pomme.jpg'
 export default function AnnounceCard(){
     return (
         // Placer le lien vers le produit
-        <div className='bg-[#F7EDE2] border border-[#F5CAC3] rounded-lg p-5 flex flex-col mr-6'>
+        <div className='bg-[#F7EDE2] border border-[#F5CAC3] rounded-lg p-5 flex flex-col mr-6 shrink-0 w-56'>
             <img src={pomme} alt='Pomme' className='object-cover rounded-lg shadow' />
             <div className='font-bold my-3'>
                 <p>Nom objet vendu</p>

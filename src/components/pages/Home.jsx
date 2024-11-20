@@ -1,21 +1,17 @@
 import React from 'react'
-import AnnounceCard from '../ui/AnnounceCard';
+import AnnounceLine from '../ui/AnnounceLine';
 
 export default function Home() {
     return (
-        <div className='container mx-auto pt-5'>
-            <h1 className='text-center text-3xl font-bold'>Home</h1>
-            <h2>What's new</h2>
-            <div className='flex'>
-                <AnnounceCard />
-                <AnnounceCard />
-                <AnnounceCard />
-                <AnnounceCard />
-                <AnnounceCard />
-            </div>
-            <h2>Popular categories</h2>
-            <h2>Figurines</h2>
-            <h2>Posters</h2>
+        <div className='container mx-auto mb-5'>
+            <h2 className='text-2xl font-bold py-5'>What's new</h2>
+            <AnnounceLine />
+            <h2 className='text-2xl font-bold py-5'>Popular categories</h2>
+            <AnnounceLine />
+            <h2 className='text-2xl font-bold py-5'>Figurines</h2>
+            <AnnounceLine />
+            <h2 className='text-2xl font-bold py-5'>Posters</h2>
+            <AnnounceLine />
         </div>
     );
 }

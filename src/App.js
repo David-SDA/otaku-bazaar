@@ -16,7 +16,7 @@ export default function App() {
 	return (
 		<div className='bg-[#f4f6ee] text-neutral-800 flex flex-col min-h-screen'>
 			<Header />
-			<main className='container mx-auto my-5 px-4 flex-grow'>
+			<main className='container mx-auto my-5 px-4 '>
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />
