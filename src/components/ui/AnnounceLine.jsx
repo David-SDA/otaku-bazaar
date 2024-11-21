@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import AnnounceCard from './AnnounceCard'
+import SeeMoreCard from './SeeMoreCard';
 
 export default function AnnounceLine(){
     const containerRef = useRef(null); // Ref pour accéder au conteneur div
@@ -37,13 +38,14 @@ export default function AnnounceLine(){
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseUp}
-            className='flex pb-3 overflow-x-scroll cursor-grab select-none [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300'
+            className='flex pb-4 mb-2 overflow-x-scroll cursor-grab select-none [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-[#F7EDE2] [&::-webkit-scrollbar-track]:shadow-inner [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#F6BD60]'
         >
             {
                 Array.from({length: 9}).map((_, index) => (
                     <AnnounceCard key={index} />
                 ))
             }
+            <SeeMoreCard link={'/'} />
         </div>
     )
 }
