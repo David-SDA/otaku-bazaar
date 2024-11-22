@@ -1,0 +1,71 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "John Doe",
+            "email": "johndoe@email.com"
+        },
+        {
+            "id": 2,
+            "name": "Doe John",
+            "email": "doejohn@email.com"
+        },
+        {
+            "id": 3,
+            "name": "Luke Doe",
+            "email": "lukedoe@email.com"
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "label": "Figurines",
+            "image" :"/assets/images/pomme.jpg"
+        },
+        {
+            "id": 2,
+            "label": "Posters",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 3,
+            "label": "Clothes",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 4,
+            "label": "Accessories",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 5,
+            "label": "Plush",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 6,
+            "label": "Decoration",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 7,
+            "label": "Artbook",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 8,
+            "label": "Mangas",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 9,
+            "label": "Games",
+            "image" :"assets/images/pomme.jpg"
+        },
+        {
+            "id": 10,
+            "label": "Other",
+            "image" :"assets/images/pomme.jpg"
+        }
+    ]
+}

@@ -11,17 +11,17 @@ export default function Home() {
             />
             <AnnounceLine />
             <AnnounceLineHeader
-                title={'Popular categories'}
-                link={'/'}
-            />
-            <AnnounceLine />
-            <AnnounceLineHeader
                 title={'Figurines'}
                 link={'/'}
             />
             <AnnounceLine />
             <AnnounceLineHeader
                 title={'Posters'}
+                link={'/'}
+            />
+            <AnnounceLine />
+            <AnnounceLineHeader
+                title={'Clothes'}
                 link={'/'}
             />
             <AnnounceLine />

@@ -54,7 +54,7 @@ export default function Header(){
                                     </NavLink>
                                 ))
                             }
-                            <NavLink to={`/search`} className='hidden lg:inline mx-4 py-1 group relative'>
+                            <NavLink to={`/categories`} className='hidden lg:inline mx-4 py-1 group relative'>
                                 More
                                 <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
                                 <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-[#F6BD60] group-hover:w-1/2"></span>
@@ -99,7 +99,7 @@ export default function Header(){
                                     </NavLink>
                                 ))
                             }
-                            <NavLink to={`/search`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>More</NavLink>
+                            <NavLink to={`/categories`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>More</NavLink>
                             <div className='h-px w-11/12 bg-[#F4F6EE] mx-auto my-3'></div>
                             <div className='flex flex-col items-center'>
                                 <NavLink to={`/search`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>

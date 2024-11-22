@@ -11,18 +11,20 @@ import Privacy from './components/pages/legal/Privacy';
 import Security from './components/pages/legal/Security';
 import NotFound from './components/pages/errors/NotFound';
 import Footer from './components/layout/Footer';
+import Categories from './components/pages/Categories';
 
 export default function App() {
 	return (
 		<div className='bg-[#f4f6ee] text-neutral-800 flex flex-col min-h-screen'>
 			<Header />
-			<main className='container mx-auto my-5 px-4 '>
+			<main className='container mx-auto my-5 px-4 flex-grow'>
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/wishlist' element={<Wishlist />} />
+					<Route path='/categories' element={<Categories />} />
 					<Route path='/contact' element={<Contact />} />
 					<Route path='/terms' element={<Terms />} />
 					<Route path='/privacy' element={<Privacy />} />
