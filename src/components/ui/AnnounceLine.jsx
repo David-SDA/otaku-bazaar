@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import AnnounceCard from './AnnounceCard'
+import React, { useRef } from 'react';
+import AnnounceCard from './AnnounceCard';
 import SeeMoreCard from './SeeMoreCard';
 
 export default function AnnounceLine(){
@@ -13,12 +13,12 @@ export default function AnnounceLine(){
         containerRef.current.classList.add('cursor-grabbing');
         mouseDownStartXRef.current = e.pageX - containerRef.current.offsetLeft; // Position X de la souris relative au conteneur
         scrollLeftContainerRef.current = containerRef.current.scrollLeft; // Position X de défilement actuelle du conteneur
-    };
+    }
 
     function handleMouseUp(){
         isClickDownRef.current = false;
         containerRef.current.classList.remove('cursor-grabbing');
-    };
+    }
 
     function handleMouseMove(e){
         if(!isClickDownRef.current){
@@ -29,7 +29,7 @@ export default function AnnounceLine(){
             const walk = (x - mouseDownStartXRef.current) * 2; // Distance parcourue par la souris avec multiplié par 2
             containerRef.current.scrollLeft = scrollLeftContainerRef.current - walk; // Mise à jour du défilement X du conteneur
         }
-    };
+    }
 
     return (
         <div 

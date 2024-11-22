@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import AnnounceLine from '../ui/AnnounceLine';
 import AnnounceLineHeader from '../ui/AnnounceLineHeader';
 
-export default function Home() {
+export default function Home(){
     return (
         <div className='container mx-auto mb-5'>
             <AnnounceLineHeader
@@ -26,5 +26,5 @@ export default function Home() {
             />
             <AnnounceLine />
         </div>
-    );
+    )
 }

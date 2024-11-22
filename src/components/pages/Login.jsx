@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function Login() {
+export default function Login(){
     // Elements nécessaires pour le traitement du formulaire
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -11,9 +11,10 @@ export default function Login() {
         console.log(data);
         reset();
     }
+    
     return (
-        <div className='container mx-auto px-4'>
-            <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] max-w-[500px] rounded-lg my-10 py-10 px-4 sm:px-7'>
+        <div className='container mx-auto'>
+            <form onSubmit={handleSubmit(submitHandler)} className='mx-auto bg-[#F7EDE2] border border-[#F5CAC3] max-w-[500px] rounded-lg my-5 py-10 px-4 sm:px-7'>
                 <h1 className='text-center text-xl sm:text-2xl font-bold mb-10'>Login</h1>
                 <div className='mb-5 flex flex-col'>
                     <label htmlFor='email' className='mb-1 font-bold'>Email</label>
