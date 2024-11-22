@@ -16,6 +16,9 @@ export default function AnnounceCard(){
                 </div>
                 <div className='self-end text-[13px] mt-3'>
                     <p className='italic text-end'>
+                        New York, USA
+                    </p>
+                    <p className='italic text-end'>
                         0 days ago
                     </p>
                     <p className='italic text-end'>

@@ -1,16 +1,29 @@
 import React from 'react'
 import AnnounceLine from '../ui/AnnounceLine';
+import AnnounceLineHeader from '../ui/AnnounceLineHeader';
 
 export default function Home() {
     return (
         <div className='container mx-auto mb-5'>
-            <h2 className='text-xl lg:text-2xl font-bold py-5'>What's new</h2>
+            <AnnounceLineHeader
+                title={'What\'s new'}
+                link={'/'}
+            />
             <AnnounceLine />
-            <h2 className='text-xl lg:text-2xl font-bold py-5'>Popular categories</h2>
+            <AnnounceLineHeader
+                title={'Popular categories'}
+                link={'/'}
+            />
             <AnnounceLine />
-            <h2 className='text-xl lg:text-2xl font-bold py-5'>Figurines</h2>
+            <AnnounceLineHeader
+                title={'Figurines'}
+                link={'/'}
+            />
             <AnnounceLine />
-            <h2 className='text-xl lg:text-2xl font-bold py-5'>Posters</h2>
+            <AnnounceLineHeader
+                title={'Posters'}
+                link={'/'}
+            />
             <AnnounceLine />
         </div>
     );
