@@ -12,6 +12,7 @@ import Terms from '../components/pages/legal/Terms';
 import Privacy from '../components/pages/legal/Privacy';
 import Security from '../components/pages/legal/Security';
 import NotFound from '../components/pages/errors/NotFound';
+import Announce from '../components/pages/Announce';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: '/categories',
                 element: <Categories />
+            },
+            {
+                path: '/announces/:id',
+                element: <Announce />
             },
             {
                 path: '/contact',
