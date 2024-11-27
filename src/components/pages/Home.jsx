@@ -4,7 +4,7 @@ import AnnounceLineHeader from '../ui/AnnounceLineHeader';
 
 export default function Home(){
     return (
-        <div className='container mx-auto mb-5'>
+        <>
             <AnnounceLineHeader
                 title={'What\'s new'}
                 link={'/'}
@@ -25,6 +25,6 @@ export default function Home(){
                 link={'/'}
             />
             <AnnounceLine />
-        </div>
+        </>
     )
 }

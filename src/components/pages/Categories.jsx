@@ -4,7 +4,7 @@ import CategoryCard from '../ui/CategoryCard';
 
 export default function Categories(){
     return (
-        <div className='container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
             {
                 data.categories.map((category) => (
                     <CategoryCard
