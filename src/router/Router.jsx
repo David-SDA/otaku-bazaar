@@ -13,7 +13,7 @@ import Privacy from '../components/pages/legal/Privacy';
 import Security from '../components/pages/legal/Security';
 import NotFound from '../components/pages/errors/NotFound';
 import Announce from '../components/pages/Announce';
-import Profile from '../components/pages/Profile';
+import MyProfile from '../components/pages/MyProfile';
 
 const router = createBrowserRouter([
     {
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <Profile />
+                element: <MyProfile />
             },
             {
                 path: '/contact',
