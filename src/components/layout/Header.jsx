@@ -39,7 +39,7 @@ export default function Header(){
     }, [])
 
     return (
-        <header className='h-24 py-2 border-b-2 border-primary font-bold flex items-center relative'>
+        <header className='h-24 py-2 shadow-md font-bold flex items-center relative'>
             <nav className='container mx-auto px-4 flex justify-between items-center'>
                 <div>
                     <NavLink to={`/`} className='bg-primary py-5 px-20 lg:me-7'>Logo</NavLink>
