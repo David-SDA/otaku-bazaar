@@ -14,7 +14,7 @@ export default function Search(){
         alphabeticalOrder: '',
     });
 
-    function handleApplyFilters(newFilters) {
+    function handleApplyFilters(newFilters){
         setFilters(newFilters);
         setIsModalOpen(false);
         console.log('Applied Filters:', newFilters);
@@ -39,9 +39,9 @@ export default function Search(){
 
                 </div>
             </div>
-            <div className='flex flex-wrap gap-y-5 gap-x-5 justify-around md:justify-between select-none'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 select-none place-items-center'>
                 {
-                    Array.from({length: 25}, (_, index) => (
+                    Array.from({length: 23}, (_, index) => (
                         <AnnounceCard key={index} />
                     ))
                 }
