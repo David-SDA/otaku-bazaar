@@ -20,7 +20,7 @@ function AnnounceSmallDescription({fullDescriptionRef}, ref){
             {isTruncated && (
                 <button
                     onClick={() => fullDescriptionRef.current.scrollIntoView({ behavior: 'smooth' })} 
-                    className="text-primary font-bold mb-5 hover:underline"
+                    className='text-primary font-bold mb-5 hover:underline'
                 >
                     See more
                 </button>

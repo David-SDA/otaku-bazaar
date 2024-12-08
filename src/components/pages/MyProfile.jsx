@@ -20,17 +20,18 @@ export default function MyProfile(){
 
     function handleSave(fieldKey, newValue){
         console.log('Updated ', fieldKey, ' : ', newValue);
+        setModalOpen(false);
     }
 
     return (
         <>
-            <h1 className="text-center text-xl sm:text-2xl font-bold mb-6">
+            <h1 className='text-center text-xl sm:text-2xl font-bold mb-6'>
                 My Profile
             </h1>
-            <div className="flex justify-center">
-                <div className="w-full md:w-2/3 lg:w-1/2">
+            <div className='flex justify-center'>
+                <div className='w-full md:w-2/3 lg:w-1/2'>
                     <MyProfileAvatarSection onEditAvatar={() => openModal('Change Avatar', 'avatar', '')} />
-                    <MyProfilePersonalInfoSection onEditClick={(title, fieldKey, currentValue) => openModal(title, fieldKey, currentValue)} />
+                    <MyProfilePersonalInfoSection onEditClick={(title, fieldKey, currentValue) => openModal(`Change ${title}`, fieldKey, currentValue)} />
                     <MyProfilePasswordSection onChangePassword={() => openModal('Change Password', 'password', '')} />
                 </div>
             </div>
