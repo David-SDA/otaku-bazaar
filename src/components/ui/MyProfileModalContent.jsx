@@ -45,7 +45,7 @@ export default function MyProfileModalContent({ fieldKey, currentValue, onSave }
     return (
         <div>
             {renderContent()}
-            <button onClick={handleSave} className='mt-4 bg-primary text-white px-4 py-2 rounded-lg'>Save</button>
+            <button onClick={handleSave} className='mt-4 bg-primary font-bold px-4 py-2 rounded-lg hover:scale-105 transition-all duration-300'>Save</button>
         </div>
     );
 }

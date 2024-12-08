@@ -14,6 +14,7 @@ import Security from '../components/pages/legal/Security';
 import NotFound from '../components/pages/errors/NotFound';
 import Announce from '../components/pages/Announce';
 import MyProfile from '../components/pages/MyProfile';
+import PublicUserProfile from '../components/pages/PublicUserProfile';
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <MyProfile />
+            },
+            {
+                path: '/profile/:id',
+                element: <PublicUserProfile />
             },
             {
                 path: '/contact',
