@@ -6,7 +6,7 @@ import AnnounceCard from '../ui/AnnounceCard';
 import SearchFiltersModal from '../ui/SearchFiltersModal';
 
 export default function Search(){
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(false);
     const [filters, setFilters] = useState({
         category: '',
         priceSort: '',
@@ -16,7 +16,7 @@ export default function Search(){
 
     function handleApplyFilters(newFilters){
         setFilters(newFilters);
-        setIsModalOpen(false);
+        setModalOpen(false);
         console.log('Applied Filters:', newFilters);
     }
 
@@ -34,7 +34,7 @@ export default function Search(){
                         <SearchBarLocation />
                     </div>
                     <div className='self-center'>
-                        <SearchFilter onClick={() => setIsModalOpen(true)} />
+                        <SearchFilter onClick={() => setModalOpen(true)} />
                     </div>
 
                 </div>
@@ -47,7 +47,7 @@ export default function Search(){
                 }
             </div>
             {
-                isModalOpen && <SearchFiltersModal filters={filters} onClose={() => setIsModalOpen(false)} onApply={handleApplyFilters} />
+                isModalOpen && <SearchFiltersModal filters={filters} onClose={() => setModalOpen(false)} onApply={handleApplyFilters} />
             }
         </>
     )
