@@ -36,7 +36,7 @@ export default function Login(){
                     {errors.password && <div className='italic text-red-700'>{errors.password.message}</div>}
                 </div>
                 <div className='flex justify-center'>
-                    <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold'>Login</button> 
+                    <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold hover:scale-105 transition-all duration-300'>Login</button> 
                 </div>
             </form>
             <p className='italic'>

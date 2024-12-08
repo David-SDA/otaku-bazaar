@@ -15,6 +15,9 @@ import NotFound from '../components/pages/errors/NotFound';
 import Announce from '../components/pages/Announce';
 import MyProfile from '../components/pages/MyProfile';
 import PublicUserProfile from '../components/pages/PublicUserProfile';
+import CreateAnnouncement from '../components/pages/CreateAnnouncement';
+import ModeratorPanel from '../components/pages/ModeratorPanel';
+import AdminPanel from '../components/pages/AdminPanel';
 
 const router = createBrowserRouter([
     {
@@ -51,12 +54,24 @@ const router = createBrowserRouter([
                 element: <Announce />
             },
             {
+                path: '/announcement/new',
+                element: <CreateAnnouncement />
+            },
+            {
                 path: '/profile',
                 element: <MyProfile />
             },
             {
                 path: '/profile/:id',
                 element: <PublicUserProfile />
+            },
+            {
+                path: '/moderator',
+                element: <ModeratorPanel />
+            },
+            {
+                path: '/admin',
+                element: <AdminPanel />
             },
             {
                 path: '/contact',
