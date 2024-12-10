@@ -59,11 +59,11 @@ export default function Contact(){
                 </label>
                 <textarea {...register('message', {
                     required: 'A first name is required'
-                })} type='text' id='message' autoComplete='message' className='w-full p-3 rounded-lg shadow' />
+                })} type='text' id='message' rows={4} autoComplete='message' className='w-full p-3 rounded-lg shadow' />
                 {errors.message && <div className='italic text-red-700'>{errors.message.message}</div>}
             </div>
             <div className='flex justify-center'>
-                <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold'>
+                <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold hover:scale-105 transition-all duration-300'>
                     Send
                 </button> 
             </div>

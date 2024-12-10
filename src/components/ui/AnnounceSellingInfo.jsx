@@ -5,7 +5,7 @@ export default function AnnounceSellingInfo(){
     return (
         <div className='my-5'>
             <Link to={'/'} className='italic'>
-                Sold by <span className='font-bold hover:underline'>xxxxxxx</span>
+                Sold by <Link to={'/profile/2'} className='font-bold underline'>xxxxxxx</Link>
             </Link>
             <p className='italic'>
                 New York, USA

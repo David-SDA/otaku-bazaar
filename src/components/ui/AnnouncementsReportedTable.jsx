@@ -25,15 +25,15 @@ export default function AnnouncementsReportedTable(){
                                 </td>
                                 <td className='border border-gray-300 p-2 whitespace-nowrap min-w-48'>Reason</td>
                                 <td className='border border-gray-300 p-2 whitespace-nowrap min-w-48 space-x-2'>
-                                    <button className='bg-primary font-bold py-2 px-4 rounded w-24'>
+                                    <button className='bg-primary font-bold py-2 px-4 rounded w-24 hover:scale-105 transition-all duration-300'>
                                         {
                                             index % 2 === 0 ? 'Hide' : 'Unhide'
                                         }
                                     </button>
-                                    <button className='bg-red-500 font-bold py-2 px-4 rounded'>
+                                    <button className='bg-red-500 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                         Delete
                                     </button>
-                                    <button className='bg-green-300 font-bold py-2 px-4 rounded'>
+                                    <button className='bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                         Resolved
                                     </button>
                                 </td>

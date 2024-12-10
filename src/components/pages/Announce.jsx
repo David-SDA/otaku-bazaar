@@ -21,7 +21,7 @@ export default function Announce(){
         '/assets/images/pomme.jpg',
         '/assets/images/pomme2.jpg',
         '/assets/images/pomme3.jpg',
-        '/assets/images/pomme4.jpg',        
+        '/assets/images/pomme4.jpg',
     ];
     
     const [currentIndex, setCurrentIndex] = useState(0); // Index du tableau d'images
@@ -43,7 +43,7 @@ export default function Announce(){
             <div className='lg:grid lg:grid-cols-[5fr,6fr] gap-10'>
                 <div className='relative'>
                     <img src={images[currentIndex]} alt='' className='object-contain rounded-lg w-full h-96 shadow pointer-events-none bg-white' />
-                    <div className='hidden sm:flex justify-between mt-4'>
+                    <div className='hidden sm:grid sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-6 lg:place-items-center mt-4'>
                         {
                             images.map((image, index) => (
                                 <img key={index} src={image} alt='Pomme' className={`cursor-pointer object-contain bg-white rounded-lg shadow h-20 w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 ${ images[currentIndex] === image ? 'ring-4 ring-primary scale-105' : '' }`} onClick={() => setCurrentIndex(index)} />

@@ -29,7 +29,9 @@ export default function CreateAnnouncement(){
                 </div>
                 <div>
                     <label htmlFor='images' className='font-bold mb-3'>Images</label>
-                    <input type='file' id='images' name='images' multiple accept='image/*' onChange={handleImageChange} ref={fileInputRef} className='w-full' required />
+                    <div className='w-full'>
+                        <input type='file' id='images' name='images' multiple accept='image/*' onChange={handleImageChange} ref={fileInputRef} className='w-min border bg-white rounded-lg shadow cursor-pointer file:border-none file:me-5 file:py-3 file:px-5 file:cursor-pointer file:bg-primary' required />
+                    </div>
                 </div>
                 <div className='grid grid-cols-2 min-[432px]:grid-cols-3 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-9 xl:grid-cols-11 gap-4 place-items-center'>
                     {
