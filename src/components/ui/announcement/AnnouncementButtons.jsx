@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-function AnnounceButtons(_props, ref){
+function AnnouncementButtons(_props, ref){
     return (
         <div className='w-full flex flex-col sm:flex-row justify-around'>
             <button className='bg-primary py-3 px-10 mb-5 sm:mb-0 font-bold rounded-xl hover:scale-105 transition-all duration-300'>
@@ -13,4 +13,4 @@ function AnnounceButtons(_props, ref){
     )
 }
 
-export default forwardRef(AnnounceButtons);
+export default forwardRef(AnnouncementButtons);

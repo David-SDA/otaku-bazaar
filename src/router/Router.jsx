@@ -12,7 +12,7 @@ import Terms from '../components/pages/legal/Terms';
 import Privacy from '../components/pages/legal/Privacy';
 import Security from '../components/pages/legal/Security';
 import NotFound from '../components/pages/errors/NotFound';
-import Announce from '../components/pages/Announce';
+import Announcement from '../components/pages/Announcement';
 import MyProfile from '../components/pages/MyProfile';
 import PublicUserProfile from '../components/pages/PublicUserProfile';
 import CreateAnnouncement from '../components/pages/CreateAnnouncement';
@@ -50,8 +50,8 @@ const router = createBrowserRouter([
                 element: <Categories />
             },
             {
-                path: '/announces/:id',
-                element: <Announce />
+                path: '/announcements/:id',
+                element: <Announcement />
             },
             {
                 path: '/announcement/new',

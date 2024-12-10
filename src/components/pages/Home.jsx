@@ -1,30 +1,30 @@
 import React from 'react';
-import AnnouncesLine from '../ui/AnnouncesLine';
-import AnnouncesLineHeader from '../ui/AnnouncesLineHeader';
+import AnnouncementsLine from '../ui/announcements/AnnouncementsLine';
+import AnnouncementsLineHeader from '../ui/announcements/AnnouncementsLineHeader';
 
 export default function Home(){
     return (
         <>
-            <AnnouncesLineHeader
+            <AnnouncementsLineHeader
                 title={'What\'s new'}
                 link={'/'}
             />
-            <AnnouncesLine />
-            <AnnouncesLineHeader
+            <AnnouncementsLine />
+            <AnnouncementsLineHeader
                 title={'Figurines'}
                 link={'/'}
             />
-            <AnnouncesLine />
-            <AnnouncesLineHeader
+            <AnnouncementsLine />
+            <AnnouncementsLineHeader
                 title={'Posters'}
                 link={'/'}
             />
-            <AnnouncesLine />
-            <AnnouncesLineHeader
+            <AnnouncementsLine />
+            <AnnouncementsLineHeader
                 title={'Clothes'}
                 link={'/'}
             />
-            <AnnouncesLine />
+            <AnnouncementsLine />
         </>
     )
 }

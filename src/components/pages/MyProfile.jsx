@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import MyProfileAvatarSection from '../ui/MyProfileAvatarSection';
-import MyProfilePersonalInfoSection from '../ui/MyProfilePersonalInfoSection';
-import MyProfilePasswordSection from '../ui/MyProfilePasswordSection';
-import MyProfileModal from '../ui/MyProfileModal';
-import MyProfileModalContent from '../ui/MyProfileModalContent';
+import MyProfileAvatarSection from '../ui/myProfile/MyProfileAvatarSection';
+import MyProfilePersonalInfoSection from '../ui/myProfile/MyProfilePersonalInfoSection';
+import MyProfilePasswordSection from '../ui/myProfile/MyProfilePasswordSection';
+import MyProfileModal from '../ui/myProfile/MyProfileModal';
+import MyProfileModalContent from '../ui/myProfile/MyProfileModalContent';
 
 export default function MyProfile(){
     const [isModalOpen, setModalOpen] = useState(false);

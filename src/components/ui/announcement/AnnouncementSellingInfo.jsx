@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AnnounceSellingInfo(){
+export default function AnnouncementSellingInfo(){
     return (
         <div className='my-5'>
             <Link to={'/'} className='italic'>

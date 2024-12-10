@@ -1,6 +1,6 @@
 import React from 'react';
 import data from '../../db.json';
-import CategoryCard from '../ui/CategoryCard';
+import CategoryCard from '../ui/category/CategoryCard';
 
 export default function Categories(){
     return (

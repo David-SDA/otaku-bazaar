@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AnnouncesLineHeader({title, link}){
+export default function AnnouncementsLineHeader({title, link}){
     return (
         <div className='flex justify-between py-5'>
             <h2 className='text-xl lg:text-2xl font-bold'>

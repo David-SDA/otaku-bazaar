@@ -1,5 +1,5 @@
 import React from 'react';
-import AnnounceCard from '../ui/AnnounceCard';
+import AnnouncementCard from '../ui/announcement/AnnouncementCard';
 
 export default function Wishlist(){
     // Récupérer la wishlist et trier toujours du plus recent au plus ancien (annonce, pas ajout à la wishlist)
@@ -9,7 +9,7 @@ export default function Wishlist(){
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 select-none place-items-center'>
                 {
                     Array.from({length: 12}).map((_, index) => (
-                        <AnnounceCard key={index} />
+                        <AnnouncementCard key={index} />
                     ))
                 }
             </div>

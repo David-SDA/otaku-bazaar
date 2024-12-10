@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-function AnnounceFullDescription(_props, ref){
+function AnnouncementFullDescription(_props, ref){
     return (
         <div ref={ref} className='mt-14 mb-5'>
             <h2 className='text-xl font-bold'>
@@ -14,4 +14,4 @@ function AnnounceFullDescription(_props, ref){
     )
 }
 
-export default forwardRef(AnnounceFullDescription);
+export default forwardRef(AnnouncementFullDescription);

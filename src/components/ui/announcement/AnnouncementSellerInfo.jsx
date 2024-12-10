@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-function AnnounceSellerInfo(_props, ref){
+function AnnouncementSellerInfo(_props, ref){
     return (
         <div className='my-5' ref={ref}>
             <h2 className='text-xl font-bold'>
@@ -8,7 +8,7 @@ function AnnounceSellerInfo(_props, ref){
             </h2>
             <div className='mt-3'>
                 <p>
-                    <span className='font-bold'>Email :</span> email@email.com
+                    <span className='font-bold'>Contact Email :</span> email@email.com
                 </p>
                 <p>
                     <span className='font-bold'>Phone Number :</span> 00 00 00 00 00
@@ -21,4 +21,4 @@ function AnnounceSellerInfo(_props, ref){
     )
 }
 
-export default forwardRef(AnnounceSellerInfo)
+export default forwardRef(AnnouncementSellerInfo)

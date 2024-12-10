@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import SearchBarAnnounce from '../ui/SearchBarAnnounce';
-import SearchBarLocation from '../ui/SearchBarLocation';
-import SearchFilter from '../ui/SearchFilter';
-import AnnounceCard from '../ui/AnnounceCard';
-import SearchFiltersModal from '../ui/SearchFiltersModal';
+import SearchBarAnnounce from '../ui/search/SearchBarAnnounce';
+import SearchBarLocation from '../ui/search/SearchBarLocation';
+import SearchFilter from '../ui/search/SearchFilter';
+import SearchFiltersModal from '../ui/search/SearchFiltersModal';
+import AnnouncementCard from '../ui/announcement/AnnouncementCard';
 
 export default function Search(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -42,7 +42,7 @@ export default function Search(){
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 select-none place-items-center'>
                 {
                     Array.from({length: 23}, (_, index) => (
-                        <AnnounceCard key={index} />
+                        <AnnouncementCard key={index} />
                     ))
                 }
             </div>

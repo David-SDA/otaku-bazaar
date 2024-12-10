@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-function AnnounceSmallDescription({fullDescriptionRef}, ref){
+function AnnouncementSmallDescription({fullDescriptionRef}, ref){
     const descriptionRef = useRef();
     const [isTruncated, setIsTruncated] = useState(false);
 
@@ -29,4 +29,4 @@ function AnnounceSmallDescription({fullDescriptionRef}, ref){
     )
 }
 
-export default forwardRef(AnnounceSmallDescription);
+export default forwardRef(AnnouncementSmallDescription);

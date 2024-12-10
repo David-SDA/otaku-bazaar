@@ -1,7 +1,7 @@
 import React from 'react';
-import AnnouncementsReportedTable from '../ui/AnnouncementsReportedTable';
-import UsersReportedTable from '../ui/UsersReportedTable';
-import UsersTable from '../ui/UsersTable';
+import AnnouncementsReportedTable from '../ui/announcements/AnnouncementsReportedTable';
+import UsersReportedTable from '../ui/users/UsersReportedTable';
+import UsersTable from '../ui/users/UsersTable';
 
 export default function AdminPanel(){
     return (

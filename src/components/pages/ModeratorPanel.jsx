@@ -1,5 +1,5 @@
 import React from 'react';
-import AnnouncementsReportedTable from '../ui/AnnouncementsReportedTable';
+import AnnouncementsReportedTable from '../ui/announcements/AnnouncementsReportedTable';
 
 export default function ModeratorPanel(){
     return (

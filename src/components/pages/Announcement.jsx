@@ -2,15 +2,15 @@ import React, { useRef, useState } from 'react';
 import { faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
-import AnnounceSellingInfo from '../ui/AnnounceSellingInfo';
-import AnnounceSellerInfo from '../ui/AnnounceSellerInfo';
-import AnnounceFullDescription from '../ui/AnnounceFullDescription';
-import AnnounceButtons from '../ui/AnnounceButtons';
-import AnnouncePrice from '../ui/AnnouncePrice';
-import AnnounceName from '../ui/AnnounceName';
-import AnnounceSmallDescription from '../ui/AnnounceSmallDescription';
+import AnnouncementSellingInfo from '../ui/announcement/AnnouncementSellingInfo';
+import AnnouncementSellerInfo from '../ui/announcement/AnnouncementSellerInfo';
+import AnnouncementFullDescription from '../ui/announcement/AnnouncementFullDescription';
+import AnnouncementButtons from '../ui/announcement/AnnouncementButtons';
+import AnnouncementPrice from '../ui/announcement/AnnouncementPrice';
+import AnnouncementName from '../ui/announcement/AnnouncementName';
+import AnnouncementSmallDescription from '../ui/announcement/AnnouncementSmallDescription';
 
-export default function Announce(){
+export default function Announcement(){
     const { id } = useParams();
     
     if(isNaN(id) || id <= 0){
@@ -58,15 +58,15 @@ export default function Announce(){
                     </button>
                 </div>
                 <div className='mt-5 lg:mt-0'>
-                    <AnnounceName />
-                    <AnnounceSellingInfo />
-                    <AnnouncePrice />
-                    <AnnounceSmallDescription fullDescriptionRef={fullDescriptionRef} />
-                    <AnnounceButtons ref={contactRef} />
+                    <AnnouncementName />
+                    <AnnouncementSellingInfo />
+                    <AnnouncementPrice />
+                    <AnnouncementSmallDescription fullDescriptionRef={fullDescriptionRef} />
+                    <AnnouncementButtons ref={contactRef} />
                 </div>
             </div>
-            <AnnounceFullDescription ref={fullDescriptionRef} />
-            <AnnounceSellerInfo ref={contactRef} />
+            <AnnouncementFullDescription ref={fullDescriptionRef} />
+            <AnnouncementSellerInfo ref={contactRef} />
         </>
     )
 }

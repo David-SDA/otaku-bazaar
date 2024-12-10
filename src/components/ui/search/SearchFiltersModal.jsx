@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import data from '../../db.json';
+import data from '../../../db.json';
 
 export default function SearchFiltersModal({filters, onApply}){
     const [category, setCategory] = useState(filters.category);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AnnounceCard(){
+export default function AnnouncementCard(){
     return (
         <div className='bg-[#F7EDE2] border border-[#F5CAC3] rounded-lg flex flex-col shrink-0 w-56 group'>
             <Link to={'/announces/2'} className='p-5 rounded-lg' draggable='false'>
