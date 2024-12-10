@@ -25,11 +25,11 @@ export default function SearchFiltersModal({filters, onApply}){
 
     return (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-            <div className='bg-white p-5 rounded-lg shadow-lg w-11/12 sm:w-2/3'>
+            <div className='bg-[#f4f6ee] p-5 rounded-lg shadow-lg w-11/12 sm:w-2/3'>
                 <h2 className='text-lg font-bold mb-3'>Filter</h2>
                 <div className='mb-4'>
                     <label className='block font-bold mb-2'>Filter by Category</label>
-                    <select value={category} onChange={(e) => setCategory(e.target.value)} className='w-full border rounded-lg p-2'>
+                    <select value={category} onChange={(e) => setCategory(e.target.value)} className='w-full p-3 rounded-lg shadow'>
                         <option value=''>All Categories</option>
                         {
                             data.categories.map((category) => (

@@ -8,7 +8,7 @@ export default function PublicUserProfile(){
             <PublicUserProfileInfoSection />
             <div>
                 <h2 className='text-xl font-bold mb-4'>User's Announcements</h2>
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 select-none place-items-center'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 select-none place-items-center'>
                     {
                         Array.from({length: 4}, (_, index) => (
                             <AnnouncementCard key={index} />
