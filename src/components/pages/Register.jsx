@@ -36,6 +36,17 @@ export default function Register(){
                     {errors.username && <div className='italic text-red-700'>{errors.username.message}</div>}
                 </div>
                 <div className='mb-5 flex flex-col'>
+                    <label htmlFor='contactEmail' className='mb-1 font-bold'>Contact Email</label>
+                    <input {...register('contactEmail', {
+                        required: 'An email is required',
+                        pattern: {
+                            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: 'Email format is not right'
+                        }
+                    })} type='email' id='contactEmail' autoComplete='contactEmail' className='w-full p-3 rounded-lg shadow' />
+                    {errors.email && <div className='italic text-red-700'>{errors.contactEmail.message}</div>}
+                </div>
+                <div className='mb-5 flex flex-col'>
                     <label htmlFor='password' className='mb-1 font-bold'>Password</label>
                     <input {...register('password', {
                         required: 'A password is required',

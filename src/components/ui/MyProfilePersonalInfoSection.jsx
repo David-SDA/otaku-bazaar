@@ -9,6 +9,7 @@ export default function MyProfilePersonalInfoSection({ onEditClick }){
                 <MyProfileEditableField label={'Username'} value={'john_doe'} field={'username'} onEditClick={onEditClick} />
                 <MyProfileEditableField label={'Email'} value={'johndoe@example.com'} field={'email'} onEditClick={onEditClick} />
                 <MyProfileEditableField label={'Phone Number'} value={'00 00 00 00 00'} field={'phoneNumber'} onEditClick={onEditClick} />
+                <MyProfileEditableField label={'Contact email'} value={'contactjohndoe@example.com'} field={'contactEmail'} onEditClick={onEditClick} />
                 <MyProfileEditableField label={'City'} value={'Paris'} field={'city'} onEditClick={onEditClick} />
             </div>
         </div>

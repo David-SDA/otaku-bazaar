@@ -15,7 +15,11 @@ export default function MyProfileModalContent({ fieldKey, currentValue, onSave }
                 )
             case 'email':
                 return (
-                    <input type='text' value={value} onChange={(e) => setValue(e.target.value)} className='w-full border rounded-lg p-3' placeholder='Enter new email' />
+                    <input type='email' value={value} onChange={(e) => setValue(e.target.value)} className='w-full border rounded-lg p-3' placeholder='Enter new email' />
+                )
+            case 'contactEmail':
+                return (
+                    <input type='email' value={value} onChange={(e) => setValue(e.target.value)} className='w-full border rounded-lg p-3' placeholder='Enter new email' />
                 )
             case 'phoneNumber':
                 return (
