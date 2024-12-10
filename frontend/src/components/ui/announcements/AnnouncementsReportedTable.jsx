@@ -18,7 +18,7 @@ export default function AnnouncementsReportedTable(){
                         Array.from({length: 5}, (_, index) => (
                             <tr key={index} className='even:bg-gray-100'>
                                 <td className='border border-gray-300 p-2 whitespace-nowrap min-w-48'>
-                                    <Link to={'/announce/2'} className='underline'>Announcement</Link>
+                                    <Link to={'/announcements/2'} className='underline'>Announcement</Link>
                                 </td>
                                 <td className='border border-gray-300 p-2 whitespace-nowrap min-w-48'>
                                     <Link to={'/profile/2'} className='underline'>User</Link>

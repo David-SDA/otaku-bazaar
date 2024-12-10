@@ -40,7 +40,7 @@ export default function Login(){
                 </div>
             </form>
             <p className='italic'>
-                No account ? <Link to='/register' className='underline text-primary'>Register here</Link>
+                No account ? <Link to={'/register'} className='underline text-primary'>Register here</Link>
             </p>
         </div>
     )

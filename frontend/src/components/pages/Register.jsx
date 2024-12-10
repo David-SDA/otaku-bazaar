@@ -83,7 +83,7 @@ export default function Register(){
                 </div>
             </form>
             <p className='italic'>
-                Already have an account ? <Link to='/login' className='underline text-primary'>Login here</Link>
+                Already have an account ? <Link to={'/login'} className='underline text-primary'>Login here</Link>
             </p>
         </div>
     )
