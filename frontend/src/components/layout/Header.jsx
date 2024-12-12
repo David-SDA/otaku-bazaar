@@ -2,11 +2,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { faUser, faClipboardList, faMagnifyingGlass, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import data from '../../db.json';
 
 export default function Header(){
-    const [categories, setCategories] = useState([]);
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+    
+    const categories = data.categories;
 
     function handleToggleBurgerMenu(){
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
@@ -16,27 +18,10 @@ export default function Header(){
         setIsMobile(window.innerWidth < 1024);
     }
 
-    function fetchCategoriesData(){
-        fetch('http://localhost:5000/categories')
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                setCategories(data)
-            })
-            .catch((error) => {
-                console.log('Error: ', error)
-            });
-    }
-
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     })
-
-    useEffect(() => {
-        fetchCategoriesData()
-    }, [])
 
     return (
         <header className='h-24 py-2 shadow-md font-bold flex items-center relative'>
