@@ -1,10 +1,10 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
-import Users from './models/Users.js';
-import Announcements from './models/Announcements.js';
-import Categories from './models/Categories.js';
+import dotenv from 'dotenv';
+import { connectToDatabase } from './config/db.js';
 import categoriesRoutes from './routes/categoriesRoutes.js';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -14,18 +14,16 @@ app.use(express.json());
 
 app.use('/categories', categoriesRoutes);
 
-// Connexion à la base de données
-mongoose.connect('mongodb://Admin:1234@127.0.0.1/otaku-bazaar', {authSource: 'admin'})
-.then(() => {
-    app.listen(PORT, () => {
-        console.log('Connected successfully to the database and listening on port :', PORT);
-    })
-})
-.catch((error) => {
-    console.log('Error : ', error);
-});
+async function startServer(){
+    try{
+        await connectToDatabase();
+        app.listen(PORT, () => {
+            console.log('Server is running on http://localhost:', PORT);
+        });
+    }
+    catch(error){
+        console.error('Failed to start server:', error);
+    }
+}
 
-// Test
-app.get('/', (req, res) => {
-    res.send('MongoDB connected');
-});
+startServer();
