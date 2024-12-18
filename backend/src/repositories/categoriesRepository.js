@@ -1,10 +1,14 @@
 import Categories from '../models/Categories.js';
 
-export async function findAll(){
-    try{
-        return await Categories.find();
-    }
-    catch(error){
-        throw new Error('(Repository) Error fetching categories from database');
-    }
+export function findAll(){
+    return Categories.find();
+}
+
+export function findByName(name){
+    return Categories.findOne({ name });
+}
+
+export function addCategory(categoryData){
+    const newCategory = new Categories(categoryData);
+    return newCategory.save()
 }
