@@ -3,27 +3,21 @@ import CategoryCard from '../ui/category/CategoryCard';
 
 export default function Categories(){
     const [categories, setCategories] = useState([]);
-    const [error, SetError] = useState(null);
+    const [error, setError] = useState(null);
     
     async function fetchCategories(){
         try{
-            const cachedCategories = localStorage.getItem('categories');
-            if(cachedCategories){
-                setCategories(JSON.parse(cachedCategories));
-                return;
+            const response = await fetch('http://localhost:5050/categories');
+
+            if(!response.ok){
+                throw new Error('Error fetching categories');
             }
-            else{
-                const response = await fetch('http://localhost:5050/categories');
-                if(!response.ok){
-                    throw new Error('Error status: ', response.status);
-                }
-                const data = await response.json();
-                localStorage.setItem('categories', JSON.stringify(data));
-                setCategories(data);
-            }
+
+            const data = await response.json();
+            setCategories(data);
         }
         catch(error){
-            SetError(error.message);
+            setError(error.message);
         }
     }
 
