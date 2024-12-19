@@ -18,6 +18,7 @@ import PublicUserProfile from '../components/pages/PublicUserProfile';
 import CreateAnnouncement from '../components/pages/CreateAnnouncement';
 import ModeratorPanel from '../components/pages/ModeratorPanel';
 import AdminPanel from '../components/pages/AdminPanel';
+import CreateCategory from '../components/pages/CreateCategory';
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: '/categories',
                 element: <Categories />
+            },
+            {
+                path: '/categories/new',
+                element: <CreateCategory />
             },
             {
                 path: '/announcements/:id',

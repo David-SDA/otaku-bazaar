@@ -7,7 +7,9 @@ export default function Categories(){
     
     async function fetchCategories(){
         try{
-            const response = await fetch('http://localhost:5050/categories');
+            const response = await fetch('http://localhost:5050/categories', {
+                cache: 'default'
+            });
 
             if(!response.ok){
                 throw new Error('Error fetching categories');
