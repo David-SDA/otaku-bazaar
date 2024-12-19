@@ -1,11 +1,11 @@
-import { addCategory, findAll, findByName } from '../repositories/categoriesRepository.js';
+import { addCategory, findAll, findById, findByName, updateCategory } from '../repositories/categoriesRepository.js';
 
 export async function getAllCategories(){
     try{
         return await findAll();
     }
     catch(error){
-        throw new Error('(Service) Error fetching categories : ', error.message);
+        throw new Error('Error fetching categories : ', error.message);
     }
 }
 
@@ -20,6 +20,26 @@ export async function createCategory(categoryData){
         }
     }
     catch(error){
-        throw new Error(`(Service) Error creating category: ${error.message}`);
+        throw new Error(`Error creating category: ${error.message}`);
+    }
+}
+
+export async function modifyCategory(categoryId, updatedData){
+    try{
+        const existingCategory = await findById(categoryId);
+        if(!existingCategory){
+            throw new Error('This category does not exist');
+        }
+        else if(updatedData.name){
+            const sameNameCategory = await findByName(updatedData.name);
+            if(sameNameCategory){
+                throw new Error(`Category with name '${updatedData.name}' already exists`);
+            }
+        }
+        
+        return await updateCategory(categoryId, updatedData);
+    }
+    catch(error){
+        throw new Error(`Error modifying category : ${error.message}`);
     }
 }
