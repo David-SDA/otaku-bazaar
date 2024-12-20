@@ -74,7 +74,7 @@ export default function Register(){
                         <input {...register('use', {
                             required: 'You need to accept condition of use'
                         })} type='checkbox' id='use' className='cursor-pointer h-6 w-6' />
-                        <div className='ms-3'>I accept condition of use</div>
+                        <div className='ms-3'>I accept terms of use</div>
                     </label>
                     {errors.use && <div className='italic text-red-700'>{errors.use.message}</div>}
                 </div>

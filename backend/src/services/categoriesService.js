@@ -1,4 +1,4 @@
-import { addCategory, findAll, findById, findByName, updateCategory } from '../repositories/categoriesRepository.js';
+import { addCategory, deleteCategory, findAll, findById, findByName, updateCategory } from '../repositories/categoriesRepository.js';
 
 export async function getAllCategories(){
     try{
@@ -41,5 +41,20 @@ export async function modifyCategory(categoryId, updatedData){
     }
     catch(error){
         throw new Error(`Error modifying category : ${error.message}`);
+    }
+}
+
+export async function removeCategory(categoryId){
+    try{
+        const existingCategory = await findById(categoryId);
+        if(!existingCategory){
+            throw new Error('This category does not exist');
+        }
+        else{
+            return await deleteCategory(categoryId);
+        }
+    }
+    catch(error){
+        throw new Error(`Error removing category : ${error.message}`);
     }
 }

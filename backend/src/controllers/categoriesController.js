@@ -1,4 +1,4 @@
-import { createCategory, getAllCategories, modifyCategory } from '../services/categoriesService.js';
+import { createCategory, getAllCategories, modifyCategory, removeCategory } from '../services/categoriesService.js';
 
 export async function getCategories(req, res){
     try{
@@ -38,6 +38,19 @@ export async function updateCategory(req, res){
             message: 'Category modified with success',
             data: updatedCategory
         });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function deleteCategory(req, res){
+    try{
+        const categoryId = req.params.id;
+        
+        await removeCategory(categoryId);
+
+        res.status(204).json();
     }
     catch(error){
         res.status(400).json({ error: error.message });

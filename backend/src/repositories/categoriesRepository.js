@@ -17,6 +17,10 @@ export function addCategory(categoryData){
     return newCategory.save()
 }
 
-export function updateCategory(id, updatedData){
-    return Categories.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
+export function updateCategory(categoryId, updatedData){
+    return Categories.findByIdAndUpdate(categoryId, updatedData, { new: true, runValidators: true });
+}
+
+export function deleteCategory(categoryId){
+    return Categories.findByIdAndDelete(categoryId);
 }
