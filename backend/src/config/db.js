@@ -8,11 +8,5 @@ export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
 })
 
 export async function connectToDatabase(){
-    try{
-        await sequelize.authenticate();
-        console.log('Connected to PostgreSQL successfully');
-    }
-    catch(error){
-        console.log('Failed to connect to PostgreSQL : ', error.message);
-    }
+    return await sequelize.authenticate();
 }
