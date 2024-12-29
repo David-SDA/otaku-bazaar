@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToDatabase } from './config/db.js';
-import { Categories } from './models/index.js';
+import { Categories, Images, Announcements, Users } from './models/index.js';
 //import categoriesRoutes from './routes/categoriesRoutes.js';
 
 dotenv.config();

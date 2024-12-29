@@ -1,19 +1,14 @@
 import { sequelize } from '../config/db.js';
 import { DataTypes } from 'sequelize';
 
-export const Categories = sequelize.define('Categories', {
+export const Images = sequelize.define('Images', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    name: {
-        type: DataTypes.STRING(50),
-        unique: true,
-        allowNull: false
-    },
-    image: {
+    path: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
