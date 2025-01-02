@@ -3,17 +3,17 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToDatabase } from './config/db.js';
 import { Categories, Images, Announcements, Users } from './models/index.js';
-//import categoriesRoutes from './routes/categoriesRoutes.js';
+import categoriesRoutes from './routes/categoriesRoutes.js';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5432;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 
-//app.use('/categories', categoriesRoutes);
+app.use('/categories', categoriesRoutes);
 
 async function startServer(){
     try{
@@ -26,7 +26,7 @@ async function startServer(){
         });
         
         app.listen(PORT, () => {
-            console.log('Server is running on http://localhost:', PORT);
+            console.log('Server is running on http://localhost:' + PORT);
         });
     }
     catch(error){
