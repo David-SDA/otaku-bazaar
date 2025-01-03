@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import { createUser } from '../services/authService.js';
+import { createUser, getUserByEmail } from '../services/userService.js';
 
 export async function register(req, res){
     try{
@@ -20,5 +20,42 @@ export async function register(req, res){
     }
     catch(error){
         res.status(400).json({ error: error.message });
+    }
+}
+
+export async function login(req, res){
+    try{
+        const loginData = req.body;
+
+        const userExist = await getUserByEmail(loginData.email);
+        if(!userExist){
+            throw new Error('Connection failed');
+        }
+
+        const isResolved = await bcrypt.compare(loginData.password, userExist.password);
+        if(!isResolved){
+            throw new Error('Connection failed');
+        }
+
+        const token = jwt.sign(
+            {
+                sub: userExist.id,
+                email: userExist.email,
+                role: userExist.role
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '4h'
+            }
+        );
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Loged in with success',
+            token: token
+        });
+    }
+    catch(error){
+        res.status(401).json({ error: error.message });
     }
 }

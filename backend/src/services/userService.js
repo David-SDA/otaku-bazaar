@@ -1,5 +1,14 @@
 import { addUser, findByContactEmail, findByEmail, findByUsername } from '../repositories/userRepository.js';
 
+export async function getUserByEmail(email){
+    try{
+        return await findByEmail(email);
+    }
+    catch(error){
+        throw new Error(`Error fetching user : ${error.message}`);
+    }
+}
+
 export async function createUser(userData){
     try{
         const sameEmailUser = await findByEmail(userData.email);
