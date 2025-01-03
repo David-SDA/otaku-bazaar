@@ -44,14 +44,6 @@ Users.belongsToMany(Users, {
     as: 'from'
 });
 
-sequelize.sync({force: false, alter: true})
-.then(() => {
-    console.log('Models are sync with database');
-})
-.catch(error => {
-    console.error('Error with models sync : ', error);
-})
-
 export {
     Categories,
     Images,

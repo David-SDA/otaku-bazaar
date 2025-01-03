@@ -7,6 +7,18 @@ export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
     port: process.env.DB_PORT
 })
 
-export async function connectToDatabase(){
-    return await sequelize.authenticate();
-}
+sequelize.authenticate()
+.then(() => {
+    console.log('Database connection established !');
+})
+.catch(error => {
+    console.error('Database connection failed :', error.message)
+});
+
+sequelize.sync({force: false, alter: true})
+.then(() => {
+    console.log('Models are sync with database');
+})
+.catch(error => {
+    console.error('Error with models sync : ', error);
+})
