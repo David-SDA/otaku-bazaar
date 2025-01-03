@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import { createUser, getUserByEmail } from '../services/userService.js';
 
+dotenv.config();
+
 export async function register(req, res){
     try{
         const userData = req.body;
@@ -57,5 +59,18 @@ export async function login(req, res){
     }
     catch(error){
         res.status(401).json({ error: error.message });
+    }
+}
+
+export async function getProfile(req, res){
+    try{
+        const userEmail = req.user.email;
+
+        const user = await getUserByEmail(userEmail);
+        
+        res.status(200).json(user);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
     }
 }
