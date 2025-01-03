@@ -28,8 +28,7 @@ export const Users = sequelize.define('Users', {
     },
     avatar: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        unique: true,
     },
     phoneNumber: {
         type: DataTypes.STRING(20),
