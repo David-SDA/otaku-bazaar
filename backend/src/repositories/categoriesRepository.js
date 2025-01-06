@@ -4,8 +4,8 @@ export async function findAll(){
     return await Categories.findAll();
 }
 
-export async function findById(id){
-    return await Categories.findByPk(id);
+export async function findById(categoryData){
+    return await Categories.findByPk(categoryData);
 }
 
 export async function findByName(name){
