@@ -1,7 +1,11 @@
-import { Announcements } from '../models/index.js';
+import { Announcements, Images } from '../models/index.js';
 
 export async function findById(announcementId){
     return await Announcements.findByPk(announcementId);
+}
+
+export async function findAnnouncementWithImages(announcementId){
+    return await Announcements.findByPk(announcementId, { include: [{ model: Images }] });
 }
 
 export async function deleteAnnouncement(announcementId){

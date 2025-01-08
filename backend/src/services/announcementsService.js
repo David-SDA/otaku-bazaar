@@ -1,4 +1,4 @@
-import { deleteAnnouncement, findById } from '../repositories/announcementsRepository.js';
+import { deleteAnnouncement, findAnnouncementWithImages, findById } from '../repositories/announcementsRepository.js';
 
 export async function getAnnouncementById(announcementId){
     try{
@@ -11,6 +11,24 @@ export async function getAnnouncementById(announcementId){
     }
     catch(error){
         throw new Error(`Error fetching user : ${error.message}`);
+    }
+}
+
+export async function getAnnouncementImages(announcementId){
+    try{
+        const announcement = await findAnnouncementWithImages(announcementId);
+        if(!announcement){
+            throw new Error('Announcement not found');
+        }
+    
+        if(!announcement.Images || announcement.Images.length === 0){
+            throw new Error('No images found for this announcement');
+        }
+    
+        return announcement.Images;
+    }
+    catch(error){
+        throw new Error(`Error finding announcement or images : ${error.message}`);
     }
 }
 

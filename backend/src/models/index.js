@@ -23,9 +23,13 @@ Images.belongsTo(Announcements, {
     foreignKey: 'announcementId'
 });
 
+Announcements.hasMany(Images, {
+    foreignKey: 'announcementId'
+});
+
 Announcements.belongsTo(Users, {
     foreignKey: 'userId'
-})
+});
 
 Announcements.belongsToMany(Categories, {
     through: 'attachedTo'

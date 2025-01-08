@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import categoriesRoutes from './routes/categoriesRoutes.js';
 import announcementsRoutes from './routes/announcementsRoutes.js';
+import imagesRoutes from './routes/imagesRoutes.js';
 import usersRoutes from './routes/usersRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/categories', categoriesRoutes);
 app.use('/announcements', announcementsRoutes);
+app.use('/images', imagesRoutes);
 app.use('/users', usersRoutes);
 app.use('/auth', authRoutes);
 
