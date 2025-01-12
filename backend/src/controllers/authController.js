@@ -118,6 +118,29 @@ export async function refreshToken(req, res){
     }
 }
 
+export async function logout(req, res){
+    try{
+        res.clearCookie('accessToken', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict'
+        });
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict'
+        });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Loged out with success',
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export async function getProfile(req, res){
     try{
         const userEmail = req.user.email;
