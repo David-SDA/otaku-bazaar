@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 
 export function auth(req, res, next){
     try{
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.cookies.accessToken;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
         if(!decodedToken){
