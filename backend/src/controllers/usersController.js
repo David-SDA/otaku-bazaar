@@ -1,5 +1,28 @@
-import { getUserById, removeUser } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, removeUser } from '../services/usersService.js';
 import _ from 'lodash';
+
+export async function getAllUsers(req, res){
+    try{
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+        
+        const users = await getUsers(offset, limit);
+        const totalUsers = await countUsers();
+        
+        res.status(200).json({
+            data: users,
+            pagination: {
+                page: page,
+                limit: limit,
+                totalUsers: totalUsers
+            }
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
 
 export async function getUser(req, res){
     try{

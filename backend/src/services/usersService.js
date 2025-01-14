@@ -1,4 +1,22 @@
-import { addUser, deleteUser, findByContactEmail, findByEmail, findById, findByUsername } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername } from '../repositories/userRepository.js';
+
+export async function getUsers(offset, limit){
+    try{
+        return await findAllUsers(offset, limit);
+    }
+    catch(error){
+        throw new Error(`Error fetching users : ${error.message}`);
+    }
+}
+
+export async function countUsers(){
+    try{
+        return await countAllUsers();
+    }    
+    catch(error){
+        throw new Error(`Error counting users : ${error.message}`);
+    }
+}
 
 export async function getUserById(userId){
     try{

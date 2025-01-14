@@ -1,5 +1,13 @@
 import { Users } from '../models/index.js';
 
+export async function findAllUsers(offset, limit){
+    return await Users.findAll({ offset, limit });
+}
+
+export async function countAllUsers(){
+    return await Users.count();
+}
+
 export async function findById(userId){
     return await Users.findByPk(userId);
 }
