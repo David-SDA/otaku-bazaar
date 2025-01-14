@@ -28,6 +28,10 @@ export async function addUser(userData){
     return await Users.create(userData);
 }
 
+export async function updateUser(userId, userData){
+    return await Users.update(userData, { where: { id: userId } });
+}
+
 export async function deleteUser(userId){
     return await Users.destroy({ where: { id: userId } });
 }

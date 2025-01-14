@@ -70,6 +70,38 @@ export async function createUser(userData){
     }
 }
 
+export async function modifyUser(userId, userData){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');        
+        }
+
+        if(userData.email || userData.password){
+            throw new Error('Email and password cannot be modified here');
+        }
+
+        if(userData.username){
+            const sameUsername = await findByUsername(userData.username);
+            if(sameUsername){
+                throw new Error('Username already used');
+            }
+        }
+
+        if(userData.contactEmail){
+            const sameContactEmail = await findByContactEmail(userData.contactEmail);
+            if(sameContactEmail){
+                throw new Error('Contact email already used');
+            }
+        }
+
+        return await updateUser(userId, userData);
+    }
+    catch(error){
+        throw new Error(`Error modifying user : ${error.message}`);
+    }
+}
+
 export async function removeUser(userId){
     try{
         const existingUser = await findById(userId);

@@ -36,6 +36,24 @@ export async function getUser(req, res){
     }
 }
 
+export async function updateUser(req, res){
+    try{
+        const userId = req.params.id;
+        const updatedData = req.body;
+        
+        const updatedUser = await modifyUser(userId, updatedData);
+        
+        res.status(200).json({
+            status: 'success',
+            message: 'User modified with success',
+            data: updatedUser[1]
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export async function deleteUser(req, res){
     try{
         const userId = req.params.id;
