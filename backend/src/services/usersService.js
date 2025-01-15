@@ -1,4 +1,5 @@
-import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, updateUser } from '../repositories/userRepository.js';
+import bcrypt from 'bcryptjs';
 
 export async function getUsers(offset, limit){
     try{
@@ -77,8 +78,26 @@ export async function modifyUser(userId, userData){
             throw new Error('User not found');        
         }
 
-        if(userData.email || userData.password){
-            throw new Error('Email and password cannot be modified here');
+        if(userData.email){
+            const sameEmailUser = await findByEmail(userData.email);
+            if(sameEmailUser){
+                throw new Error('Email already used');
+            }
+
+            // Envoi d'email ???
+        }
+
+        if(userData.password && userData.newPassword){
+            if(userData.password === userData.newPassword){
+                throw new Error('New password cannot be the same as the old one');
+            }
+            const isMatch = await bcrypt.compare(userData.password, existingUser.password);
+            if(!isMatch){
+                throw new Error('Old password is not correct');
+            }
+
+            const hash = await bcrypt.hash(userData.newPassword, 10);
+            userData.password = hash;
         }
 
         if(userData.username){

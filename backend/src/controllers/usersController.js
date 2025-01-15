@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, removeUser } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, modifyUser, removeUser } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -41,12 +41,11 @@ export async function updateUser(req, res){
         const userId = req.params.id;
         const updatedData = req.body;
         
-        const updatedUser = await modifyUser(userId, updatedData);
+        await modifyUser(userId, updatedData);
         
         res.status(200).json({
             status: 'success',
             message: 'User modified with success',
-            data: updatedUser[1]
         });
     }
     catch(error){
