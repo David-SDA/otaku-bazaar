@@ -1,4 +1,4 @@
-import { Users } from '../models/index.js';
+import { Announcements, Users } from '../models/index.js';
 
 export async function findAllUsers(offset, limit){
     return await Users.findAll({ offset, limit });
@@ -22,6 +22,10 @@ export async function findByUsername(username){
 
 export async function findByContactEmail(contactEmail){
     return await Users.findOne({ where: { contactEmail: contactEmail } });
+}
+
+export async function findWishedAnnouncements(userId){
+    return await Users.findByPk(userId, { include: { model: Announcements, as: 'wished' } });
 }
 
 export async function addUser(userData){

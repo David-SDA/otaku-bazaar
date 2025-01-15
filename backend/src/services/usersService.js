@@ -1,4 +1,5 @@
-import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, updateUser } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
+import { findById as findAnnouncementById } from '../repositories/announcementsRepository.js';
 import bcrypt from 'bcryptjs';
 
 export async function getUsers(offset, limit){
@@ -44,6 +45,46 @@ export async function getUserByEmail(email){
     }
     catch(error){
         throw new Error(`Error fetching user : ${error.message}`);
+    }
+}
+
+export async function getWishedAnnouncements(userId){
+    try{
+        const existingUser = await findWishedAnnouncements(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        return existingUser.wished;
+    }
+    catch(error){
+        throw new Error(`Error fetching user wished announcements : ${error.message}`);
+    }
+}
+
+export async function saveAnnouncementToWishList(userId, announcementId){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const announcement = await findAnnouncementById(announcementId);
+        if(!announcement){
+            throw new Error('Announcement not found');
+        }
+
+        const userWishedAnnouncements = await existingUser.getWished();
+        const isAlreadyInWishList = userWishedAnnouncements.some((wish) => wish.id === announcement.id);
+
+        if(isAlreadyInWishList){
+            throw new Error('Announcement already in wishlist');
+        }
+
+        return await existingUser.addWished(announcement);
+    }
+    catch(error){
+        throw new Error(`Error adding announcement to wishlist : ${error.message}`);
     }
 }
 

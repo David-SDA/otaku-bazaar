@@ -36,7 +36,13 @@ Announcements.belongsToMany(Categories, {
 });
 
 Announcements.belongsToMany(Users, {
-    through: 'wish'
+    through: 'wish',
+    as: 'wishers'
+});
+
+Users.belongsToMany(Announcements, {
+    through: 'wish',
+    as: 'wished'
 });
 
 Announcements.belongsToMany(Users, {

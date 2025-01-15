@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, modifyUser, removeUser } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeUser, saveAnnouncementToWishList } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -30,6 +30,35 @@ export async function getUser(req, res){
         const userData = await getUserById(userId);
 
         res.status(200).json(userData);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function getUserWishlist(req, res){
+    try{
+        const userId = req.params.id;
+        const wishlist = await getWishedAnnouncements(userId);
+        
+        res.status(200).json(wishlist);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function addAnnouncementToWishlist(req, res){
+    try{
+        const userId = req.params.id;
+        const announcementId = req.body.announcementId;
+        
+        await saveAnnouncementToWishList(userId, announcementId);
+        
+        res.status(201).json({
+            status: 'success',
+            message: 'Announcement added to wishlist with success',
+        });
     }
     catch(error){
         res.status(400).json({ error: error.message });
