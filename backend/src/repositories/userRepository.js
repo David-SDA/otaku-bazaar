@@ -39,3 +39,7 @@ export async function updateUser(userId, userData){
 export async function deleteUser(userId){
     return await Users.destroy({ where: { id: userId } });
 }
+
+export async function deleteWishedAnnouncement(user, announcement){
+    return await user.removeWished(announcement);
+}

@@ -1,4 +1,4 @@
-import { addUser, countAllUsers, deleteUser, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
 import { findById as findAnnouncementById } from '../repositories/announcementsRepository.js';
 import bcrypt from 'bcryptjs';
 
@@ -74,9 +74,9 @@ export async function saveAnnouncementToWishList(userId, announcementId){
             throw new Error('Announcement not found');
         }
 
-        const userWishedAnnouncements = await existingUser.getWished();
+        // Section à modifier 
+        const userWishedAnnouncements = await existingUser.getWished(); // dans le repo ?
         const isAlreadyInWishList = userWishedAnnouncements.some((wish) => wish.id === announcement.id);
-
         if(isAlreadyInWishList){
             throw new Error('Announcement already in wishlist');
         }
@@ -173,5 +173,24 @@ export async function removeUser(userId){
     }
     catch(error){
         throw new Error(`Error removing user : ${error.message}`);
+    }
+}
+
+export async function removeWishedAnnouncement(userId, announcementId){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const existingAnnouncement = await findAnnouncementById(announcementId);
+        if(!existingAnnouncement){
+            throw new Error('Announcement not found');
+        }
+
+        return await deleteWishedAnnouncement(existingUser, existingAnnouncement);
+    }
+    catch(error){
+        throw new Error(`Error removing announcement from wishlist : ${error.message}`);
     }
 }
