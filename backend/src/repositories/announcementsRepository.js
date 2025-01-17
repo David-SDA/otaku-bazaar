@@ -8,6 +8,10 @@ export async function findAnnouncementWithImages(announcementId){
     return await Announcements.findByPk(announcementId, { include: [{ model: Images }] });
 }
 
+export async function addAnnouncement(announcementData){
+    return await Announcements.create(announcementData);
+}
+
 export async function addAnnouncementImages(images){
     return await Images.bulkCreate(images, { validate: true });
 }

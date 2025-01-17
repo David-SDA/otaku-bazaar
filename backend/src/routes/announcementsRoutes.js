@@ -1,10 +1,11 @@
 import express from 'express';
-import { addAnnouncementImages, deleteAnnouncement, getAnnouncement, getImagesFromAnnouncement } from '../controllers/announcementsController.js';
+import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, getAnnouncement, getImagesFromAnnouncement } from '../controllers/announcementsController.js';
 import { auth } from '../middlewares/auth.js';
 import { isAnnouncementOwner } from '../middlewares/announcementOwner.js';
 
 const router = express.Router();
 
+router.post('/', auth, addAnnouncement);
 router.get('/:id', getAnnouncement);
 router.get('/:id/images', getImagesFromAnnouncement);
 router.post('/:id/images', auth, isAnnouncementOwner, addAnnouncementImages);

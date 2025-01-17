@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { addAnnouncementImages, deleteAnnouncement, findAnnouncementWithImages, findById } from '../repositories/announcementsRepository.js';
+import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAnnouncementWithImages, findById } from '../repositories/announcementsRepository.js';
 
 export async function getAnnouncementById(announcementId){
     try{
@@ -30,6 +30,19 @@ export async function getAnnouncementImages(announcementId){
     }
     catch(error){
         throw new Error(`Error finding announcement or images : ${error.message}`);
+    }
+}
+
+export async function createAnnouncement(announcementData){
+    try{
+        if(!announcementData.title || !announcementData.price || !announcementData.description || !announcementData.userId || !announcementData.categoryId){
+            throw new Error('All fields must be filled');
+        }
+
+        return await addAnnouncement(announcementData);
+    }
+    catch(error){
+        throw new Error(`Error creating announcement : ${error.message}`);
     }
 }
 

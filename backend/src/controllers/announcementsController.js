@@ -1,4 +1,4 @@
-import { getAnnouncementById, getAnnouncementImages, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
+import { createAnnouncement, getAnnouncementById, getAnnouncementImages, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
 import _ from 'lodash';
 
 export async function getAnnouncement(req, res){
@@ -19,6 +19,25 @@ export async function getImagesFromAnnouncement(req, res){
         const images = await getAnnouncementImages(announcementId);
 
         res.status(200).json(images);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function addAnnouncement(req, res){
+    try{
+        const { title, price, description, categoryId } = req.body;
+        const userId = req.user.sub;
+        const announcementData = { title, price, description, userId, categoryId };
+
+        const newAnnouncement = await createAnnouncement(announcementData);
+
+        res.status(201).json({
+            status: 'success',
+            message: 'Announcement created with success',
+            data: newAnnouncement
+        });
     }
     catch(error){
         res.status(400).json({ error: error.message });

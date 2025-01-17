@@ -31,8 +31,12 @@ Announcements.belongsTo(Users, {
     foreignKey: 'userId'
 });
 
-Announcements.belongsToMany(Categories, {
-    through: 'attachedTo'
+Announcements.belongsTo(Categories, {
+    foreignKey: 'categoryId'
+});
+
+Categories.hasMany(Announcements, {
+    foreignKey: 'categoryId'
 });
 
 Announcements.belongsToMany(Users, {
