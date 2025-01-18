@@ -44,14 +44,18 @@ Announcements.belongsToMany(Users, {
     through: 'wish',
     as: 'wishers'
 });
-
 Users.belongsToMany(Announcements, {
     through: 'wish',
     as: 'wished'
 });
 
 Announcements.belongsToMany(Users, {
-    through: reportedAnnouncements
+    through: reportedAnnouncements,
+    as: 'reportedBy'
+});
+Users.belongsToMany(Announcements, {
+    through: reportedAnnouncements,
+    as: 'reportedAds'
 });
 
 Users.belongsToMany(Users, {

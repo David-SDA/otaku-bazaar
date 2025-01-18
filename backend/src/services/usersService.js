@@ -74,8 +74,7 @@ export async function saveAnnouncementToWishList(userId, announcementId){
             throw new Error('Announcement not found');
         }
 
-        // Section à modifier 
-        const userWishedAnnouncements = await existingUser.getWished(); // dans le repo ?
+        const userWishedAnnouncements = await existingUser.getWished();
         const isAlreadyInWishList = userWishedAnnouncements.some((wish) => wish.id === announcement.id);
         if(isAlreadyInWishList){
             throw new Error('Announcement already in wishlist');
@@ -85,6 +84,35 @@ export async function saveAnnouncementToWishList(userId, announcementId){
     }
     catch(error){
         throw new Error(`Error adding announcement to wishlist : ${error.message}`);
+    }
+}
+
+export async function saveAnnouncementToReported(userId, announcementId, reason){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const announcement = await findAnnouncementById(announcementId);
+        if(!announcement){
+            throw new Error('Announcement not found');
+        }
+
+        if(!reason){
+            throw new Error('Reason is required');
+        }
+
+        const userReportedAnnouncements = await existingUser.getReportedAds();
+        const isAlreadyInReported = userReportedAnnouncements.some((report) => report.id === announcement.id);
+        if(isAlreadyInReported){
+            throw new Error('Announcement already reported');
+        }
+
+        return await existingUser.addReportedAds(announcement, { through: { reason } });
+    }
+    catch(error){
+        throw new Error(`Error adding announcement to reported : ${error.message}`);
     }
 }
 
