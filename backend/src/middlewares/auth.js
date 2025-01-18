@@ -16,3 +16,15 @@ export function auth(req, res, next){
         res.status(401).json({ error: error.message });
     }
 }
+
+export function isNotAuthenticated(req, res, next){
+    try{
+        if(!req.user){
+            throw new Error('User already authenticated');
+        }
+        next();
+    }
+    catch(error){
+        res.status(401).json({ error: error.message });
+    }
+}

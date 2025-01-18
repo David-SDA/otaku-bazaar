@@ -60,7 +60,14 @@ Users.belongsToMany(Announcements, {
 
 Users.belongsToMany(Users, {
     through: reportedUsers,
-    as: 'from'
+    as: 'reported',
+    foreignKey: 'reportedId'
+});
+
+Users.belongsToMany(Users, {
+    through: reportedUsers,
+    as: 'reporter',
+    foreignKey: 'reporterId'
 });
 
 export {

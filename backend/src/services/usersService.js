@@ -48,6 +48,7 @@ export async function getUserByEmail(email){
     }
 }
 
+// modifier
 export async function getWishedAnnouncements(userId){
     try{
         const existingUser = await findWishedAnnouncements(userId);
@@ -113,6 +114,40 @@ export async function saveAnnouncementToReported(userId, announcementId, reason)
     }
     catch(error){
         throw new Error(`Error adding announcement to reported : ${error.message}`);
+    }
+}
+
+export async function saveUserToReported(userId, reportedUserId, reason){
+    try{
+        if(parseInt(userId) === parseInt(reportedUserId)){
+            throw new Error('You cannot report yourself');
+        }
+
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const reportedUser = await findById(reportedUserId);
+        if(!reportedUser){
+            throw new Error('Reported user not found');
+        }
+
+        if(!reason){
+            throw new Error('Reason is required');
+        }
+
+        const userReportedUsers = await existingUser.getReported();
+        const isAlreadyInReported = userReportedUsers.some((report) => report.id === reportedUser.id);
+        if(isAlreadyInReported){
+            throw new Error('User already reported');
+        }
+
+        // Pas l'impression que c'est la bonne manière de faire (manque de sens)
+        return await existingUser.addReporter(reportedUser, { through: { reason } });
+    }
+    catch(error){
+        throw new Error(`Error adding user to reported : ${error.message}`);
     }
 }
 

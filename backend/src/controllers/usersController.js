@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -75,6 +75,23 @@ export async function addAnnouncementToReported(req, res){
         res.status(201).json({
             status: 'success',
             message: 'Announcement reported with success',
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function addUserToReported(req, res){
+    try{
+        const userId = req.params.id;
+        const { reportedId, reason } = req.body;
+        
+        await saveUserToReported(userId, reportedId, reason);
+        
+        res.status(201).json({
+            status: 'success',
+            message: 'User reported with success',
         });
     }
     catch(error){
