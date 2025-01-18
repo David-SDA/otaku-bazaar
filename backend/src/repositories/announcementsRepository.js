@@ -1,5 +1,9 @@
 import { Announcements, Images } from '../models/index.js';
 
+export async function findAll(where, include, order, limit, offset){
+    return await Announcements.findAndCountAll({ where, include, order, limit, offset });
+}
+
 export async function findById(announcementId){
     return await Announcements.findByPk(announcementId);
 }

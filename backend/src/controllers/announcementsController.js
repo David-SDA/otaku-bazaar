@@ -1,5 +1,16 @@
-import { createAnnouncement, getAnnouncementById, getAnnouncementImages, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
-import _ from 'lodash';
+import { createAnnouncement, getAnnouncementById, getAnnouncementImages, getAnnouncements, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
+
+export async function getAllAnnouncements(req, res){
+    try{
+        const filters = req.query;
+        const announcements = await getAnnouncements(filters);
+
+        res.status(200).json(announcements);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
 
 export async function getAnnouncement(req, res){
     try{

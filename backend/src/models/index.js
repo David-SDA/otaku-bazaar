@@ -22,7 +22,6 @@ const reportedUsers = sequelize.define('reportedUsers', {
 Images.belongsTo(Announcements, {
     foreignKey: 'announcementId'
 });
-
 Announcements.hasMany(Images, {
     foreignKey: 'announcementId'
 });
@@ -30,11 +29,13 @@ Announcements.hasMany(Images, {
 Announcements.belongsTo(Users, {
     foreignKey: 'userId'
 });
+Users.hasMany(Announcements, {
+    foreignKey: 'userId'
+});
 
 Announcements.belongsTo(Categories, {
     foreignKey: 'categoryId'
 });
-
 Categories.hasMany(Announcements, {
     foreignKey: 'categoryId'
 });
