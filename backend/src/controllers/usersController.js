@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -116,6 +116,19 @@ export async function deleteAnnouncementFromWishlist(req, res){
         const announcementId = req.params.announcementId;
 
         await removeWishedAnnouncement(userId, announcementId);
+        res.status(204).json();
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function deleteAnnouncementFromReported(req, res){
+    try{
+        const userId = req.params.id;
+        const announcementId = req.params.announcementId;
+
+        await removeReportedAds(userId, announcementId);        
         res.status(204).json();
     }
     catch(error){

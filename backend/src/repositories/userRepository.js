@@ -47,3 +47,7 @@ export async function deleteUser(userId){
 export async function deleteWishedAnnouncement(user, announcement){
     return await user.removeWished(announcement);
 }
+
+export async function deleteReportedAnnouncement(user, announcement){
+    return await user.removeReportedAds(announcement);
+}
