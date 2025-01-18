@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
+import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeReportedUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -68,7 +68,8 @@ export async function addAnnouncementToWishlist(req, res){
 export async function addAnnouncementToReported(req, res){
     try{
         const userId = req.params.id;
-        const { announcementId, reason } = req.body;
+        const announcementId = req.params.announcementId;
+        const reason = req.body.reason;
 
         await saveAnnouncementToReported(userId, announcementId, reason);
         
@@ -85,7 +86,8 @@ export async function addAnnouncementToReported(req, res){
 export async function addUserToReported(req, res){
     try{
         const userId = req.params.id;
-        const { reportedId, reason } = req.body;
+        const reportedId = req.params.reportedId;
+        const reason = req.body.reason;
         
         await saveUserToReported(userId, reportedId, reason);
         
@@ -146,6 +148,20 @@ export async function deleteAnnouncementFromReported(req, res){
         const announcementId = req.params.announcementId;
 
         await removeReportedAds(userId, announcementId);        
+        res.status(204).json();
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function deleteReportedUser(req, res){
+    try{
+        const userId = req.params.id;
+        const reportedId = req.params.reportedId;
+
+        await removeReportedUser(userId, reportedId);
+        
         res.status(204).json();
     }
     catch(error){

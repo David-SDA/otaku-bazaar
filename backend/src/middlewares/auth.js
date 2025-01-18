@@ -19,7 +19,7 @@ export function auth(req, res, next){
 
 export function isNotAuthenticated(req, res, next){
     try{
-        if(!req.user){
+        if(req.cookies && req.cookies.accessToken){
             throw new Error('User already authenticated');
         }
         next();

@@ -104,8 +104,7 @@ export async function saveAnnouncementToReported(userId, announcementId, reason)
             throw new Error('Reason is required');
         }
 
-        const userReportedAnnouncements = await existingUser.getReportedAds();
-        const isAlreadyInReported = userReportedAnnouncements.some((report) => report.id === announcement.id);
+        const isAlreadyInReported = await existingUser.hasReportedAds(announcement);
         if(isAlreadyInReported){
             throw new Error('Announcement already reported');
         }
@@ -137,8 +136,7 @@ export async function saveUserToReported(userId, reportedUserId, reason){
             throw new Error('Reason is required');
         }
 
-        const userReportedUsers = await existingUser.getReported();
-        const isAlreadyInReported = userReportedUsers.some((report) => report.id === reportedUser.id);
+        const isAlreadyInReported = await existingUser.hasReporter(reportedUser);
         if(isAlreadyInReported){
             throw new Error('User already reported');
         }
@@ -274,5 +272,24 @@ export async function removeReportedAds(userId, announcementId){
     }
     catch(error){
         throw new Error(`Error removing announcement from reported : ${error.message}`);
+    }
+}
+
+export async function removeReportedUser(userId, reportedUserId){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const reportedUser = await findById(reportedUserId);
+        if(!reportedUser){
+            throw new Error('Reported user not found');
+        }
+
+        return await existingUser.removeReporter(reportedUser);
+    }
+    catch(error){
+        throw new Error(`Error removing user from reported : ${error.message}`);
     }
 }
