@@ -5,7 +5,7 @@ import LoadingAnimation from '../ui/general/LoadingAnimation';
 export default function Categories(){
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     
     async function fetchCategories(){
         try{
@@ -33,7 +33,7 @@ export default function Categories(){
     if(error){
         return <p>Error: {error}</p>
     }
-    else if(loading){
+    else if(isLoading){
         return <LoadingAnimation />
     }
     else{
