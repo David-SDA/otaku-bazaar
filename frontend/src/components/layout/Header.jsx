@@ -2,13 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { faUser, faClipboardList, faMagnifyingGlass, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import data from '../../db.json';
+import logo from '../../assets/logo/logo.jpg';
 
 export default function Header(){
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-    
-    const categories = data.categories;
+    const [categories, setCategories] = useState([]);
 
     function handleToggleBurgerMenu(){
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
@@ -18,22 +17,42 @@ export default function Header(){
         setIsMobile(window.innerWidth < 1024);
     }
 
+    async function fetchCategories(){
+        try{
+            const response = await fetch('http://localhost:8000/categories');
+            if(!response.ok){
+                throw new Error('Error fetching categories');
+            }
+            const data = await response.json();
+            setCategories(data);
+        }
+        catch(error){
+            console.error('Error fetching categories:', error);
+        }
+    }
+
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    })
+    });
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     return (
         <header className='h-24 py-2 shadow-md font-bold flex items-center relative'>
             <nav className='container mx-auto px-4 flex justify-between items-center'>
-                <div>
-                    <NavLink to={`/`} className='bg-primary py-5 px-20 lg:me-7'>Logo</NavLink>
+                <div className='flex items-center'>
+                    <NavLink to={`/`}>
+                        <img src={logo} alt='Logo' className='h-12 me-8' />
+                    </NavLink>
                     {!isMobile && (
                         <>
                             {
                                 categories.slice(0, 4).map((category) => (
                                     <NavLink to={`/`} className='hidden lg:inline mx-4 py-1 group relative' key={category.id}>
-                                        {category.label}
+                                        {category.name}
                                         <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
                                         <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
                                     </NavLink>

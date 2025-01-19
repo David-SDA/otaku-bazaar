@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CategoryCard from '../ui/category/CategoryCard';
+import LoadingAnimation from '../ui/general/LoadingAnimation';
 
 export default function Categories(){
     const [categories, setCategories] = useState([]);
@@ -9,7 +10,6 @@ export default function Categories(){
     async function fetchCategories(){
         try{
             const response = await fetch('http://localhost:8000/categories');
-
             if(!response.ok){
                 throw new Error('Error fetching categories');
             }
@@ -21,6 +21,9 @@ export default function Categories(){
         catch(error){
             setError(error.message);
         }
+        finally{
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -31,11 +34,7 @@ export default function Categories(){
         return <p>Error: {error}</p>
     }
     else if(loading){
-        return (
-            <div className='flex items-center justify-center'>
-                <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'></div>
-            </div>
-        )
+        return <LoadingAnimation />
     }
     else{
         return (
@@ -43,7 +42,7 @@ export default function Categories(){
                 {
                     categories.map((category) => (
                         <CategoryCard
-                            key={category._id}
+                            key={category.id}
                             category={category.name}
                             categoryImage={category.image}
                         />
