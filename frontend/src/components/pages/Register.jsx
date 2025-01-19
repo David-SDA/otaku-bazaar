@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
 import ErrorMessage from '../ui/general/ErrorMessage';
 import SuccessMessage from '../ui/general/SuccessMessage';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Register(){
     const [isLoading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
 
+    useEffect(() => {
+        if(isAuthenticated){
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
     
     const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
 
-    // Traitement du formulaire
     async function submitHandler(data){
         setLoading(true);
         setErrorMessage('');

@@ -10,6 +10,6 @@ router.post('/', auth, addAnnouncement);
 router.get('/:id', getAnnouncement);
 router.get('/:id/images', getImagesFromAnnouncement);
 router.post('/:id/images', auth, isAnnouncementOwner, addAnnouncementImages);
-router.delete('/:id', deleteAnnouncement);
+router.delete('/:id', auth, isAnnouncementOwner, deleteAnnouncement);
 
 export default router;

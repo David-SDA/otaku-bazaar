@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../ui/general/ErrorMessage';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Login(){
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
-    
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
+
+    // à améliorer
+    useEffect(() => {
+        if(isAuthenticated){
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -22,7 +30,8 @@ export default function Login(){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                credentials: 'include'
             });
 
             if(!response.ok){
