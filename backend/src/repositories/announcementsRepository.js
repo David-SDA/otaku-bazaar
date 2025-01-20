@@ -1,7 +1,19 @@
-import { Announcements, Images } from '../models/index.js';
+import { Announcements, Images, Users } from '../models/index.js';
 
-export async function findAll(where, include, order, limit, offset){
-    return await Announcements.findAndCountAll({ where, include, order, limit, offset });
+export async function findAll(where, include = [], order, limit, offset){
+    return await Announcements.findAndCountAll({
+        where,
+        include: [
+            ...include,
+            {
+                model: Users,
+                attributes: ['id', 'username', 'city']
+            }
+        ],
+        order,
+        limit,
+        offset
+    });
 }
 
 export async function findById(announcementId){

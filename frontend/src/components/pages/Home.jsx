@@ -7,24 +7,24 @@ export default function Home(){
         <>
             <AnnouncementsLineHeader
                 title={'What\'s new'}
-                link={'/'}
+                link={'/search'}
             />
-            <AnnouncementsLine />
+            <AnnouncementsLine categoryId={null} />
             <AnnouncementsLineHeader
                 title={'Figurines'}
-                link={'/'}
+                link={'/search'}
             />
-            <AnnouncementsLine />
+            <AnnouncementsLine categoryId={3} />
             <AnnouncementsLineHeader
                 title={'Posters'}
-                link={'/'}
+                link={'/search'}
             />
-            <AnnouncementsLine />
+            <AnnouncementsLine categoryId={5} />
             <AnnouncementsLineHeader
                 title={'Clothes'}
-                link={'/'}
+                link={'/search'}
             />
-            <AnnouncementsLine />
+            <AnnouncementsLine categoryId={8} />
         </>
     )
 }

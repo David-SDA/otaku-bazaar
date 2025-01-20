@@ -1,28 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { timeAgo } from '../../../utils/dateUtils';
 
-export default function AnnouncementCard(){
+export default function AnnouncementCard({announcement}){
+    const timeAgoText = timeAgo(announcement.createdAt);
+
     return (
         <div className='bg-[#F7EDE2] border border-[#F5CAC3] rounded-lg flex flex-col shrink-0 w-56 group'>
-            <Link to={'/announcements/2'} className='p-5 rounded-lg' draggable='false'>
+            <Link to={`/announcements/${announcement.id}`} className='p-5 rounded-lg' draggable='false'>
                 <img src='/assets/images/pomme.jpg' alt='Pomme' className='object-cover rounded-lg shadow pointer-events-none group-hover:scale-105 transition-all duration-300' />
                 <div className='font-bold my-4'>
                     <p className='truncate group-hover:text-primary transition-colors duration-300'>
-                        Nom objet vendu nom objet vendu nom objet vendu
+                        {announcement.title}
                     </p>
                     <p className='mt-2'>
-                        00,00 €
+                        {announcement.price} €
                     </p>
                 </div>
                 <div className='self-end text-[13px] mt-3'>
                     <p className='italic text-end'>
-                        Sold by xxxxxxx
+                        Sold by {announcement.User?.username || 'Unknown'}
                     </p>
+                    {
+                        announcement.User?.city && (
+                            <p className='italic text-end'>
+                                {announcement.User?.city}
+                            </p>
+                        )
+                    }
                     <p className='italic text-end'>
-                        New York, USA
-                    </p>
-                    <p className='italic text-end'>
-                        0 days ago
+                        {timeAgoText}
                     </p>
                 </div>
             </Link>

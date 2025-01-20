@@ -51,7 +51,7 @@ export default function Header(){
                         <>
                             {
                                 categories.slice(0, 4).map((category) => (
-                                    <NavLink to={`/`} className='hidden lg:inline mx-4 py-1 group relative' key={category.id}>
+                                    <NavLink to={`/search`} className='hidden lg:inline mx-4 py-1 group relative' key={category.id}>
                                         {category.name}
                                         <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
                                         <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
