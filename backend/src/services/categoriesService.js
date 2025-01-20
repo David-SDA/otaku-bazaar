@@ -2,7 +2,12 @@ import { addCategory, deleteCategory, findAll, findById, findByName, updateCateg
 
 export async function getAllCategories(){
     try{
-        return await findAll();
+        const categories = await findAll();
+        categories.forEach(category => {
+            category.image = `http://localhost:8000${category.image}`;
+        })
+        
+        return categories;
     }
     catch(error){
         throw new Error(`Error fetching categories : ${error.message}`);

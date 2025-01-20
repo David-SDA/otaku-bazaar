@@ -25,6 +25,7 @@ app.use('/announcements', announcementsRoutes);
 app.use('/images', imagesRoutes);
 app.use('/users', usersRoutes);
 app.use('/auth', authRoutes);
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

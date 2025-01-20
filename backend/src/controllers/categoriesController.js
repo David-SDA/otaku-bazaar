@@ -15,7 +15,16 @@ export async function getCategories(req, res){
 
 export async function addCategory(req, res){
     try{
-        const categoryData = req.body;
+        const { name } = req.body;
+
+        if(!req.file){
+            throw new Error('Image is required');
+        }
+
+        const imagePath = `/uploads/${req.file.filename}`;
+
+        const categoryData = { name, image: imagePath };
+
         const newCategory = await createCategory(categoryData);
 
         res.status(201).json({
