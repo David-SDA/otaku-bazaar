@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-function AnnouncementSellerInfo(_props, ref){
+function AnnouncementSellerInfo({contactEmail, phoneNumber, city}, _props, ref){
     return (
         <div className='my-5' ref={ref}>
             <h2 className='text-xl font-bold'>
@@ -8,14 +8,22 @@ function AnnouncementSellerInfo(_props, ref){
             </h2>
             <div className='mt-3'>
                 <p>
-                    <span className='font-bold'>Contact Email :</span> email@email.com
+                    <span className='font-bold'>Contact Email :</span> {contactEmail}
                 </p>
-                <p>
-                    <span className='font-bold'>Phone Number :</span> 00 00 00 00 00
-                </p>
-                <p>
-                    <span className='font-bold'>City :</span> city
-                </p>
+                {
+                    phoneNumber && (
+                        <p>
+                            <span className='font-bold'>Phone Number :</span> {phoneNumber}
+                        </p>
+                    )
+                }
+                {
+                    city && (
+                        <p>
+                            <span className='font-bold'>City :</span> {city}
+                        </p>
+                    )
+                }
             </div>
         </div>
     )

@@ -81,6 +81,10 @@ export async function getAnnouncementImages(announcementId){
         if(!announcement.Images || announcement.Images.length === 0){
             throw new Error('No images found for this announcement');
         }
+
+        announcement.Images.forEach((image) => {
+            image.path = `http://localhost:8000${image.path}`;
+        });
     
         return announcement.Images;
     }

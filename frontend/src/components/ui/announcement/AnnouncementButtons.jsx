@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
-function AnnouncementButtons(_props, ref){
+function AnnouncementButtons(_props, ref, announcemntId){
+    // à faire
     return (
         <div className='w-full flex flex-col sm:flex-row justify-around'>
             <button className='bg-primary py-3 px-10 mb-5 sm:mb-0 font-bold rounded-xl hover:scale-105 transition-all duration-300'>

@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-function AnnouncementSmallDescription({fullDescriptionRef}, ref){
+function AnnouncementSmallDescription({description ,fullDescriptionRef}, ref){
     const descriptionRef = useRef();
     const [isTruncated, setIsTruncated] = useState(false);
 
@@ -14,8 +14,7 @@ function AnnouncementSmallDescription({fullDescriptionRef}, ref){
     return (
         <div className='hidden lg:block'>
             <p ref={descriptionRef} className={`my-5 ${isTruncated ? 'mb-1' : ''} line-clamp-[9]`}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ornare felis. Ut finibus id felis vel pellentesque. Quisque vitae tincidunt velit. Pellentesque turpis lectus, luctus eget ligula non, rhoncus porta elit. Proin pretium lectus id nisl suscipit imperdiet. Fusce tristique est tristique nisl dictum tempus. Donec vel quam pulvinar urna scelerisque pharetra.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ornare felis. Ut finibus id felis vel pellentesque. Quisque vitae tincidunt velit. Pellentesque turpis lectus, luctus eget ligula non, rhoncus porta elit. Proin pretium lectus id nisl suscipit imperdiet. Fusce tristique est tristique nisl dictum tempus. Donec vel quam pulvinar urna scelerisque pharetra.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ornare felis. Ut finibus id felis vel pellentesque. Quisque vitae tincidunt velit. Pellentesque turpis lectus, luctus eget ligula non, rhoncus porta elit. Proin pretium lectus id nisl suscipit imperdiet. Fusce tristique est tristique nisl dictum tempus. Donec vel quam pulvinar urna scelerisque pharetra.
+                {description || 'No description'}
             </p>
             {isTruncated && (
                 <button
