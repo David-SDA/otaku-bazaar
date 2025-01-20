@@ -153,3 +153,12 @@ export async function getProfile(req, res){
         res.status(400).json({ error: error.message });
     }
 }
+
+export async function me(req, res){
+    try{
+        res.status(200).json(req.user);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}

@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         async function checkAuthentication() {
-            const response = await fetch('http://localhost:8000/auth/profile', { credentials: 'include' });
+            const response = await fetch('http://localhost:8000/auth/me', { credentials: 'include' });
             if(response.ok){
                 setIsAuthenticated(true);
             }

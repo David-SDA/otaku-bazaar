@@ -19,6 +19,8 @@ import CreateAnnouncement from '../components/pages/CreateAnnouncement';
 import ModeratorPanel from '../components/pages/ModeratorPanel';
 import AdminPanel from '../components/pages/AdminPanel';
 import CreateCategory from '../components/pages/CreateCategory';
+import ProtectedRoute from '../utils/PrivateRoute';
+import NotAuthenticatedRoute from '../utils/NotAuthenticatedRoute';
 
 const router = createBrowserRouter([
     {
@@ -36,11 +38,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/login',
-                element: <Login />
+                element: <NotAuthenticatedRoute element={<Login />} />
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <NotAuthenticatedRoute element={<Register />} />
             },
             {
                 path: '/wishlist',
