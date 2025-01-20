@@ -38,7 +38,7 @@ export async function getUser(req, res){
 
 export async function getUserWishlist(req, res){
     try{
-        const userId = req.params.id;
+        const userId = req.user.sub;
         const wishlist = await getWishedAnnouncements(userId);
         
         res.status(200).json(wishlist);

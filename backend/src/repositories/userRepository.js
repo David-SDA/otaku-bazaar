@@ -25,7 +25,16 @@ export async function findByContactEmail(contactEmail){
 }
 
 export async function findWishedAnnouncements(userId){
-    return await Users.findByPk(userId, { include: { model: Announcements, as: 'wished' } });
+    return await Users.findByPk(userId, {
+        include: {
+            model: Announcements,
+            as: 'wished',
+            include: {
+                model: Users,
+                attributes: ['username', 'city']
+            }
+        }
+    });
 }
 
 export async function findReportedAnnouncements(userId){

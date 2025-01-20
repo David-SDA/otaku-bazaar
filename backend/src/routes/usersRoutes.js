@@ -8,8 +8,8 @@ import { isSameUser } from '../middlewares/sameUser.js';
 const router = express.Router();
 
 router.get('/', auth, isAdmin, getAllUsers)
+router.get('/wishes', auth, getUserWishlist);
 router.get('/:id', getUser);
-router.get('/:id/wishes', auth, isSameUser, getUserWishlist);
 router.post('/:id/wishes', auth, isSameUser, addAnnouncementToWishlist);
 router.post('/:id/reportedAnnouncements/:announcementId', auth, addAnnouncementToReported);
 router.post('/:id/reportedUsers/:reportedId', auth, addUserToReported);

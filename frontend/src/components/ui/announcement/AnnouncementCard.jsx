@@ -19,7 +19,7 @@ export default function AnnouncementCard({announcement}){
                 </div>
                 <div className='self-end text-[13px] mt-3'>
                     <p className='italic text-end'>
-                        Sold by {announcement.User?.username || 'Unknown'}
+                        Sold by <Link to={`/profile/${announcement.userId}`} className='font-bold underline hover:text-primary'>{announcement.User?.username || 'Unknown'}</Link>
                     </p>
                     {
                         announcement.User?.city && (

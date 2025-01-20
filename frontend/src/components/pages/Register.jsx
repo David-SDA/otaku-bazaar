@@ -58,12 +58,9 @@ export default function Register(){
                 )
             }
             {
-                isLoading && (
+                isLoading ? (
                     <LoadingAnimation />
-                )
-            }
-            {
-                !isLoading && (
+                ) : (
                     <>
                         <form onSubmit={handleSubmit(submitHandler)} className='bg-[#F7EDE2] border border-[#F5CAC3] rounded-lg my-5 py-10 px-4 sm:px-7'>
                             <h1 className='text-center text-xl sm:text-2xl font-bold mb-10'>Register</h1>

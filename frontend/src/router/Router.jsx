@@ -54,7 +54,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/categories/new',
-                element: <CreateCategory />
+                element: <PrivateRoute element={<CreateCategory />} roles={['admin']} />
             },
             {
                 path: '/announcements/:id',
@@ -62,11 +62,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/announcement/new',
-                element: <CreateAnnouncement />
+                element: <PrivateRoute element={<CreateAnnouncement />} roles={['user', 'moderator', 'admin']} />
             },
             {
                 path: '/profile',
-                element: <MyProfile />
+                element: <PrivateRoute element={<MyProfile />} roles={['user', 'moderator', 'admin']} />
             },
             {
                 path: '/profile/:id',
@@ -74,11 +74,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/moderator',
-                element: <ModeratorPanel />
+                element: <PrivateRoute element={<ModeratorPanel />} roles={['moderator']} />
             },
             {
                 path: '/admin',
-                element: <AdminPanel />
+                element: <PrivateRoute element={<AdminPanel />} roles={['admin']} />
             },
             {
                 path: '/contact',
