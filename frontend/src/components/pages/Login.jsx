@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../ui/general/ErrorMessage';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Login(){
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { checkAuthentication } = useAuth();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -32,6 +34,7 @@ export default function Login(){
             }
 
             reset();
+            await checkAuthentication();
             navigate('/');
         }
         catch(error){
