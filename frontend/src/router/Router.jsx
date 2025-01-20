@@ -19,8 +19,8 @@ import CreateAnnouncement from '../components/pages/CreateAnnouncement';
 import ModeratorPanel from '../components/pages/ModeratorPanel';
 import AdminPanel from '../components/pages/AdminPanel';
 import CreateCategory from '../components/pages/CreateCategory';
-import ProtectedRoute from '../utils/PrivateRoute';
 import NotAuthenticatedRoute from '../utils/NotAuthenticatedRoute';
+import PrivateRoute from '../utils/PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/wishlist',
-                element: <Wishlist />
+                element: <PrivateRoute element={<Wishlist />} roles={['user', 'moderator', 'admin']} />
             },
             {
                 path: '/categories',

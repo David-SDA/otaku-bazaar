@@ -1,9 +1,14 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import LoadingAnimation from '../components/ui/general/LoadingAnimation';
 
-export default function ProtectedRoute({element, roles}){
-    const { isAuthenticated, user } = useAuth();
+export default function PrivateRoute({element, roles}){
+    const { isAuthenticated, user, isLoading } = useAuth();
+
+    if(isLoading){
+        return <LoadingAnimation />
+    }
 
     if(!isAuthenticated){
         return <Navigate to="/login" replace />;
