@@ -1,4 +1,4 @@
-import { countUsers, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeReportedUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
+import { countUsers, getReportedAnnouncementsByUser, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeReportedUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -48,6 +48,18 @@ export async function getUserWishlist(req, res){
     }
 }
 
+export async function getReportedAnnouncements(req, res){
+    try{
+        const userId = req.user.sub;
+        const reportedAnnouncements = await getReportedAnnouncementsByUser(userId);
+        
+        res.status(200).json(reportedAnnouncements);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export async function addAnnouncementToWishlist(req, res){
     try{
         const userId = req.user.sub;
@@ -67,7 +79,7 @@ export async function addAnnouncementToWishlist(req, res){
 
 export async function addAnnouncementToReported(req, res){
     try{
-        const userId = req.params.id;
+        const userId = req.user.sub;
         const announcementId = req.params.announcementId;
         const reason = req.body.reason;
 

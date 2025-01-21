@@ -38,7 +38,12 @@ export async function findWishedAnnouncements(userId){
 }
 
 export async function findReportedAnnouncements(userId){
-    return await Users.findByPk(userId, { include: { model: Announcements, as: 'reportedAds' } });
+    return await Users.findByPk(userId, {
+        include: {
+            model: Announcements,
+            as: 'reportedAds',
+        }
+    });
 }
 
 export async function addUser(userData){

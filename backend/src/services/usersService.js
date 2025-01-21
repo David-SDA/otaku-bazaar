@@ -1,4 +1,4 @@
-import { addUser, countAllUsers, deleteReportedAnnouncement, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteReportedAnnouncement, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findReportedAnnouncements, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
 import { findById as findAnnouncementById } from '../repositories/announcementsRepository.js';
 import bcrypt from 'bcryptjs';
 
@@ -60,6 +60,20 @@ export async function getWishedAnnouncements(userId){
     }
     catch(error){
         throw new Error(`Error fetching user wished announcements : ${error.message}`);
+    }
+}
+
+export async function getReportedAnnouncementsByUser(userId){
+    try{
+        const existingUser = await findReportedAnnouncements(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        return existingUser.reportedAds;
+    }
+    catch(error){
+        throw new Error(`Error fetching user reported announcements : ${error.message}`);
     }
 }
 

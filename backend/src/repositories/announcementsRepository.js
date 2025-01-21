@@ -18,10 +18,12 @@ export async function findAll(where, include = [], order, limit, offset){
 
 export async function findById(announcementId){
     return await Announcements.findByPk(announcementId,{
-        include: [{
-            model: Users,
-            attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
-        }]
+        include: [
+            {
+                model: Users,
+                attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
+            },
+        ]
     });
 }
 

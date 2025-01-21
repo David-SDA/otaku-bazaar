@@ -11,6 +11,7 @@ import AnnouncementName from '../ui/announcement/AnnouncementName';
 import AnnouncementSmallDescription from '../ui/announcement/AnnouncementSmallDescription';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
 import { useAuth } from '../../context/AuthContext';
+import AnnouncementReportModal from '../ui/announcement/AnnouncementReportModal';
 
 export default function Announcement(){
     const { id } = useParams();
@@ -19,6 +20,8 @@ export default function Announcement(){
     const [currentIndex, setCurrentIndex] = useState(0); // Index du tableau d'images
     const [isLoading, setLoading] = useState(true);
     const [isInWishlist, setInWishlist] = useState(false);
+    const [isReportModalOpen, setReportModalOpen] = useState(false);
+    const [isReported, setReported] = useState(false);
     const contactRef = useRef();
     const fullDescriptionRef = useRef(null);
     const { isAuthenticated } = useAuth();
@@ -55,6 +58,15 @@ export default function Announcement(){
                     const wishlistData = await wishlistResponse.json();
                     const isInWishlist = wishlistData.some(wish => wish.id === parseInt(id));
                     setInWishlist(isInWishlist);
+
+                    const reportedResponse = await fetch(`http://localhost:8000/users/reportedAnnouncements`, {credentials: 'include'});
+                    if(!reportedResponse.ok){
+                        throw new Error('Failed to fetch reported announcements');
+                    }
+
+                    const reportedData = await reportedResponse.json();
+                    const isReported = reportedData.some(report => report.id === parseInt(id));
+                    setReported(isReported);
                 }
             }
             catch(error){
@@ -77,6 +89,10 @@ export default function Announcement(){
     function prevImage(){
         setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
+
+    function toggleReportModal(){
+        setReportModalOpen(!isReportModalOpen);
+    }
 
     return (
         <>
@@ -114,12 +130,24 @@ export default function Announcement(){
                                 <AnnouncementName announcementName={announcement.title} />
                                 <AnnouncementSellingInfo userId={announcement.userId} username={announcement.User.username} city={announcement.User?.city} createdAt={announcement.createdAt} />
                                 <AnnouncementPrice price={announcement.price} />
-                                <AnnouncementSmallDescription description={announcement.description} ref={fullDescriptionRef} />
+                                <AnnouncementSmallDescription description={announcement?.description} ref={fullDescriptionRef} />
                                 <AnnouncementButtons announcementId={announcement.id} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
                             </div>
                         </div>
-                        <AnnouncementFullDescription ref={fullDescriptionRef} />
+                        <AnnouncementFullDescription description={announcement?.description} ref={fullDescriptionRef} />
                         <AnnouncementSellerInfo contactEmail={announcement.User.contactEmail} phoneNumber={announcement.User?.phoneNumber} city={announcement.User?.city} ref={contactRef} />
+                        {
+                            isAuthenticated && !isReported && (
+                                <button onClick={toggleReportModal} className='bg-red-500 text-white py-2 px-4 rounded-xl font-bold hover:bg-red-600 mt-4'>
+                                    Report this announcement
+                                </button>
+                            )
+                        }
+                        {
+                            isReportModalOpen && (
+                                <AnnouncementReportModal announcementId={announcement.id} onClose={toggleReportModal} setReported={setReported} />
+                            )
+                        }
                     </>
                 )
             }

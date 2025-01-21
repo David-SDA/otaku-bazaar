@@ -5,9 +5,9 @@ import { timeAgo } from '../../../utils/dateUtils';
 export default function AnnouncementSellingInfo({userId, username, city, createdAt}){
     return (
         <div className='my-5'>
-            <Link to={'/'} className='italic'>
-                Sold by <Link to={`/profile/${userId}`} className='font-bold underline'>{username || 'Unknown'}</Link>
-            </Link>
+            <p className='italic'>
+                Sold by <Link to={`/profile/${userId}`} className='font-bold underline hover:text-primary'>{username || 'Unknown'}</Link>
+            </p>
             {
                 city && (
                     <p className='italic'>
