@@ -55,6 +55,16 @@ export async function updateCategory(req, res){
         const categoryId = req.params.id;
         const updatedData = req.body;
 
+        if(req.file){
+            updatedData.image = `/uploads/${req.file.filename}`;
+        }
+        else{
+            const category = await getCategoryById(categoryId);
+            if(category){
+                updatedData.image = category.image;
+            }
+        }
+
         const updatedCategory = await modifyCategory(categoryId, updatedData);
 
         res.status(200).json({

@@ -51,7 +51,7 @@ export async function modifyCategory(categoryId, updatedData){
         }
         else if(updatedData.name){
             const sameNameCategory = await findByName(updatedData.name);
-            if(sameNameCategory){
+            if(sameNameCategory.id !== existingCategory.id){
                 throw new Error(`Category with name '${updatedData.name}' already exists`);
             }
         }

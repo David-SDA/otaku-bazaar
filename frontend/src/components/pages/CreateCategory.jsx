@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import ErrorMessage from '../ui/general/ErrorMessage';
 import SuccessMessage from '../ui/general/SuccessMessage';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CreateCategory(){
     const { id } = useParams();
@@ -13,6 +13,7 @@ export default function CreateCategory(){
     const [successMessage, setSuccessMessage] = useState('');
     const { register, handleSubmit, setValue, clearErrors, formState: { errors }, reset } = useForm();
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(id){
@@ -27,6 +28,7 @@ export default function CreateCategory(){
 
                     const categoryData = await response.json();
                     setValue('name', categoryData.name);
+                    setValue('image', categoryData.image);
                     setImage(categoryData.image);
                 }
                 catch(error){
@@ -50,15 +52,13 @@ export default function CreateCategory(){
         formData.append('image', data.image);
 
         try{
-            const url = id ? `http://localhost:8000/categories/${id}` : 'http://localhost:8000/categories/new';
+            const url = id ? `http://localhost:8000/categories/${id}` : 'http://localhost:8000/categories';
             const method = id ? 'PUT' : 'POST';
             
             const response = await fetch(url, {
                 method:  method,
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'multipart/form-data' // refaire
-                }
+                body: formData
             });
 
             if(!response.ok){
@@ -69,7 +69,10 @@ export default function CreateCategory(){
 
             reset();
             setImage(null);
-            setSuccessMessage(id ? 'Category updated successfully' : 'Category created successfully');
+            if(id){
+                navigate('/categories');
+            }
+            setSuccessMessage('Category created successfully');
             if(fileInputRef.current){
                 fileInputRef.current.value = '';
             }
@@ -147,10 +150,9 @@ export default function CreateCategory(){
                             <div>
                                 <label htmlFor='image' className='font-bold mb-3'>Image</label>
                                 <div className='w-full'>
-                                    <input {...register('image', {
-                                        required: 'An image is required',
-                                        validate: validateImage
-                                    })} type='file' name='image' id='image' ref={fileInputRef} accept='image/*' onChange={onImageChange} className='w-min border bg-white rounded-lg shadow cursor-pointer file:border-none file:me-5 file:py-3 file:px-5 file:cursor-pointer file:bg-primary' />
+                                    <input {...register('image',
+                                        id ? { validate: validateImage } : { required: 'An image is required', validate: validateImage}
+                                    )} type='file' name='image' id='image' ref={fileInputRef} accept='image/*' onChange={onImageChange} className='w-min border bg-white rounded-lg shadow cursor-pointer file:border-none file:me-5 file:py-3 file:px-5 file:cursor-pointer file:bg-primary' />
                                 </div>
                                 {errors.image && <div className='italic text-red-700'>{errors.image.message}</div>}
                             </div>
