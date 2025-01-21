@@ -90,7 +90,7 @@ export default function Search(){
                         {
                             announcements.length > 0 ? (
                                 announcements.map((announcement) => (
-                                    <AnnouncementCard key={announcement.id} announcement={announcement} />
+                                    <AnnouncementCard key={announcement.id} announcement={announcement} user={announcement.User} />
                                 ))
                             ) : (
                                 <p>No announcements found</p>

@@ -41,7 +41,7 @@ export default function Wishlist(){
                             {
                                 announcements.length !== 0 ? (
                                     announcements.map((announcement) => (
-                                        <AnnouncementCard key={announcement.id} announcement={announcement} />
+                                        <AnnouncementCard key={announcement.id} announcement={announcement} user={announcement.User} />
                                     ))
                                 ) : (
                                     <p className='italic'>Your wishlist is empty...</p>

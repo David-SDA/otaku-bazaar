@@ -9,7 +9,11 @@ export async function countAllUsers(){
 }
 
 export async function findById(userId){
-    return await Users.findByPk(userId);
+    return await Users.findByPk(userId, {
+        include: {
+            model: Announcements,
+        }
+    });
 }
 
 export async function findByEmail(email){
@@ -31,7 +35,7 @@ export async function findWishedAnnouncements(userId){
             as: 'wished',
             include: {
                 model: Users,
-                attributes: ['username', 'city']
+                attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
             }
         }
     });

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { timeAgo } from '../../../utils/dateUtils';
 
-export default function AnnouncementCard({announcement}){
+export default function AnnouncementCard({announcement, user}){
     const timeAgoText = timeAgo(announcement.createdAt);
 
     return (
@@ -19,12 +19,12 @@ export default function AnnouncementCard({announcement}){
                 </div>
                 <div className='self-end text-[13px] mt-3'>
                     <p className='italic text-end'>
-                        Sold by <span className='font-bold underline'>{announcement.User?.username || 'Unknown'}</span>
+                        Sold by <span className='font-bold underline'>{user.username || 'Unknown'}</span>
                     </p>
                     {
-                        announcement.User?.city && (
+                        user?.city && (
                             <p className='italic text-end'>
-                                {announcement.User?.city}
+                                {user?.city}
                             </p>
                         )
                     }
