@@ -5,6 +5,7 @@ import SearchFilter from '../ui/search/SearchFilter';
 import SearchFiltersModal from '../ui/search/SearchFiltersModal';
 import AnnouncementCard from '../ui/announcement/AnnouncementCard';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { Link } from 'react-router-dom';
 
 export default function Search(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -62,6 +63,7 @@ export default function Search(){
 
     return (
         <>
+        <Link to={'/announcement/new'} className='block w-fit bg-primary font-bold ms-auto px-6 py-2 rounded-lg mt-2 hover:scale-105 transition-all duration-300'>Create an announcement</Link>
             <h1 className='text-xl lg:text-2xl font-bold'>
                 Research what you need
             </h1>

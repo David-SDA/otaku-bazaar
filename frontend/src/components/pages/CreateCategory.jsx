@@ -1,16 +1,44 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '../ui/general/ErrorMessage';
 import SuccessMessage from '../ui/general/SuccessMessage';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { useParams } from 'react-router-dom';
 
 export default function CreateCategory(){
+    const { id } = useParams();
     const [image, setImage] = useState(null);
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(id ? true : false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const { register, handleSubmit, setValue, clearErrors, formState: { errors }, reset } = useForm();
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if(id){
+            async function fetchCategory(){
+                try{
+                    const response = await fetch(`http://localhost:8000/categories/${id}`, {
+                        credentials: 'include'
+                    });
+                    if(!response.ok){
+                        throw new Error('Failed to fetch category');
+                    }
+
+                    const categoryData = await response.json();
+                    setValue('name', categoryData.name);
+                    setImage(categoryData.image);
+                }
+                catch(error){
+                    console.error(error.message);
+                }
+                finally{
+                    setLoading(false);
+                }
+            }
+            fetchCategory();
+        }
+    }, [id, setValue]);
 
     async function submitHandler(data){
         setLoading(true);
@@ -22,10 +50,15 @@ export default function CreateCategory(){
         formData.append('image', data.image);
 
         try{
-            const response = await fetch('http://localhost:8000/categories', {
-                method: 'POST',
+            const url = id ? `http://localhost:8000/categories/${id}` : 'http://localhost:8000/categories/new';
+            const method = id ? 'PUT' : 'POST';
+            
+            const response = await fetch(url, {
+                method:  method,
                 credentials: 'include',
-                body: formData
+                headers: {
+                    'Content-Type': 'multipart/form-data' // refaire
+                }
             });
 
             if(!response.ok){
@@ -36,7 +69,7 @@ export default function CreateCategory(){
 
             reset();
             setImage(null);
-            setSuccessMessage('Category created successfully');
+            setSuccessMessage(id ? 'Category updated successfully' : 'Category created successfully');
             if(fileInputRef.current){
                 fileInputRef.current.value = '';
             }
@@ -100,7 +133,9 @@ export default function CreateCategory(){
                     <LoadingAnimation />
                 ) : (
                     <>
-                        <h1 className='text-2xl font-bold mb-5'>Create a new category</h1>
+                        <h1 className='text-2xl font-bold mb-5'>
+                            {id ? 'Edit Category' : 'Create Category'}
+                        </h1>
                         <form onSubmit={handleSubmit(submitHandler)} className='space-y-4'>
                             <div>
                                 <label htmlFor='name' className='font-bold mb-3'>Name</label>
@@ -128,7 +163,9 @@ export default function CreateCategory(){
                                 )
                             }
                             <div>
-                                <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold hover:scale-105 transition-all duration-300'>Create Category</button>
+                                <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold hover:scale-105 transition-all duration-300'>
+                                    {id ? 'Edit Category' : 'Create Category'}
+                                </button>
                             </div>
                         </form>
                     </>

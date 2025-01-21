@@ -57,6 +57,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute element={<CreateCategory />} roles={['admin']} />
             },
             {
+                path: 'categories/:id/edit',
+                element: <PrivateRoute element={<CreateCategory />} roles={['admin']} />
+            },
+            {
                 path: '/announcements/:id',
                 element: <Announcement />
             },

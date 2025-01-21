@@ -1,4 +1,4 @@
-import { createCategory, getAllCategories, modifyCategory, removeCategory } from '../services/categoriesService.js';
+import { createCategory, getAllCategories, getCategoryById, modifyCategory, removeCategory } from '../services/categoriesService.js';
 import _ from 'lodash';
 
 export async function getCategories(req, res){
@@ -7,6 +7,18 @@ export async function getCategories(req, res){
         const categories = _.sortBy(rawCategories, 'id');
         
         res.status(200).json(categories);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function getCategory(req, res){
+    try{
+        const categoryId = req.params.id;
+        const categoryData = await getCategoryById(categoryId);
+        
+        res.status(200).json(categoryData);
     }
     catch(error){
         res.status(400).json({ error: error.message });

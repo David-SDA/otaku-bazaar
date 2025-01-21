@@ -14,6 +14,21 @@ export async function getAllCategories(){
     }
 }
 
+export async function getCategoryById(categoryId){
+    try{
+        const category = await findById(categoryId);
+        if(!category){
+            throw new Error('This category does not exist');
+        }
+        category.image = `http://localhost:8000${category.image}`;
+
+        return category;
+    }
+    catch(error){
+        throw new Error(`Error fetching category : ${error.message}`);
+    }
+}
+
 export async function createCategory(categoryData){
     try{
         const sameNameCategory = await findByName(categoryData.name);

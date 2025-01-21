@@ -5,6 +5,7 @@ import MyProfilePasswordSection from '../ui/myProfile/MyProfilePasswordSection';
 import MyProfileModal from '../ui/myProfile/MyProfileModal';
 import MyProfileModalContent from '../ui/myProfile/MyProfileModalContent';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { Link } from 'react-router-dom';
 
 export default function MyProfile(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -57,6 +58,7 @@ export default function MyProfile(){
                 <h1 className='text-center text-xl sm:text-2xl font-bold mb-6'>
                     My Profile
                 </h1>
+                <Link to={`/profile/${myProfileData.id}`} className='block w-fit bg-primary font-bold ms-auto px-6 py-2 rounded-lg mb-2 hover:scale-105 transition-all duration-300'>Go to my public page</Link>
                 <div className='flex justify-center'>
                     <div className='w-full md:w-2/3 lg:w-1/2'>
                         <MyProfileAvatarSection onEditAvatar={() => openModal('Change Avatar', 'avatar', '')} avatar={myProfileData?.avatar} />
