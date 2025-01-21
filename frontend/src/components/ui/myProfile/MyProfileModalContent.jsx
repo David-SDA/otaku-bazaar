@@ -9,33 +9,13 @@ export default function MyProfileModalContent({ fieldKey, currentValue, onSave }
 
     function renderContent(){
         switch (fieldKey) {
-            case 'username':
-                return (
-                    <input type='text' value={value} onChange={(e) => setValue(e.target.value)} className='w-full p-3 rounded-lg shadow' placeholder='Enter new username' />
-                )
-            case 'email':
-                return (
-                    <input type='email' value={value} onChange={(e) => setValue(e.target.value)} className='w-full p-3 rounded-lg shadow' placeholder='Enter new email' />
-                )
-            case 'contactEmail':
-                return (
-                    <input type='email' value={value} onChange={(e) => setValue(e.target.value)} className='w-full p-3 rounded-lg shadow' placeholder='Enter new email' />
-                )
-            case 'phoneNumber':
-                return (
-                    <input type='text' value={value} onChange={(e) => setValue(e.target.value)} className='w-full p-3 rounded-lg shadow' placeholder='Enter new phone number' />
-                )
-            case 'city':
-                return (
-                    <input type='text' value={value} onChange={(e) => setValue(e.target.value)} className='w-full p-3 rounded-lg shadow' placeholder='Enter new city' />
-                )
             case 'password':
                 return (
-                    <>
+                    <div className='flex flex-col gap-3'>
                         <input type='password' placeholder='Current Password' className='w-full p-3 rounded-lg shadow' />
                         <input type='password' placeholder='New Password' className='w-full p-3 rounded-lg shadow' />
                         <input type='password' placeholder='Confirm Password' className='w-full p-3 rounded-lg shadow' />
-                    </>
+                    </div>
                 )
             case 'avatar':
                 return (

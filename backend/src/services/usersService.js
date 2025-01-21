@@ -26,6 +26,9 @@ export async function getUserById(userId){
         if(!existingUser){
             throw new Error('User not found');
         }
+        else{
+            existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
+        }
 
         return existingUser;
     }
@@ -40,8 +43,10 @@ export async function getUserByEmail(email){
         if(!existingUser){
             throw new Error('User not found');
         }
+        
+        existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
 
-        return findByEmail(email);
+        return existingUser;
     }
     catch(error){
         throw new Error(`Error fetching user : ${error.message}`);
