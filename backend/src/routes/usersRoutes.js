@@ -1,12 +1,13 @@
 import express from 'express';
-import { addAnnouncementToReported, addAnnouncementToWishlist, addUserToReported, deleteAnnouncementFromReported, deleteAnnouncementFromWishlist, deleteReportedUser, deleteUser, getAllUsers, getReportedAnnouncements, getUser, getUserWishlist, updateUser } from '../controllers/usersController.js';
+import { addAnnouncementToReported, addAnnouncementToWishlist, addUserToReported, deleteAnnouncementFromReported, deleteAnnouncementFromWishlist, deleteReportedUser, deleteUser, getAllUsers, getReportedAnnouncements, getReportedUsers, getUser, getUserWishlist, updateUser } from '../controllers/usersController.js';
 import { auth } from '../middlewares/auth.js';
 import { isAdmin, isModeratorOrAdmin } from '../middlewares/roles.js';
 import { canModifyUser } from '../middlewares/modifyUser.js';
 
 const router = express.Router();
 
-router.get('/', auth, isAdmin, getAllUsers)
+router.get('/', auth, isAdmin, getAllUsers);
+router.get('/reported', auth, isAdmin, getReportedUsers);
 router.get('/wishes', auth, getUserWishlist);
 router.get('/reportedAnnouncements', auth, getReportedAnnouncements);
 router.get('/:id', getUser);

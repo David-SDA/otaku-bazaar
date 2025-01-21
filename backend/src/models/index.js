@@ -64,7 +64,6 @@ Users.belongsToMany(Users, {
     foreignKey: 'reportedId',
     otherKey: 'reporterId'
 });
-
 Users.belongsToMany(Users, {
     through: reportedUsers,
     as: 'reporter',

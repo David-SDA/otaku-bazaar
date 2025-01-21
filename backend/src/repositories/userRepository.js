@@ -1,11 +1,30 @@
+import { Op } from 'sequelize';
 import { Announcements, Users } from '../models/index.js';
 
 export async function findAllUsers(offset, limit){
-    return await Users.findAll({ offset, limit });
+    return await Users.findAll({ offset, limit, order: [['createdAt', 'DESC']] });
 }
 
 export async function countAllUsers(){
     return await Users.count();
+}
+
+export async function findReportedUsers(){
+    return await Users.findAll({
+        include: [
+            {
+                model: Users,
+                as: 'reported',
+                attributes: ['id', 'username'],
+                through: {
+                    attributes: ['reason', 'createdAt']
+                }
+            },
+        ],
+        where: {
+            '$reported.id$': { [Op.ne]: null }
+        }
+    })
 }
 
 export async function findById(userId){

@@ -1,4 +1,4 @@
-import { addUser, countAllUsers, deleteReportedAnnouncement, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findReportedAnnouncements, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
+import { addUser, countAllUsers, deleteReportedAnnouncement, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findReportedAnnouncements, findReportedUsers, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
 import { findById as findAnnouncementById } from '../repositories/announcementsRepository.js';
 import bcrypt from 'bcryptjs';
 
@@ -17,6 +17,15 @@ export async function countUsers(){
     }    
     catch(error){
         throw new Error(`Error counting users : ${error.message}`);
+    }
+}
+
+export async function getAllReportedUsers(){
+    try{
+        return await findReportedUsers();
+    }
+    catch(error){
+        throw new Error(`Error fetching reported users : ${error.message}`);
     }
 }
 

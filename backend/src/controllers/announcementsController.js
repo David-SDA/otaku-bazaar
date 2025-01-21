@@ -1,4 +1,4 @@
-import { createAnnouncement, getAnnouncementById, getAnnouncementImages, getAnnouncements, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
+import { createAnnouncement, getAllReportedAnnouncements, getAnnouncementById, getAnnouncementImages, getAnnouncements, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
 
 export async function getAllAnnouncements(req, res){
     try{
@@ -18,6 +18,17 @@ export async function getAnnouncement(req, res){
         const announcementData = await getAnnouncementById(announcementId);
 
         res.status(200).json(announcementData);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function getReportedAnnouncement(req, res){
+    try{
+        const reportedAnnouncement = await getAllReportedAnnouncements();
+
+        res.status(200).json(reportedAnnouncement);
     }
     catch(error){
         res.status(400).json({ error: error.message });

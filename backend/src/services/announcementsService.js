@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAll, findAnnouncementWithImages, findById } from '../repositories/announcementsRepository.js';
+import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAll, findAnnouncementWithImages, findById, findReportedAnnoucements } from '../repositories/announcementsRepository.js';
 import { Op } from 'sequelize';
 import { Users } from '../models/Users.js';
 
@@ -68,6 +68,15 @@ export async function getAnnouncementById(announcementId){
     }
     catch(error){
         throw new Error(`Error fetching announcement : ${error.message}`);
+    }
+}
+
+export async function getAllReportedAnnouncements(){
+    try{
+        return await findReportedAnnoucements();
+    }
+    catch(error){
+        throw new Error(`Error fetching reported announcements : ${error.message}`);
     }
 }
 

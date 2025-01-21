@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { Announcements, Images, Users } from '../models/index.js';
 
 export async function findAll(where, include = [], order, limit, offset){
@@ -21,7 +22,7 @@ export async function findById(announcementId){
         include: [
             {
                 model: Users,
-                attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
+                attributes: ['username']
             },
         ]
     });
@@ -29,6 +30,22 @@ export async function findById(announcementId){
 
 export async function findAnnouncementWithImages(announcementId){
     return await Announcements.findByPk(announcementId, { include: [{ model: Images }] });
+}
+
+export async function findReportedAnnoucements(){
+    return await Announcements.findAll({
+        include: [
+            {
+                model: Users,
+                as: 'reportedBy',
+                attributes: ['id', 'username'],
+                through: { attributes: ['reason', 'createdAt'] }
+            }
+        ],
+        where: {
+            '$reportedBy.id$': { [Op.ne]: null }
+        }
+    });
 }
 
 export async function addAnnouncement(announcementData){
