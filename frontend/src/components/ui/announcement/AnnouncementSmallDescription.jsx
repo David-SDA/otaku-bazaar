@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-function AnnouncementSmallDescription({description ,fullDescriptionRef}, ref){
+function AnnouncementSmallDescription({description}, ref){
     const descriptionRef = useRef();
     const [isTruncated, setIsTruncated] = useState(false);
 
@@ -18,7 +18,7 @@ function AnnouncementSmallDescription({description ,fullDescriptionRef}, ref){
             </p>
             {isTruncated && (
                 <button
-                    onClick={() => fullDescriptionRef.current.scrollIntoView({ behavior: 'smooth' })} 
+                    onClick={() => ref.current.scrollIntoView({ behavior: 'smooth' })} 
                     className='text-primary font-bold mb-5 hover:underline'
                 >
                     See more

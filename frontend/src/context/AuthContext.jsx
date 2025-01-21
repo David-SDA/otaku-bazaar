@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const AuthContext = createContext();
 
-export function AuthProvider({children}) {
+export function AuthProvider({children}){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoading, setLoading] = useState(true);
@@ -42,6 +42,6 @@ export function AuthProvider({children}) {
     );
 }
 
-export function useAuth() {
+export function useAuth(){
     return useContext(AuthContext);
 }

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-function AnnouncementSellerInfo({contactEmail, phoneNumber, city}, _props, ref){
+function AnnouncementSellerInfo({contactEmail, phoneNumber, city}, ref){
     return (
         <div className='my-5' ref={ref}>
             <h2 className='text-xl font-bold'>

@@ -10,12 +10,12 @@ const router = express.Router();
 router.get('/', auth, isAdmin, getAllUsers)
 router.get('/wishes', auth, getUserWishlist);
 router.get('/:id', getUser);
-router.post('/:id/wishes', auth, isSameUser, addAnnouncementToWishlist);
+router.post('/wishes/:announcementId', auth, addAnnouncementToWishlist);
 router.post('/:id/reportedAnnouncements/:announcementId', auth, addAnnouncementToReported);
 router.post('/:id/reportedUsers/:reportedId', auth, addUserToReported);
 router.put('/:id', auth, canModifyUser, updateUser);
+router.delete('/wishes/:announcementId', auth, deleteAnnouncementFromWishlist);
 router.delete('/:id', deleteUser);
-router.delete('/:id/wishes/:announcementId', auth, isSameUser, deleteAnnouncementFromWishlist);
 router.delete('/:id/reportedAnnouncements/:announcementId', auth, isModeratorOrAdmin, deleteAnnouncementFromReported)
 router.delete('/:id/reportedUsers/:reportedId', auth, isAdmin, deleteReportedUser)
 

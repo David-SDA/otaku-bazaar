@@ -50,8 +50,8 @@ export async function getUserWishlist(req, res){
 
 export async function addAnnouncementToWishlist(req, res){
     try{
-        const userId = req.params.id;
-        const announcementId = req.body.announcementId;
+        const userId = req.user.sub;
+        const announcementId = req.params.announcementId;
         
         await saveAnnouncementToWishList(userId, announcementId);
         
@@ -131,7 +131,7 @@ export async function deleteUser(req, res){
 
 export async function deleteAnnouncementFromWishlist(req, res){
     try{
-        const userId = req.params.id;
+        const userId = req.user.sub;
         const announcementId = req.params.announcementId;
 
         await removeWishedAnnouncement(userId, announcementId);

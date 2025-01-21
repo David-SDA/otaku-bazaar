@@ -10,6 +10,7 @@ import AnnouncementPrice from '../ui/announcement/AnnouncementPrice';
 import AnnouncementName from '../ui/announcement/AnnouncementName';
 import AnnouncementSmallDescription from '../ui/announcement/AnnouncementSmallDescription';
 import LoadingAnimation from '../ui/general/LoadingAnimation';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Announcement(){
     const { id } = useParams();
@@ -17,8 +18,10 @@ export default function Announcement(){
     const [images, setImages] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0); // Index du tableau d'images
     const [isLoading, setLoading] = useState(true);
+    const [isInWishlist, setInWishlist] = useState(false);
     const contactRef = useRef();
     const fullDescriptionRef = useRef(null);
+    const { isAuthenticated } = useAuth();
     
     if(isNaN(id) || id <= 0){
         throw new Error();
@@ -42,7 +45,17 @@ export default function Announcement(){
 
                 const imageData = await imagesResponse.json();
                 setImages(imageData);
-                setLoading(false);
+
+                if(isAuthenticated){
+                    const wishlistResponse = await fetch(`http://localhost:8000/users/wishes`, {credentials: 'include'});
+                    if(!wishlistResponse.ok){
+                        throw new Error('Failed to fetch wishlist');
+                    }
+    
+                    const wishlistData = await wishlistResponse.json();
+                    const isInWishlist = wishlistData.some(wish => wish.id === parseInt(id));
+                    setInWishlist(isInWishlist);
+                }
             }
             catch(error){
                 console.error('Error fetching announcement:', error);
@@ -53,7 +66,7 @@ export default function Announcement(){
         }
 
         fetchAnnouncementAndImages();
-    }, [id]);
+    }, [id, isAuthenticated]);
 
     // Fonction pour aller à l'image suivante
     function nextImage(){
@@ -101,8 +114,8 @@ export default function Announcement(){
                                 <AnnouncementName announcementName={announcement.title} />
                                 <AnnouncementSellingInfo userId={announcement.userId} username={announcement.User.username} city={announcement.User?.city} createdAt={announcement.createdAt} />
                                 <AnnouncementPrice price={announcement.price} />
-                                <AnnouncementSmallDescription description={announcement.description} fullDescriptionRef={fullDescriptionRef} />
-                                <AnnouncementButtons announcementId={announcement.id} ref={contactRef} />
+                                <AnnouncementSmallDescription description={announcement.description} ref={fullDescriptionRef} />
+                                <AnnouncementButtons announcementId={announcement.id} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
                             </div>
                         </div>
                         <AnnouncementFullDescription ref={fullDescriptionRef} />
