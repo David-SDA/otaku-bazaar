@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import { createUser, getUserByEmail } from '../services/usersService.js';
+import { createUser, getUserByEmail, requestPasswordReset } from '../services/usersService.js';
 
 dotenv.config();
 
@@ -160,5 +160,21 @@ export async function me(req, res){
     }
     catch(error){
         res.status(400).json({ error: error.message });
+    }
+}
+
+export async function sendPasswordReset(req, res){
+    try{
+        const { email } = req.body;
+
+        await requestPasswordReset(email);
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Password reset token sent with success',
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message })
     }
 }

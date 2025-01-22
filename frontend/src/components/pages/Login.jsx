@@ -80,6 +80,7 @@ export default function Login(){
                             <div className='flex justify-center'>
                                 <button type='submit' className='bg-primary py-3 px-6 rounded-lg font-bold hover:scale-105 transition-all duration-300'>Login</button> 
                             </div>
+                            <p className='italic mt-8'>Forgot your password ? <Link to={'/forgot-password'} className='underline text-primary'>Click here</Link></p>
                         </form>
                         <p className='italic'>
                             No account ? <Link to={'/register'} className='underline text-primary'>Register here</Link>

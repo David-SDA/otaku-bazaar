@@ -9,6 +9,11 @@ export async function findAll(where, include = [], order, limit, offset){
             {
                 model: Users,
                 attributes: ['id', 'username', 'city']
+            },
+            {
+                model: Images,
+                attributes: ['id', 'path'],
+                order: [['id', 'ASC']]
             }
         ],
         order,
@@ -22,7 +27,7 @@ export async function findById(announcementId){
         include: [
             {
                 model: Users,
-                attributes: ['username']
+                attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
             },
         ]
     });

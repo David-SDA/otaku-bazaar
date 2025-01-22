@@ -21,6 +21,7 @@ import AdminPanel from '../components/pages/AdminPanel';
 import CreateCategory from '../components/pages/CreateCategory';
 import NotAuthenticatedRoute from '../utils/NotAuthenticatedRoute';
 import PrivateRoute from '../utils/PrivateRoute';
+import ForgotPassword from '../components/pages/ForgotPassword';
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <NotAuthenticatedRoute element={<Register />} />
+            },
+            {
+                path: '/forgot-password',
+                element: <NotAuthenticatedRoute element={<ForgotPassword />} />
             },
             {
                 path: '/wishlist',

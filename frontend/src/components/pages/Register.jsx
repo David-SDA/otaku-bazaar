@@ -69,7 +69,7 @@ export default function Register(){
                                 <input {...register('email', {
                                     required: 'An email is required',
                                     pattern: {
-                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
                                         message: 'Email format is not right'
                                     }
                                 })} type='email' id='email' autoComplete='email' className='w-full p-3 rounded-lg shadow' />
@@ -87,7 +87,7 @@ export default function Register(){
                                 <input {...register('contactEmail', {
                                     required: 'An email is required',
                                     pattern: {
-                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
                                         message: 'Email format is not right'
                                     }
                                 })} type='email' id='contactEmail' autoComplete='contactEmail' className='w-full p-3 rounded-lg shadow' />

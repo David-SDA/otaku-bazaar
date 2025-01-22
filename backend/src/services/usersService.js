@@ -1,6 +1,11 @@
 import { addUser, countAllUsers, deleteReportedAnnouncement, deleteUser, deleteWishedAnnouncement, findAllUsers, findByContactEmail, findByEmail, findById, findByUsername, findReportedAnnouncements, findReportedUsers, findWishedAnnouncements, updateUser } from '../repositories/userRepository.js';
 import { findById as findAnnouncementById } from '../repositories/announcementsRepository.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { sendPasswordResetEmail } from '../mailers/emailService.js';
+
+dotenv.config();
 
 export async function getUsers(offset, limit){
     try{
@@ -319,5 +324,22 @@ export async function removeReportedUser(userId, reportedUserId){
     }
     catch(error){
         throw new Error(`Error removing user from reported : ${error.message}`);
+    }
+}
+
+export async function requestPasswordReset(email){
+    try{
+        const user = await getUserByEmail(email);
+        if(!user){
+            throw new Error('User not found');
+        }
+    
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+
+        await sendPasswordResetEmail(email, resetLink);
+    }
+    catch(error){
+        throw new Error(`Error requesting password reset : ${error.message}`);
     }
 }
