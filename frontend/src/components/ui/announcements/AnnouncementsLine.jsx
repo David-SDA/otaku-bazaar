@@ -16,7 +16,7 @@ export default function AnnouncementsLine({categoryId}){
                     throw new Error('Failed to fetch announcements');
                 }
                 const data = await response.json();
-                setAnnouncements(data.rows);
+                setAnnouncements(data);
             }
             catch (error){
                 console.error('Error fetching announcements:', error);

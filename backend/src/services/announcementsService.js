@@ -50,7 +50,20 @@ export async function getAnnouncements(filters){
             order.push(['title', sortAlphabetical]);
         }
 
-        return await findAll(where, include, order, announcementsPerPage, offset);
+        const announcementsData = await findAll(where, include, order, announcementsPerPage, offset);
+        const announcements = announcementsData.rows;
+
+        announcements.forEach((announcement) => {
+            if(announcement.Images){
+                announcement.Images.forEach((image) => {
+                    if(image.path){
+                        image.path = `http://localhost:8000${image.path}`;
+                    }
+                });
+            }
+        });
+
+        return announcements;
     }
     catch(error){
         throw new Error(`Error fetching announcements : ${error.message}`);

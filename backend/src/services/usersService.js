@@ -40,9 +40,14 @@ export async function getUserById(userId){
         if(!existingUser){
             throw new Error('User not found');
         }
-        else{
-            existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
-        }
+        
+        existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
+
+        existingUser.Announcements.forEach(announcement => {
+            announcement.Images.forEach(image => {
+                image.path = `http://localhost:8000${image.path}`;
+            });
+        });
 
         return existingUser;
     }
@@ -67,13 +72,20 @@ export async function getUserByEmail(email){
     }
 }
 
-// modifier
 export async function getWishedAnnouncements(userId){
     try{
         const existingUser = await findWishedAnnouncements(userId);
         if(!existingUser){
             throw new Error('User not found');
         }
+
+        existingUser.wished.forEach(announcement => {
+            if(announcement.Images && announcement.Images.length > 0){
+                announcement.Images.forEach(image => {
+                    image.path = `http://localhost:8000${image.path}`;
+                });
+            }
+        });
 
         return existingUser.wished;
     }

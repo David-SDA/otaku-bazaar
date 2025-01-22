@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { Announcements, Users } from '../models/index.js';
+import { Announcements, Images, Users } from '../models/index.js';
 
 export async function findAllUsers(offset, limit){
     return await Users.findAll({ offset, limit, order: [['createdAt', 'DESC']] });
@@ -31,6 +31,12 @@ export async function findById(userId){
     return await Users.findByPk(userId, {
         include: {
             model: Announcements,
+            include: [
+                {
+                    model: Images,
+                    attributes: ['id', 'path']
+                }
+            ]
         }
     });
 }
@@ -52,10 +58,16 @@ export async function findWishedAnnouncements(userId){
         include: {
             model: Announcements,
             as: 'wished',
-            include: {
-                model: Users,
-                attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
-            }
+            include: [
+                {
+                    model: Users,
+                    attributes: ['username', 'city', 'phoneNumber', 'contactEmail']
+                },
+                {
+                    model: Images,
+                    attributes: ['id', 'path'],
+                }
+            ]
         }
     });
 }
