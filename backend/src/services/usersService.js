@@ -343,3 +343,21 @@ export async function requestPasswordReset(email){
         throw new Error(`Error requesting password reset : ${error.message}`);
     }
 }
+
+export async function updatePassword(token, password){
+    try{
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await getUserByEmail(decodedToken.email);
+        if(!user){
+            throw new Error('User not found');
+        }
+
+        const hash = await bcrypt.hash(password, 10);
+        user.password = hash;
+
+        await updateUser(user.id, user);
+    }
+    catch(error){
+        throw new Error(`Error updating password : ${error.message}`);
+    }
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProfile, login, logout, me, refreshToken, register, sendPasswordReset } from '../controllers/authController.js';
+import { getProfile, login, logout, me, refreshToken, register, resetPassword, sendPasswordReset } from '../controllers/authController.js';
 import { auth, isNotAuthenticated } from '../middlewares/auth.js';
 import { verifyRefreshToken } from '../middlewares/refreshToken.js';
 
@@ -12,5 +12,6 @@ router.get('/profile', auth, getProfile);
 router.get('/me', auth, me);
 router.post('/refresh', verifyRefreshToken, refreshToken);
 router.post('/request-reset-password', isNotAuthenticated, sendPasswordReset);
+router.post('/reset-password', isNotAuthenticated, resetPassword);
 
 export default router;

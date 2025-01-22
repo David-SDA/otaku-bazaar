@@ -22,6 +22,7 @@ import CreateCategory from '../components/pages/CreateCategory';
 import NotAuthenticatedRoute from '../utils/NotAuthenticatedRoute';
 import PrivateRoute from '../utils/PrivateRoute';
 import ForgotPassword from '../components/pages/ForgotPassword';
+import PasswordReset from '../components/pages/PasswordReset';
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: '/forgot-password',
                 element: <NotAuthenticatedRoute element={<ForgotPassword />} />
+            },
+            {
+                path: '/reset-password',
+                element: <NotAuthenticatedRoute element={<PasswordReset />} />
             },
             {
                 path: '/wishlist',
