@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { faUser, faClipboardList, faMagnifyingGlass, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/logo/logo.jpg';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Header(){
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated, user, logout } = useAuth();
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
     const [categories, setCategories] = useState([]);
     const [isUserModalOpen, setUserModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     function handleToggleBurgerMenu(){
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
@@ -32,6 +33,23 @@ export default function Header(){
         }
         catch(error){
             console.error('Error fetching categories:', error);
+        }
+    }
+
+    async function handleLogout(){
+        try{
+            const response = await fetch('http://localhost:8000/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            if(!response.ok){
+                throw new Error('Error logging out');
+            }
+            await logout();
+            navigate('/login');
+        }
+        catch(error){
+            console.error('Error logging out:', error);
         }
     }
 
@@ -130,7 +148,7 @@ export default function Header(){
                                                     <>
                                                         <NavLink to={`/profile/${user.sub}`} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>My Profile</NavLink>
                                                         <NavLink to={'/profile'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Settings</NavLink>
-                                                        <button onClick={() => closeUserModal()} className='block py-2 px-3 w-full text-left hover:bg-gray-200 rounded'>Logout</button>
+                                                        <button onClick={() => {closeUserModal(); handleLogout();}} className='block py-2 px-3 w-full text-left hover:bg-gray-200 rounded'>Logout</button>
                                                     </>
                                                 ) : (
                                                     <>
@@ -176,7 +194,7 @@ export default function Header(){
                                         <>
                                             <NavLink to={`/profile/${user.sub}`} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>My Profile</NavLink>
                                             <NavLink to={'/profile'} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Settings</NavLink>
-                                            <button onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Logout</button>
+                                            <button onClick={() => {handleToggleBurgerMenu(); handleLogout();}} className='w-full py-3 text-center'>Logout</button>
                                         </>
                                     ) : (
                                         <>

@@ -31,12 +31,34 @@ export function AuthProvider({children}){
         }
     }, []);
 
+    const logout = useCallback(async () => {
+        setLoading(true);
+        try{
+            const response = await fetch('http://localhost:8000/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            if(!response.ok){
+                throw new Error('Error logging out');
+            }
+
+            setIsAuthenticated(false);
+            setUser(null);
+        }
+        catch(error){
+            console.error('Error logging out:', error);
+        }
+        finally{
+            setLoading(false);
+        }
+    }, []);
+
     useEffect(() => {
         checkAuthentication();
     }, [checkAuthentication]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, isLoading, checkAuthentication }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, isLoading, checkAuthentication, logout }}>
             {children}
         </AuthContext.Provider>
     );
