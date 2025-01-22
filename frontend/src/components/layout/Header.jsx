@@ -6,10 +6,11 @@ import logo from '../../assets/logo/logo.jpg';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Header(){
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
     const [categories, setCategories] = useState([]);
+    const [isUserModalOpen, setUserModalOpen] = useState(false);
 
     function handleToggleBurgerMenu(){
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
@@ -17,6 +18,7 @@ export default function Header(){
 
     function handleResize(){
         setIsMobile(window.innerWidth < 1024);
+        setUserModalOpen(false);
     }
 
     async function fetchCategories(){
@@ -42,6 +44,37 @@ export default function Header(){
         fetchCategories();
     }, []);
 
+    useEffect(() => {
+        if(isBurgerMenuOpen && isMobile){
+            document.body.style.overflow = 'hidden';
+        }
+        else{
+            document.body.style.overflow = '';
+        }
+
+        return () => document.body.style.overflow = '';
+    }, [isBurgerMenuOpen, isMobile]);
+
+    useEffect(() => {
+        function handleClickOutside(event){
+            if(isUserModalOpen && !event.target.closest('.user-modal')){
+                setUserModalOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+    
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isUserModalOpen]);    
+
+    function handleUserClick(){
+        setUserModalOpen(!isUserModalOpen);
+    }
+
+    function closeUserModal(){
+        setUserModalOpen(false);
+    }
+
     return (
         <header className='h-24 py-2 shadow-md font-bold flex items-center relative'>
             <nav className='container mx-auto px-4 flex justify-between items-center'>
@@ -55,15 +88,15 @@ export default function Header(){
                                 categories.slice(0, 4).map((category) => (
                                     <NavLink to={`/search`} className='hidden lg:inline mx-4 py-1 group relative' key={category.id}>
                                         {category.name}
-                                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
+                                        <span className='absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
+                                        <span className='absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
                                     </NavLink>
                                 ))
                             }
                             <NavLink to={`/categories`} className='hidden lg:inline mx-4 py-1 group relative'>
                                 More
-                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
+                                <span className='absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
+                                <span className='absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
                             </NavLink>
                         </>
                     )}
@@ -73,23 +106,43 @@ export default function Header(){
                         <div className='hidden lg:block space-x-6'>
                             <NavLink to={`/search`} className='group relative py-1'>
                                 <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
+                                <span className='absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
+                                <span className='absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
                             </NavLink>
                             {
                                 isAuthenticated && (
                                     <NavLink to={`/wishlist`} className='group relative py-1'>
                                         <FontAwesomeIcon icon={faClipboardList} size='lg'/>
-                                        <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                                        <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
+                                        <span className='absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
+                                        <span className='absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2'></span>
                                     </NavLink>
                                 )
                             }
-                            <NavLink to={`/${isAuthenticated ? 'profile' : 'login'}`} className='group relative py-1'>
-                                <FontAwesomeIcon icon={faUser} size='lg' />
-                                <span className="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                                <span className="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-primary group-hover:w-1/2"></span>
-                            </NavLink>
+                            <div className='relative inline-block'>
+                                <div onClick={handleUserClick} className='cursor-pointer'>
+                                    <FontAwesomeIcon icon={faUser} size='lg' />
+                                </div>
+                                {
+                                    isUserModalOpen && (
+                                        <div className='absolute right-0 mt-2 bg-white shadow-md rounded-lg p-4 z-50 w-48 user-modal'>
+                                            {
+                                                isAuthenticated ? (
+                                                    <>
+                                                        <NavLink to={`/profile/${user.sub}`} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>My Profile</NavLink>
+                                                        <NavLink to={'/profile'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Settings</NavLink>
+                                                        <button onClick={() => closeUserModal()} className='block py-2 px-3 w-full text-left hover:bg-gray-200 rounded'>Logout</button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <NavLink to={'/login'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Login</NavLink>
+                                                        <NavLink to={'/register'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Register</NavLink>
+                                                    </>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                     </>
                 )}
@@ -112,22 +165,26 @@ export default function Header(){
                             <NavLink to={`/categories`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>More</NavLink>
                             <div className='h-px w-11/12 bg-[#F4F6EE] mx-auto my-3'></div>
                             <div className='flex flex-col items-center'>
-                                <NavLink to={`/search`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' className='me-3' />
-                                    Search
-                                </NavLink>
+                                <NavLink to={`/search`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>Search</NavLink>
                                 {
                                     isAuthenticated && (
-                                        <NavLink to={`/wishlist`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>
-                                            <FontAwesomeIcon icon={faClipboardList} size='lg' className='me-3' />
-                                            Wishlist
-                                        </NavLink>
+                                        <NavLink to={`/wishlist`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>Wishlist</NavLink>
                                     )
                                 }
-                                <NavLink to={`/${isAuthenticated ? 'profile' : 'login'}`} className='w-full py-3 text-center' onClick={handleToggleBurgerMenu}>
-                                    <FontAwesomeIcon icon={faUser} size='lg' className='me-3' />
-                                    {isAuthenticated ? 'Profile' : 'Login'}
-                                </NavLink>
+                                {
+                                    isAuthenticated ? (
+                                        <>
+                                            <NavLink to={`/profile/${user.sub}`} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>My Profile</NavLink>
+                                            <NavLink to={'/profile'} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Settings</NavLink>
+                                            <button onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Logout</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <NavLink to={'/login'} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Login</NavLink>
+                                            <NavLink to={'/register'} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Register</NavLink>
+                                        </>
+                                    )
+                                }
                             </div>
                         </div>
                     </>
