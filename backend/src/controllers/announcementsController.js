@@ -51,9 +51,12 @@ export async function addAnnouncement(req, res){
     try{
         const { title, price, description, categoryId } = req.body;
         const userId = req.user.sub;
+
+        const imagesPaths = req.files.map(file => file.path);
+
         const announcementData = { title, price, description, userId, categoryId };
 
-        const newAnnouncement = await createAnnouncement(announcementData);
+        const newAnnouncement = await createAnnouncement(announcementData, imagesPaths);
 
         res.status(201).json({
             status: 'success',

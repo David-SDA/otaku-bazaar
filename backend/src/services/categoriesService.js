@@ -4,7 +4,7 @@ export async function getAllCategories(){
     try{
         const categories = await findAll();
         categories.forEach(category => {
-            category.image = `http://localhost:8000${category.image}`;
+            category.image = `${process.env.BACKEND_URL}/${category.image}`;
         })
         
         return categories;
@@ -20,7 +20,7 @@ export async function getCategoryById(categoryId){
         if(!category){
             throw new Error('This category does not exist');
         }
-        category.image = `http://localhost:8000${category.image}`;
+        category.image = `${process.env.BACKEND_URL}/${category.image}`;
 
         return category;
     }

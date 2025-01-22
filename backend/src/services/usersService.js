@@ -41,11 +41,11 @@ export async function getUserById(userId){
             throw new Error('User not found');
         }
         
-        existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
+        existingUser.avatar = `${process.env.BACKEND_URL}/${existingUser.avatar}`;
 
         existingUser.Announcements.forEach(announcement => {
             announcement.Images.forEach(image => {
-                image.path = `http://localhost:8000${image.path}`;
+                image.path = `${process.env.BACKEND_URL}/${image.path}`;
             });
         });
 
@@ -63,7 +63,7 @@ export async function getUserByEmail(email){
             throw new Error('User not found');
         }
         
-        existingUser.avatar = `http://localhost:8000${existingUser.avatar}`;
+        existingUser.avatar = `${process.env.BACKEND_URL}/${existingUser.avatar}`;
 
         return existingUser;
     }
@@ -82,7 +82,7 @@ export async function getWishedAnnouncements(userId){
         existingUser.wished.forEach(announcement => {
             if(announcement.Images && announcement.Images.length > 0){
                 announcement.Images.forEach(image => {
-                    image.path = `http://localhost:8000${image.path}`;
+                    image.path = `${process.env.BACKEND_URL}/${image.path}`;
                 });
             }
         });

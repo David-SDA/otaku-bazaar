@@ -2,11 +2,18 @@ import React from 'react';
 import AnnouncementsLine from '../ui/announcements/AnnouncementsLine';
 import AnnouncementsLineHeader from '../ui/announcements/AnnouncementsLineHeader';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Home(){
+    const { isAuthenticated } = useAuth();
+
     return (
         <>
-            <Link to={'/announcement/new'} className='block w-fit bg-primary font-bold ms-auto px-6 py-2 rounded-lg mt-2 hover:scale-105 transition-all duration-300'>Create an announcement</Link>
+            {
+                isAuthenticated && (
+                    <Link to={'/announcement/new'} className='block w-fit bg-primary font-bold ms-auto px-6 py-2 rounded-lg mt-2 hover:scale-105 transition-all duration-300'>Create an announcement</Link>
+                )
+            }
             <AnnouncementsLineHeader
                 title={'What\'s new'}
                 link={'/search'}

@@ -1,5 +1,8 @@
 import { createCategory, getAllCategories, getCategoryById, modifyCategory, removeCategory } from '../services/categoriesService.js';
 import _ from 'lodash';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export async function getCategories(req, res){
     try{
@@ -33,7 +36,7 @@ export async function addCategory(req, res){
             throw new Error('Image is required');
         }
 
-        const imagePath = `/uploads/${req.file.filename}`;
+        const imagePath = `${process.env.UPLOADS_FOLDER}/${req.file.filename}`;
 
         const categoryData = { name, image: imagePath };
 
@@ -56,7 +59,7 @@ export async function updateCategory(req, res){
         const updatedData = req.body;
 
         if(req.file){
-            updatedData.image = `/uploads/${req.file.filename}`;
+            updatedData.image = `${process.env.UPLOADS_FOLDER}/${req.file.filename}`;
         }
         else{
             const category = await getCategoryById(categoryId);

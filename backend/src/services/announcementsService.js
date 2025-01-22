@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAll, findAnnouncementWithImages, findById, findReportedAnnoucements } from '../repositories/announcementsRepository.js';
+import { addImages } from '../repositories/imagesRepository.js';
 import { Op } from 'sequelize';
 import { Users } from '../models/Users.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export async function getAnnouncements(filters){
     try{
@@ -57,7 +61,7 @@ export async function getAnnouncements(filters){
             if(announcement.Images){
                 announcement.Images.forEach((image) => {
                     if(image.path){
-                        image.path = `http://localhost:8000${image.path}`;
+                        image.path = `${process.env.BACKEND_URL}/${image.path}`;
                     }
                 });
             }
@@ -105,7 +109,7 @@ export async function getAnnouncementImages(announcementId){
         }
 
         announcement.Images.forEach((image) => {
-            image.path = `http://localhost:8000${image.path}`;
+            image.path = `${process.env.BACKEND_URL}/${image.path}`;
         });
     
         return announcement.Images;
@@ -115,13 +119,24 @@ export async function getAnnouncementImages(announcementId){
     }
 }
 
-export async function createAnnouncement(announcementData){
+export async function createAnnouncement(announcementData, imagesPaths){
     try{
         if(!announcementData.title || !announcementData.price || !announcementData.description || !announcementData.userId || !announcementData.categoryId){
             throw new Error('All fields must be filled');
         }
 
-        return await addAnnouncement(announcementData);
+        const newAnnouncement = await addAnnouncement(announcementData);
+
+        if(imagesPaths && imagesPaths.length > 0){
+            const imagesData = imagesPaths.map((path) => ({
+                path,
+                announcementId: newAnnouncement.id,
+            }));
+
+            await addImages(imagesData);
+        }
+
+        return newAnnouncement;
     }
     catch(error){
         throw new Error(`Error creating announcement : ${error.message}`);
