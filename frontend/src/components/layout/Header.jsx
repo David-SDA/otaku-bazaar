@@ -148,6 +148,16 @@ export default function Header(){
                                                     <>
                                                         <NavLink to={`/profile/${user.sub}`} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>My Profile</NavLink>
                                                         <NavLink to={'/profile'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Settings</NavLink>
+                                                        {
+                                                            user?.role === 'admin' && (
+                                                                <NavLink to={'/admin'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Admin Panel</NavLink>
+                                                            )
+                                                        }
+                                                        {
+                                                            user?.role === 'moderator' && (
+                                                                <NavLink to={'/moderator'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Mods Panel</NavLink>
+                                                            )
+                                                        }
                                                         <button onClick={() => {closeUserModal(); handleLogout();}} className='block py-2 px-3 w-full text-left hover:bg-gray-200 rounded'>Logout</button>
                                                     </>
                                                 ) : (
@@ -194,6 +204,16 @@ export default function Header(){
                                         <>
                                             <NavLink to={`/profile/${user.sub}`} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>My Profile</NavLink>
                                             <NavLink to={'/profile'} onClick={handleToggleBurgerMenu} className='w-full py-3 text-center'>Settings</NavLink>
+                                            {
+                                                user?.role === 'admin' && (
+                                                    <NavLink to={'/admin'} onClick={() => closeUserModal()} className='w-full py-3 text-center'>Admin Panel</NavLink>
+                                                )
+                                            }
+                                            {
+                                                user?.role === 'moderator' && (
+                                                    <NavLink to={'/moderator'} onClick={() => closeUserModal()} className='block py-2 px-3 hover:bg-gray-200 rounded'>Mods Panel</NavLink>
+                                                )
+                                            }
                                             <button onClick={() => {handleToggleBurgerMenu(); handleLogout();}} className='w-full py-3 text-center'>Logout</button>
                                         </>
                                     ) : (

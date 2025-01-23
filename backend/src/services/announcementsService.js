@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAll, findAnnouncementWithImages, findById, findReportedAnnoucements } from '../repositories/announcementsRepository.js';
+import { addAnnouncement, addAnnouncementImages, deleteAnnouncement, findAll, findAnnouncementWithImages, findById, findReportedAnnoucements, updateAnnouncement } from '../repositories/announcementsRepository.js';
 import { addImages } from '../repositories/imagesRepository.js';
 import { Op } from 'sequelize';
 import { Users } from '../models/Users.js';
@@ -163,6 +163,20 @@ export async function saveAnnoucementImages(announcementId, images){
     }
     catch(error){
         throw new Error(`Error saving announcement images : ${error.message}`);
+    }
+}
+
+export async function modifyAnnouncement(announcementId, updatedData){
+    try{
+        const existingAnnouncement = await findById(announcementId);
+        if(!existingAnnouncement){
+            throw new Error('This announcement does not exist');
+        }
+
+        return await updateAnnouncement(announcementId, updatedData);
+    }
+    catch(error){
+        throw new Error(`Error modifying announcement : ${error.message}`);
     }
 }
 

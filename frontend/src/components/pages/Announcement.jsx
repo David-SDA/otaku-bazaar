@@ -100,55 +100,59 @@ export default function Announcement(){
                 isLoading ? (
                     <LoadingAnimation />
                 ) : (
-                    <>
-                        <div className='lg:grid lg:grid-cols-[5fr,6fr] gap-10'>
-                            <div className='relative'>
-                                {
-                                    images.length > 0 ? (
-                                        <>
-                                            <img src={images[currentIndex].path} alt='' className='object-contain rounded-lg w-full h-96 shadow pointer-events-none bg-white' />
-                                            <div className='hidden sm:grid sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-6 lg:place-items-center mt-4'>
-                                                {
-                                                    images.map((image, index) => (
-                                                        <img key={index} src={image.path} alt='Pomme' className={`cursor-pointer object-contain bg-white rounded-lg shadow h-20 w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 ${ images[currentIndex] === image ? 'ring-4 ring-primary scale-105' : '' }`} onClick={() => setCurrentIndex(index)} />
-                                                    ))
-                                                }
-                                            </div>
-                                            <button className='sm:hidden bg-primary w-8 h-8 text-white rounded-full font-bold absolute top-1/2 right-0 -translate-y-1/2' onClick={nextImage}>
-                                                <FontAwesomeIcon icon={faCaretRight} size='lg' />
-                                            </button>
-                                            <button className='sm:hidden bg-primary w-8 h-8 text-white rounded-full font-bold absolute top-1/2 left-0 -translate-y-1/2' onClick={prevImage}>
-                                                <FontAwesomeIcon icon={faCaretLeft} size='lg' />
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <p className="text-center text-gray-500">No images available.</p>
-                                    )
-                                }
+                    announcement.isHidden ? (
+                        <div className='text-center text-2xl font-bold text-primary mt-10'>This announcement has been hidden</div>
+                    ) : (
+                        <>
+                            <div className='lg:grid lg:grid-cols-[5fr,6fr] gap-10'>
+                                <div className='relative'>
+                                    {
+                                        images.length > 0 ? (
+                                            <>
+                                                <img src={images[currentIndex].path} alt='' className='object-contain rounded-lg w-full h-96 shadow pointer-events-none bg-white' />
+                                                <div className='hidden sm:grid sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-6 lg:place-items-center mt-4'>
+                                                    {
+                                                        images.map((image, index) => (
+                                                            <img key={index} src={image.path} alt='Pomme' className={`cursor-pointer object-contain bg-white rounded-lg shadow h-20 w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 ${ images[currentIndex] === image ? 'ring-4 ring-primary scale-105' : '' }`} onClick={() => setCurrentIndex(index)} />
+                                                        ))
+                                                    }
+                                                </div>
+                                                <button className='sm:hidden bg-primary w-8 h-8 text-white rounded-full font-bold absolute top-1/2 right-0 -translate-y-1/2' onClick={nextImage}>
+                                                    <FontAwesomeIcon icon={faCaretRight} size='lg' />
+                                                </button>
+                                                <button className='sm:hidden bg-primary w-8 h-8 text-white rounded-full font-bold absolute top-1/2 left-0 -translate-y-1/2' onClick={prevImage}>
+                                                    <FontAwesomeIcon icon={faCaretLeft} size='lg' />
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <p className="text-center text-gray-500">No images available.</p>
+                                        )
+                                    }
+                                </div>
+                                <div className='mt-5 lg:mt-0'>
+                                    <AnnouncementName announcementName={announcement.title} />
+                                    <AnnouncementSellingInfo userId={announcement.userId} username={announcement.User.username} city={announcement.User?.city} createdAt={announcement.createdAt} />
+                                    <AnnouncementPrice price={announcement.price} />
+                                    <AnnouncementSmallDescription description={announcement?.description} ref={fullDescriptionRef} />
+                                    <AnnouncementButtons announcementId={announcement.id} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
+                                </div>
                             </div>
-                            <div className='mt-5 lg:mt-0'>
-                                <AnnouncementName announcementName={announcement.title} />
-                                <AnnouncementSellingInfo userId={announcement.userId} username={announcement.User.username} city={announcement.User?.city} createdAt={announcement.createdAt} />
-                                <AnnouncementPrice price={announcement.price} />
-                                <AnnouncementSmallDescription description={announcement?.description} ref={fullDescriptionRef} />
-                                <AnnouncementButtons announcementId={announcement.id} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
-                            </div>
-                        </div>
-                        <AnnouncementFullDescription description={announcement?.description} ref={fullDescriptionRef} />
-                        <AnnouncementSellerInfo contactEmail={announcement.User.contactEmail} phoneNumber={announcement.User?.phoneNumber} city={announcement.User?.city} ref={contactRef} />
-                        {
-                            isAuthenticated && !isReported && (
-                                <button onClick={toggleReportModal} className='bg-red-500 text-white py-2 px-4 rounded-xl font-bold hover:bg-red-600 mt-4'>
-                                    Report this announcement
-                                </button>
-                            )
-                        }
-                        {
-                            isReportModalOpen && (
-                                <AnnouncementReportModal announcementId={announcement.id} onClose={toggleReportModal} setReported={setReported} />
-                            )
-                        }
-                    </>
+                            <AnnouncementFullDescription description={announcement?.description} ref={fullDescriptionRef} />
+                            <AnnouncementSellerInfo contactEmail={announcement.User.contactEmail} phoneNumber={announcement.User?.phoneNumber} city={announcement.User?.city} ref={contactRef} />
+                            {
+                                isAuthenticated && !isReported && (
+                                    <button onClick={toggleReportModal} className='bg-red-500 text-white py-2 px-4 rounded-xl font-bold hover:bg-red-600 mt-4'>
+                                        Report this announcement
+                                    </button>
+                                )
+                            }
+                            {
+                                isReportModalOpen && (
+                                    <AnnouncementReportModal announcementId={announcement.id} onClose={toggleReportModal} setReported={setReported} />
+                                )
+                            }
+                        </>
+                    )
                 )
             }
         </>

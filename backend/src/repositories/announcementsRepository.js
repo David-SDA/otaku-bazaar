@@ -61,6 +61,10 @@ export async function addAnnouncementImages(images){
     return await Images.bulkCreate(images, { validate: true });
 }
 
+export async function updateAnnouncement(announcementId, updatedData){
+    return await Announcements.update(updatedData, { where: { id: announcementId }, returning: true });
+}
+
 export async function deleteAnnouncement(announcementId){
     return await Announcements.destroy({ where: { id: announcementId } });
 }

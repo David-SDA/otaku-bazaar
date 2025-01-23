@@ -1,4 +1,4 @@
-import { createAnnouncement, getAllReportedAnnouncements, getAnnouncementById, getAnnouncementImages, getAnnouncements, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
+import { createAnnouncement, getAllReportedAnnouncements, getAnnouncementById, getAnnouncementImages, getAnnouncements, modifyAnnouncement, removeAnnouncement, saveAnnoucementImages } from '../services/announcementsService.js';
 
 export async function getAllAnnouncements(req, res){
     try{
@@ -79,6 +79,24 @@ export async function addAnnouncementImages(req, res){
         res.status(201).json({
             status: 'success',
             message: 'Images added to announcement with success',
+        });
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function updateAnnouncement(req, res){
+    try{
+        const announcementId = req.params.id;
+        const updatedData = req.body;
+
+        const updatedAnnouncement = await modifyAnnouncement(announcementId, updatedData);
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Announcement modified with success',
+            data: updatedAnnouncement[1]
         });
     }
     catch(error){
