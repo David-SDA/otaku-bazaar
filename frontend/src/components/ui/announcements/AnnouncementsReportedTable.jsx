@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingAnimation from '../general/LoadingAnimation';
+import AdminModeratorConfirmationModal from '../panels/AdminModeratorConfirmationModal';
 
 export default function AnnouncementsReportedTable({reportedAnnouncements}){
     const [announcements, setAnnouncements] = useState(reportedAnnouncements);
     const [isLoading, setLoading] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalAction, setModalAction] = useState({});
 
     async function handleHideToggle(announcementId, isHidden){
         setLoading(true);
@@ -34,6 +37,26 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
         }
         finally{
             setLoading(false);
+        }
+    }
+
+    function openModal(action, announcement){
+        setModalAction({action, announcement});
+        setModalOpen(true);
+    }
+
+    function handleModalClose(){
+        const { action, announcement } = modalAction;
+        setModalOpen(false);
+
+        if(action === 'hide'){
+            handleHideToggle(announcement.id, announcement.isHidden);
+        }
+        else if(action === 'delete'){
+            //handleDelete(announcement.id);
+        }
+        else if(action === 'report'){
+            //handleReport(announcement.id);
         }
     }
 
@@ -67,13 +90,13 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
                                                     <LoadingAnimation />
                                                 ) : (
                                                     <>
-                                                        <button onClick={() => handleHideToggle(announcement.id, announcement.isHidden)} className='bg-primary font-bold py-2 px-4 rounded w-24 hover:scale-105 transition-all duration-300'>
+                                                        <button onClick={() => openModal('hide', announcement)} className='bg-primary font-bold py-2 px-4 rounded w-24 hover:scale-105 transition-all duration-300'>
                                                             {announcement.isHidden ? 'Unhide' : 'Hide'}
                                                         </button>
-                                                        <button className='bg-red-500 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
+                                                        <button onClick={() => openModal('delete', announcement)} className='bg-red-500 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                                             Delete
                                                         </button>
-                                                        <button className='bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
+                                                        <button onClick={() => openModal('report', announcement)} className='bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                                             Resolved
                                                         </button>
                                                     </>
@@ -87,6 +110,12 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
                     </tbody>
                 </table>
             </div>
+            <AdminModeratorConfirmationModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={handleModalClose}
+                title={'Are you sure?'}
+            />
         </>
     )
 }
