@@ -9,37 +9,6 @@ export default function UsersReportedTable({reportedUsers}){
     const [modalOpen, setModalOpen] = useState(false);
     const [modalAction, setModalAction] = useState({});
 
-    async function handleBanToggle(userId, isBanned){
-        setLoading(true);
-        try{
-            const response = await fetch(`http://localhost:8000/users/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ isBanned: !isBanned }),
-                credentials: 'include'
-            });
-            if(!response.ok){
-                throw new Error('Failed to ban/unban user');
-            }
-
-            const updatedUsers = users.map((user) => {
-                if(user.id === userId){
-                    return { ...user, isBanned: !isBanned };
-                }
-                return user;
-            });
-            setUsers(updatedUsers);
-        }
-        catch(error){
-            console.error('Error banning/unbanning user:', error);
-        }
-        finally{
-            setLoading(false);
-        }
-    }
-
     async function handleResolved(userId, reportId){
         setLoading(true);
         try{
@@ -71,10 +40,7 @@ export default function UsersReportedTable({reportedUsers}){
         const { action, user, reportId } = modalAction;
         setModalOpen(false);
 
-        if(action === 'ban'){
-            handleBanToggle(user.id, user.isBanned);
-        }
-        else if(action === 'resolve'){
+        if(action === 'resolve'){
             handleResolved(user.id, reportId);
         }
     }
@@ -108,14 +74,9 @@ export default function UsersReportedTable({reportedUsers}){
                                                 isLoading ? (
                                                     <LoadingAnimation />
                                                 ) : (
-                                                    <>
-                                                        <button onClick={() => openModal('ban', user)} className={`font-bold py-2 px-4 rounded w-24 ${user.isBanned ? 'bg-green-300' : 'bg-red-500'} hover:scale-105 transition-all duration-300`}>
-                                                            {user.isBanned ? 'Unban' : 'Ban'}
-                                                        </button>
-                                                        <button onClick={() => openModal('resolve', user, report.id)} disabled={user.isBanned} className={`bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300 ${user.isBanned ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                                            Resolved
-                                                        </button>
-                                                    </>
+                                                    <button onClick={() => openModal('resolve', user, report.id)} disabled={user.isBanned} className={`bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300 ${user.isBanned ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                                        Resolved
+                                                    </button>
                                                 )
                                             }
                                         </td>
@@ -126,7 +87,7 @@ export default function UsersReportedTable({reportedUsers}){
                     </tbody>
                 </table>
             </div>
-            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={handleModalClose} onConfirm={handleModalClose} title={'Are you sure?'} />
+            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={() =>setModalOpen(false)} onConfirm={handleModalClose} title={'Are you sure?'} />
         </>
     )
 }

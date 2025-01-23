@@ -34,7 +34,7 @@ export default function AdminPanel(){
                     throw new Error('Failed to fetch users');
                 }
                 const usersData = await usersResponse.json();
-                setUsers(usersData);
+                setUsers(usersData.data);
 
                 const categoriesResponse = await fetch('http://localhost:8000/categories', {credentials: 'include'});
                 if(!categoriesResponse.ok){
