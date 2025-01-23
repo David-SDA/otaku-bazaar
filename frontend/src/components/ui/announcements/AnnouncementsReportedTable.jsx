@@ -154,12 +154,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
                     </tbody>
                 </table>
             </div>
-            <AdminModeratorConfirmationModal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                onConfirm={handleModalClose}
-                title={'Are you sure?'}
-            />
+            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onConfirm={handleModalClose} title={'Are you sure?'} />
         </>
     )
 }

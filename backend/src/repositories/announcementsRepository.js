@@ -80,7 +80,7 @@ export async function deleteAnnouncement(announcementId){
             transaction
         });
 
-        imagesPaths = await images.map(image => `./${image.path}`);
+        imagesPaths = images.map(image => `./${image.path}`);
 
         await Images.destroy({ where: { announcementId: announcementId }, transaction });
 

@@ -34,6 +34,10 @@ export async function login(req, res){
             throw new Error('Connection failed');
         }
 
+        if(userExist.isBanned){
+            throw new Error('Your account is banned');
+        }
+
         const isResolved = await bcrypt.compare(loginData.password, userExist.password);
         if(!isResolved){
             throw new Error('Connection failed');
@@ -43,7 +47,7 @@ export async function login(req, res){
             {
                 sub: userExist.id,
                 email: userExist.email,
-                role: userExist.role
+                role: userExist.role,
             },
             process.env.JWT_SECRET,
             {
@@ -55,7 +59,7 @@ export async function login(req, res){
             {
                 sub: userExist.id,
                 email: userExist.email,
-                role: userExist.role
+                role: userExist.role,
             },
             process.env.REFRESH_JWT_SECRET,
             {
