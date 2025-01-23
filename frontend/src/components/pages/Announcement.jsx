@@ -113,7 +113,7 @@ export default function Announcement(){
                                                 <div className='hidden sm:grid sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-6 lg:place-items-center mt-4'>
                                                     {
                                                         images.map((image, index) => (
-                                                            <img key={index} src={image.path} alt='Pomme' className={`cursor-pointer object-contain bg-white rounded-lg shadow h-20 w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 ${ images[currentIndex] === image ? 'ring-4 ring-primary scale-105' : '' }`} onClick={() => setCurrentIndex(index)} />
+                                                            <img key={index} src={image.path} alt='' className={`cursor-pointer object-contain bg-white rounded-lg shadow h-20 w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 ${ images[currentIndex] === image ? 'ring-4 ring-primary scale-105' : '' }`} onClick={() => setCurrentIndex(index)} />
                                                         ))
                                                     }
                                                 </div>
