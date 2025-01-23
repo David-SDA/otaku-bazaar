@@ -67,7 +67,7 @@ export default function UsersReportedTable({reportedUsers}){
         setModalOpen(true);
     }
 
-    function handleModalClose() {
+    function handleModalClose(){
         const { action, user, reportId } = modalAction;
         setModalOpen(false);
 
@@ -126,8 +126,7 @@ export default function UsersReportedTable({reportedUsers}){
                     </tbody>
                 </table>
             </div>
-            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onConfirm={handleModalClose} title={'Are you sure?'}
-            />
+            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={handleModalClose} onConfirm={handleModalClose} title={'Are you sure?'} />
         </>
     )
 }

@@ -70,7 +70,7 @@ export async function removeCategory(categoryId){
             throw new Error('This category does not exist');
         }
 
-        return await deleteCategory(categoryId);
+        return await deleteCategory(categoryId, existingCategory.image);
     }
     catch(error){
         throw new Error(`Error removing category : ${error.message}`);

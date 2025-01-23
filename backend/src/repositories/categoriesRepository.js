@@ -1,4 +1,6 @@
-import { Categories } from '../models/index.js';
+import { Announcements, Categories } from '../models/index.js';
+import { sequelize } from '../config/db.js';
+import fs from 'fs/promises';
 
 export async function findAll(){
     return await Categories.findAll();
@@ -20,6 +22,39 @@ export async function updateCategory(categoryId, updatedData){
     return await Categories.update(updatedData, { where: { id: categoryId }, returning: true });
 }
 
-export async function deleteCategory(categoryId){
-    return await Categories.destroy({ where: { id: categoryId } });
+export async function deleteCategory(categoryId, categoryImage){
+    const transaction = await sequelize.transaction();
+    const imagePath = `./${categoryImage}`;
+    let otherCategoryId;
+
+    try{
+        const otherCategory = await Categories.findOne({
+            where: { name: 'Others' },
+            transaction,
+        });
+
+        otherCategoryId = otherCategory.id;
+
+        await Announcements.update(
+            { categoryId: otherCategoryId },
+            { where: { categoryId: categoryId }, transaction }
+        );
+
+        await Categories.destroy({ where: { id: categoryId }, transaction });
+
+        await transaction.commit();
+    }
+    catch(error){
+        await transaction.rollback();
+        throw error;
+    }
+
+    try{
+        await fs.unlink(imagePath);
+    }
+    catch (error){
+        throw error;
+    }
+
+    return true;
 }

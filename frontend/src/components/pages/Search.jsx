@@ -31,8 +31,7 @@ export default function Search(){
             }
 
             const data = await response.json();
-            setAnnouncements(data.rows);
-            setLoading(false);
+            setAnnouncements(data);
         }
         catch(error){
             console.error('Error fetching announcements :', error);
