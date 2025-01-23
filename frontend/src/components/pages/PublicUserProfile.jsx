@@ -52,7 +52,7 @@ export default function PublicUserProfile(){
                                     <AnnouncementCard key={announcement.id} announcement={announcement} user={user} />
                                 ))
                             ) : (
-                                <p className='text-center col-span-full'>No announcements available</p>
+                                <p className='italic col-span-full'>No announcements yet...</p>
                             )
                         }
                     </div>

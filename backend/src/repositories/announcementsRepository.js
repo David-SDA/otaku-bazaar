@@ -1,5 +1,7 @@
 import { Op } from 'sequelize';
+import { sequelize } from '../config/db.js';
 import { Announcements, Images, Users } from '../models/index.js';
+import fs from 'fs/promises';
 
 export async function findAll(where, include = [], order, limit, offset){
     return await Announcements.findAndCountAll({
@@ -66,5 +68,38 @@ export async function updateAnnouncement(announcementId, updatedData){
 }
 
 export async function deleteAnnouncement(announcementId){
-    return await Announcements.destroy({ where: { id: announcementId } });
+    const transaction = await sequelize.transaction();
+    let imagesPaths = [];
+
+    try{
+        const images = await Images.findAll({
+            where: {
+                announcementId: announcementId
+            },
+            attributes: ['path'],
+            transaction
+        });
+
+        imagesPaths = await images.map(image => `./${image.path}`);
+
+        await Images.destroy({ where: { announcementId: announcementId }, transaction });
+
+        await Announcements.destroy({ where: { id: announcementId }, transaction });
+
+        await transaction.commit();
+    }
+    catch(error){
+        await transaction.rollback();
+        throw error;
+    }
+
+    try{
+        const deleteFilePromises = imagesPaths.map(path => fs.unlink(path));
+        await Promise.all(deleteFilePromises);
+    }
+    catch(error){
+        throw error;
+    }
+
+    return true;
 }

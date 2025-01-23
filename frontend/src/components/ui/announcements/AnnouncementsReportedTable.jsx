@@ -40,6 +40,28 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
         }
     }
 
+    async function handleDelete(announcementId){
+        setLoading(true);
+        try{
+            const response = await fetch(`http://localhost:8000/announcements/${announcementId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+            if(!response.ok){
+                throw new Error('Failed to delete announcement');
+            }
+
+            const updatedAnnouncements = announcements.filter((announcement) => announcement.id !== announcementId);
+            setAnnouncements(updatedAnnouncements);
+        }
+        catch(error){
+            console.error('Error deleting announcement:', error);
+        }
+        finally{
+            setLoading(false);
+        }
+    }
+
     async function handleResolved(userId, announcementId){
         setLoading(true);
         try{
@@ -75,7 +97,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
             handleHideToggle(announcement.id, announcement.isHidden);
         }
         else if(action === 'delete'){
-            //handleDelete(announcement.id);
+            handleDelete(announcement.id);
         }
         else if(action === 'resolve'){
             handleResolved(userId, announcement.id);
@@ -118,7 +140,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
                                                         <button onClick={() => openModal('delete', announcement)} className='bg-red-500 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                                             Delete
                                                         </button>
-                                                        <button onClick={() => openModal('resolve', announcement, report.id)} disabled={!announcement.isHidden} className={`bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300 ${!announcement.isHidden ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                                        <button onClick={() => openModal('resolve', announcement, report.id)} disabled={announcement.isHidden} className={`bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300 ${announcement.isHidden ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                                             Resolved
                                                         </button>
                                                     </>
