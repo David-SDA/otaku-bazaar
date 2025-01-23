@@ -40,13 +40,35 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
         }
     }
 
-    function openModal(action, announcement){
-        setModalAction({action, announcement});
+    async function handleResolved(userId, announcementId){
+        setLoading(true);
+        try{
+            const response = await fetch(`http://localhost:8000/users/${userId}/reportedAnnouncements/${announcementId}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            if(!response.ok){
+                throw new Error('Failed to resolve announcement');
+            }
+            
+            const updatedAnnouncements = announcements.filter((announcement) => announcement.id !== announcementId);
+            setAnnouncements(updatedAnnouncements);
+        }
+        catch(error){
+            console.error('Error resolving announcement:', error);
+        }
+        finally{
+            setLoading(false);
+        }
+    }
+
+    function openModal(action, announcement, userId){
+        setModalAction({action, announcement, userId});
         setModalOpen(true);
     }
 
     function handleModalClose(){
-        const { action, announcement } = modalAction;
+        const { action, announcement, userId } = modalAction;
         setModalOpen(false);
 
         if(action === 'hide'){
@@ -55,8 +77,8 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
         else if(action === 'delete'){
             //handleDelete(announcement.id);
         }
-        else if(action === 'report'){
-            //handleReport(announcement.id);
+        else if(action === 'resolve'){
+            handleResolved(userId, announcement.id);
         }
     }
 
@@ -96,7 +118,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
                                                         <button onClick={() => openModal('delete', announcement)} className='bg-red-500 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                                             Delete
                                                         </button>
-                                                        <button onClick={() => openModal('report', announcement)} className='bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
+                                                        <button onClick={() => openModal('resolve', announcement, report.id)} disabled={!announcement.isHidden} className={`bg-green-300 font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300 ${!announcement.isHidden ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                                             Resolved
                                                         </button>
                                                     </>
