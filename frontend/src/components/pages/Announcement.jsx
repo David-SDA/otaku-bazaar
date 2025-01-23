@@ -24,7 +24,7 @@ export default function Announcement(){
     const [isReported, setReported] = useState(false);
     const contactRef = useRef();
     const fullDescriptionRef = useRef(null);
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     
     if(isNaN(id) || id <= 0){
         throw new Error();
@@ -59,7 +59,7 @@ export default function Announcement(){
                     const isInWishlist = wishlistData.some(wish => wish.id === parseInt(id));
                     setInWishlist(isInWishlist);
 
-                    const reportedResponse = await fetch(`http://localhost:8000/users/reportedAnnouncements`, {credentials: 'include'});
+                    const reportedResponse = await fetch(`http://localhost:8000/users/${user.sub}/reportedAnnouncements`, {credentials: 'include'});
                     if(!reportedResponse.ok){
                         throw new Error('Failed to fetch reported announcements');
                     }
@@ -78,7 +78,7 @@ export default function Announcement(){
         }
 
         fetchAnnouncementAndImages();
-    }, [id, isAuthenticated]);
+    }, [id, isAuthenticated, user]);
 
     // Fonction pour aller à l'image suivante
     function nextImage(){

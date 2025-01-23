@@ -1,4 +1,4 @@
-import { countUsers, getAllReportedUsers, getReportedAnnouncementsByUser, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeReportedUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
+import { countUsers, getAllReportedUsers, getAllReportedUsersByUser, getReportedAnnouncementsByUser, getUserById, getUsers, getWishedAnnouncements, modifyUser, removeReportedAds, removeReportedUser, removeUser, removeWishedAnnouncement, saveAnnouncementToReported, saveAnnouncementToWishList, saveUserToReported } from '../services/usersService.js';
 import _ from 'lodash';
 
 export async function getAllUsers(req, res){
@@ -47,6 +47,18 @@ export async function getReportedUsers(req, res){
     }
 }
 
+export async function getReportedUsersByUser(req, res){
+    try{
+        const userId = req.params.id;
+        const reportedUsers = await getAllReportedUsersByUser(userId);
+        
+        res.status(200).json(reportedUsers);
+    }
+    catch(error){
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export async function getUserWishlist(req, res){
     try{
         const userId = req.user.sub;
@@ -61,7 +73,7 @@ export async function getUserWishlist(req, res){
 
 export async function getReportedAnnouncements(req, res){
     try{
-        const userId = req.user.sub;
+        const userId = req.params.id;
         const reportedAnnouncements = await getReportedAnnouncementsByUser(userId);
         
         res.status(200).json(reportedAnnouncements);
@@ -108,7 +120,7 @@ export async function addAnnouncementToReported(req, res){
 
 export async function addUserToReported(req, res){
     try{
-        const userId = req.params.id;
+        const userId = req.user.sub;
         const reportedId = req.params.reportedId;
         const reason = req.body.reason;
         

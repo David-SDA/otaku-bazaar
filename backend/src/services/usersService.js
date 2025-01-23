@@ -108,6 +108,25 @@ export async function getReportedAnnouncementsByUser(userId){
     }
 }
 
+export async function getAllReportedUsersByUser(userId){
+    try{
+        const existingUser = await findById(userId);
+        if(!existingUser){
+            throw new Error('User not found');
+        }
+
+        const reportedUsers = await existingUser.getReporter();
+        reportedUsers.forEach(reportedUser => {
+            reportedUser.avatar = `${process.env.BACKEND_URL}/${reportedUser.avatar}`;
+        });
+
+        return reportedUsers;
+    }
+    catch(error){
+        throw new Error(`Error fetching user'sreported users : ${error.message}`);
+    }
+}
+
 export async function saveAnnouncementToWishList(userId, announcementId){
     try{
         const existingUser = await findById(userId);
