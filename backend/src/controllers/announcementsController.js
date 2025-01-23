@@ -90,8 +90,9 @@ export async function updateAnnouncement(req, res){
     try{
         const announcementId = req.params.id;
         const updatedData = req.body;
+        const user = req.user;
 
-        const updatedAnnouncement = await modifyAnnouncement(announcementId, updatedData);
+        const updatedAnnouncement = await modifyAnnouncement(announcementId, updatedData, user);
 
         res.status(200).json({
             status: 'success',

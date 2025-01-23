@@ -166,11 +166,17 @@ export async function saveAnnoucementImages(announcementId, images){
     }
 }
 
-export async function modifyAnnouncement(announcementId, updatedData){
+export async function modifyAnnouncement(announcementId, updatedData, user){
     try{
         const existingAnnouncement = await findById(announcementId);
         if(!existingAnnouncement){
             throw new Error('This announcement does not exist');
+        }
+
+        if(updatedData.isHidden){
+            if(user.role !== 'admin' && user.role !== 'moderator'){
+                throw new Error('Unauthorized');
+            }
         }
 
         return await updateAnnouncement(announcementId, updatedData);
