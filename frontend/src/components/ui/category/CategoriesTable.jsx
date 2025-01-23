@@ -8,19 +8,19 @@ export default function CategoriesTable({categories}){
     const [allCategories, setAllCategories] = useState(categories);
     const [isLoading, setLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalAction, setModalAction] = useState();
+    const [modalAction, setModalAction] = useState({});
 
     async function handleCategoryDelete(categoryId){
         setLoading(true);
         try{
             const response = await fetch(`http://localhost:8000/categories/${categoryId}`, {
                 method: 'DELETE',
-                credentials: 'include'
+                credentials: 'include',
             });
             if(!response.ok){
                 throw new Error('Failed to delete category');
             }
-            const updatedCategories = categories.filter((category) => category.id !== categoryId);
+            const updatedCategories = allCategories.filter((category) => category.id !== categoryId);
             setAllCategories(updatedCategories);
         }
         catch(error){
@@ -74,7 +74,7 @@ export default function CategoriesTable({categories}){
                                                 <Link to={`/categories/${category.id}/edit`} className='inline-block w-fit bg-primary font-bold py-2 px-4 rounded hover:scale-105 transition-all duration-300'>
                                                     Edit
                                                 </Link>
-                                                <button onClick={() => openModal({ action: 'delete', categoryId: category.id})} className='bg-red-500 font-bold py-2 px-4 rounded w-24 hover:scale-105 transition-all duration-300'>
+                                                <button onClick={() => openModal({ action: 'delete', categoryId: category.id })} className='bg-red-500 font-bold py-2 px-4 rounded w-24 hover:scale-105 transition-all duration-300'>
                                                     Delete
                                                 </button>
                                             </>
@@ -86,7 +86,7 @@ export default function CategoriesTable({categories}){
                     }
                 </tbody>
             </table>
-            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={handleModalClose} onConfirm={handleModalClose} title={'Are you sure?'} />
+            <AdminModeratorConfirmationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onConfirm={handleModalClose} title={'Are you sure?'} />
         </div>
-    )
+    );
 }
