@@ -61,7 +61,7 @@ export default function MyProfile(){
                 <Link to={`/profile/${myProfileData.id}`} className='block w-fit bg-primary font-bold ms-auto px-6 py-2 rounded-lg mb-2 hover:scale-105 transition-all duration-300'>Go to my public page</Link>
                 <div className='flex justify-center'>
                     <div className='w-full md:w-2/3 lg:w-1/2'>
-                        <MyProfileAvatarSection onEditAvatar={() => openModal('Change Avatar', 'avatar', '')} avatar={myProfileData?.avatar} />
+                        <MyProfileAvatarSection onEditAvatar={() => openModal('Change Avatar', 'avatar', '')} avatar={'https://placehold.co/400'} />
                         <MyProfilePersonalInfoSection onEditClick={(title, fieldKey, currentValue) => openModal(`Change ${title}`, fieldKey, currentValue)} user={myProfileData} />
                         <MyProfilePasswordSection onChangePassword={() => openModal('Change Password', 'password', '')} />
                     </div>

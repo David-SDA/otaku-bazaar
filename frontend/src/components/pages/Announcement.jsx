@@ -109,7 +109,7 @@ export default function Announcement(){
                                     {
                                         images.length > 0 ? (
                                             <>
-                                                <img src={images[currentIndex].path} alt='' className='object-contain rounded-lg w-full h-96 shadow pointer-events-none bg-white' />
+                                                <img src={images[currentIndex].path ? images[currentIndex].path : 'https://placehold.co/400'} alt='' className='object-contain rounded-lg w-full h-96 shadow pointer-events-none bg-white' />
                                                 <div className='hidden sm:grid sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-6 lg:place-items-center mt-4'>
                                                     {
                                                         images.map((image, index) => (
@@ -134,7 +134,7 @@ export default function Announcement(){
                                     <AnnouncementSellingInfo userId={announcement.userId} username={announcement.User.username} city={announcement.User?.city} createdAt={announcement.createdAt} />
                                     <AnnouncementPrice price={announcement.price} />
                                     <AnnouncementSmallDescription description={announcement?.description} ref={fullDescriptionRef} />
-                                    <AnnouncementButtons announcementId={announcement.id} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
+                                    <AnnouncementButtons announcement={announcement} isInWishlist={isInWishlist} onToggleWishlist={setInWishlist} isAuthenticated={isAuthenticated} ref={contactRef} />
                                 </div>
                             </div>
                             <AnnouncementFullDescription description={announcement?.description} ref={fullDescriptionRef} />

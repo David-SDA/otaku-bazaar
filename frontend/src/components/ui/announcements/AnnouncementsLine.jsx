@@ -36,7 +36,7 @@ export default function AnnouncementsLine({categoryId}){
                     <LoadingAnimation />
                 ) : (
                     announcements.map((announcement) => (
-                        <AnnouncementCard key={announcement.id} announcement={announcement} user={announcement.User} />
+                        !announcement.isHidden && <AnnouncementCard key={announcement.id} announcement={announcement} user={announcement.User} />
                     ))
                 )
             }
