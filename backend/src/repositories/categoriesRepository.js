@@ -19,7 +19,7 @@ export async function addCategory(categoryData){
 }
 
 export async function updateCategory(categoryId, updatedData){
-    return await Categories.update(updatedData, { where: { id: categoryId }, returning: true });
+    return await Categories.update(updatedData, { where: { id: categoryId } });
 }
 
 export async function deleteCategory(categoryId, categoryImage){

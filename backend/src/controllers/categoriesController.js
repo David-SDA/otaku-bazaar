@@ -56,10 +56,13 @@ export async function addCategory(req, res){
 export async function updateCategory(req, res){
     try{
         const categoryId = req.params.id;
-        const updatedData = req.body;
+        const updatedData = { ...req.body };
 
         if(req.file){
             updatedData.image = `${process.env.UPLOADS_FOLDER}/${req.file.filename}`;
+        }
+        else if(req.body.image?.startsWith(process.env.BACKEND_URL)){
+            updatedData.image = req.body.image.replace(`${process.env.BACKEND_URL}/`, '');
         }
         else{
             const category = await getCategoryById(categoryId);
@@ -68,12 +71,11 @@ export async function updateCategory(req, res){
             }
         }
 
-        const updatedCategory = await modifyCategory(categoryId, updatedData);
+        await modifyCategory(categoryId, updatedData);
 
         res.status(200).json({
             status: 'success',
             message: 'Category modified with success',
-            data: updatedCategory[1]
         });
     }
     catch(error){

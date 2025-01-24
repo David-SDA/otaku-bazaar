@@ -93,7 +93,7 @@ export default function CreateCategory(){
             return 'The file is too large. Please select a file smaller than 5MB.';
         }
 
-        if(file && !allowedMimeTypes.includes(file.type)){
+        if(file instanceof File && !allowedMimeTypes.includes(file.type)){
             return 'Only JPEG, JPG, and PNG images are allowed.';
         }
 

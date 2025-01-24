@@ -7,6 +7,24 @@ export function AuthProvider({children}){
     const [user, setUser] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
+    const refreshAccessToken = useCallback(async () => {
+        try {
+            const response = await fetch('http://localhost:8000/auth/refresh', {
+                method: 'POST',
+                credentials: 'include',
+            });
+            if(!response.ok){
+                throw new Error('Failed to refresh token');
+            }
+
+        }
+        catch(error){
+            console.error('Error refreshing access token:', error);
+            setIsAuthenticated(false);
+            setUser(null);
+        }
+    }, []);
+
     const checkAuthentication = useCallback(async () => {
         setLoading(true);
         try{
@@ -15,6 +33,19 @@ export function AuthProvider({children}){
                 const userData = await response.json();
                 setIsAuthenticated(true);
                 setUser(userData);
+            }
+            else if(response.status === 401){
+                const refreshed = await refreshAccessToken();
+                if(refreshed){
+                    const retryResponse = await fetch('http://localhost:8000/auth/me', { credentials: 'include' });
+                    if(retryResponse.ok){
+                        const retryUserData = await retryResponse.json();
+                        setIsAuthenticated(true);
+                        setUser(retryUserData);
+                    }
+                }
+                setIsAuthenticated(false);
+                setUser(null);
             }
             else{
                 setIsAuthenticated(false);
@@ -29,7 +60,7 @@ export function AuthProvider({children}){
         finally{
             setLoading(false);
         }
-    }, []);
+    }, [refreshAccessToken]);
 
     const logout = useCallback(async () => {
         setLoading(true);
@@ -58,7 +89,7 @@ export function AuthProvider({children}){
     }, [checkAuthentication]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, isLoading, checkAuthentication, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, isLoading, checkAuthentication, refreshAccessToken, logout }}>
             {children}
         </AuthContext.Provider>
     );
