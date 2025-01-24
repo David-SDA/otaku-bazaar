@@ -16,7 +16,7 @@ export default function RequestPasswordReset(){
         setSuccessMessage('');
         
         try{
-            const response = await fetch(`http://localhost:8000/auth/request-reset-password`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/request-reset-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

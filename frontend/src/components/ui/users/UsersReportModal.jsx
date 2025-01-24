@@ -8,7 +8,7 @@ export default function UsersReportModal({userId, onClose, setReported}){
         e.preventDefault();
         setIsSubmitting(true);
         try{
-            const response = await fetch(`http://localhost:8000/users/reportedUsers/${userId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/reportedUsers/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

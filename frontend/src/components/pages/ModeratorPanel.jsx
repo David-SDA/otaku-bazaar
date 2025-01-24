@@ -9,7 +9,7 @@ export default function ModeratorPanel(){
     useEffect(() => {
         async function fetchModeratorPanel(){
             try{
-                const response = await fetch('http://localhost:8000/announcements/reported', {credentials: 'include'});
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/reported`, {credentials: 'include'});
                 if(!response.ok){
                     throw new Error('Failed to fetch reported announcements');
                 }

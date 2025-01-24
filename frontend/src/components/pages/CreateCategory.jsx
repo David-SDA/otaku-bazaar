@@ -19,7 +19,7 @@ export default function CreateCategory(){
         if(id){
             async function fetchCategory(){
                 try{
-                    const response = await fetch(`http://localhost:8000/categories/${id}`, {
+                    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories/${id}`, {
                         credentials: 'include'
                     });
                     if(!response.ok){
@@ -52,7 +52,7 @@ export default function CreateCategory(){
         formData.append('image', data.image);
 
         try{
-            const url = id ? `http://localhost:8000/categories/${id}` : 'http://localhost:8000/categories';
+            const url = id ? `${process.env.REACT_APP_BACKEND_URL}/categories/${id}` : `${process.env.REACT_APP_BACKEND_URL}/categories`;
             const method = id ? 'PUT' : 'POST';
             
             const response = await fetch(url, {

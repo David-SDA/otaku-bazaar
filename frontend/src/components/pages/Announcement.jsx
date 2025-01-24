@@ -33,7 +33,7 @@ export default function Announcement(){
     useEffect(() => {
         async function fetchAnnouncementAndImages(){
             try{
-                const response = await fetch(`http://localhost:8000/announcements/${id}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/${id}`);
                 if(!response.ok){
                     throw new Error('Failed to fetch announcement');
                 }
@@ -41,7 +41,7 @@ export default function Announcement(){
                 const data = await response.json();
                 setAnnouncement(data);
                 
-                const imagesResponse = await fetch(`http://localhost:8000/announcements/${id}/images`);
+                const imagesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/${id}/images`);
                 if(!imagesResponse.ok){
                     throw new Error('Failed to fetch announcement images');
                 }
@@ -50,7 +50,7 @@ export default function Announcement(){
                 setImages(imageData);
 
                 if(isAuthenticated){
-                    const wishlistResponse = await fetch(`http://localhost:8000/users/wishes`, {credentials: 'include'});
+                    const wishlistResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/wishes`, {credentials: 'include'});
                     if(!wishlistResponse.ok){
                         throw new Error('Failed to fetch wishlist');
                     }
@@ -59,7 +59,7 @@ export default function Announcement(){
                     const isInWishlist = wishlistData.some(wish => wish.id === parseInt(id));
                     setInWishlist(isInWishlist);
 
-                    const reportedResponse = await fetch(`http://localhost:8000/users/${user.sub}/reportedAnnouncements`, {credentials: 'include'});
+                    const reportedResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${user.sub}/reportedAnnouncements`, {credentials: 'include'});
                     if(!reportedResponse.ok){
                         throw new Error('Failed to fetch reported announcements');
                     }

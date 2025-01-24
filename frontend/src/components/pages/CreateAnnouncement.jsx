@@ -18,7 +18,7 @@ export default function CreateAnnouncement(){
         async function fetchCategories(){
             setLoading(true);
             try{
-                const response = await fetch('http://localhost:8000/categories');
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories`);
                 if(!response.ok){
                     throw new Error('Error fetching categories');
                 }
@@ -80,7 +80,7 @@ export default function CreateAnnouncement(){
         });
 
         try{
-            const response = await fetch('http://localhost:8000/announcements', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements`, {
                 method: 'POST',
                 credentials: 'include',
                 body: formPayload

@@ -13,7 +13,7 @@ export default function CategoriesTable({categories}){
     async function handleCategoryDelete(categoryId){
         setLoading(true);
         try{
-            const response = await fetch(`http://localhost:8000/categories/${categoryId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories/${categoryId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });

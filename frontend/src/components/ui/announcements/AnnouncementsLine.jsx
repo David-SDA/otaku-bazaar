@@ -11,7 +11,7 @@ export default function AnnouncementsLine({categoryId}){
         const fetchAnnouncements = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/announcements?${categoryId ? `categoryId=${categoryId}` : ''}&limit=10&sortDate=desc`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements?${categoryId ? `categoryId=${categoryId}` : ''}&limit=10&sortDate=desc`);
                 if(!response.ok){
                     throw new Error('Failed to fetch announcements');
                 }

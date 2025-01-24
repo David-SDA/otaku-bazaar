@@ -9,7 +9,7 @@ export function AuthProvider({children}){
 
     const refreshAccessToken = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:8000/auth/refresh', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/refresh`, {
                 method: 'POST',
                 credentials: 'include',
             });
@@ -28,7 +28,7 @@ export function AuthProvider({children}){
     const checkAuthentication = useCallback(async () => {
         setLoading(true);
         try{
-            const response = await fetch('http://localhost:8000/auth/me', { credentials: 'include' });
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/me`, { credentials: 'include' });
             if(response.ok){
                 const userData = await response.json();
                 setIsAuthenticated(true);
@@ -37,7 +37,7 @@ export function AuthProvider({children}){
             else if(response.status === 401){
                 const refreshed = await refreshAccessToken();
                 if(refreshed){
-                    const retryResponse = await fetch('http://localhost:8000/auth/me', { credentials: 'include' });
+                    const retryResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/me`, { credentials: 'include' });
                     if(retryResponse.ok){
                         const retryUserData = await retryResponse.json();
                         setIsAuthenticated(true);
@@ -65,7 +65,7 @@ export function AuthProvider({children}){
     const logout = useCallback(async () => {
         setLoading(true);
         try{
-            const response = await fetch('http://localhost:8000/auth/logout', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, {
                 method: 'POST',
                 credentials: 'include'
             });

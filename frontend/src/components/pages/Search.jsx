@@ -25,7 +25,7 @@ export default function Search(){
         setLoading(true);
         try{
             const queryParams = new URLSearchParams(filters).toString();
-            const response = await fetch(`http://localhost:8000/announcements?${queryParams}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements?${queryParams}`);
             if(!response.ok){
                 throw new Error('Error fetching announcements');
             }

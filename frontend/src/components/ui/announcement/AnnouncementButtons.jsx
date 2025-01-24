@@ -11,7 +11,7 @@ function AnnouncementButtons({isAuthenticated, announcement, isInWishlist, onTog
         setLoading(true);
         try{
             const method = isInWishlist ? 'DELETE' : 'POST';
-            const response = await fetch(`http://localhost:8000/users/wishes/${announcement.id}`, {method, credentials: 'include'});
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/wishes/${announcement.id}`, {method, credentials: 'include'});
             if(!response.ok){
                 throw new Error('Failed to toggle wishlist');
             }

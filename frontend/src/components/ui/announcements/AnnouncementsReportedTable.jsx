@@ -12,7 +12,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
     async function handleHideToggle(announcementId, isHidden){
         setLoading(true);
         try{
-            const response = await fetch(`http://localhost:8000/announcements/${announcementId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/${announcementId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
     async function handleDelete(announcementId){
         setLoading(true);
         try{
-            const response = await fetch(`http://localhost:8000/announcements/${announcementId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/${announcementId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });
@@ -65,7 +65,7 @@ export default function AnnouncementsReportedTable({reportedAnnouncements}){
     async function handleResolved(userId, announcementId){
         setLoading(true);
         try{
-            const response = await fetch(`http://localhost:8000/users/${userId}/reportedAnnouncements/${announcementId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}/reportedAnnouncements/${announcementId}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });

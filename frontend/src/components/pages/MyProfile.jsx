@@ -16,7 +16,7 @@ export default function MyProfile(){
 
     async function fetchMyProfile(){
         try{
-            const response = await fetch('http://localhost:8000/auth/profile', { credentials: 'include' });
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/profile`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error('Failed to fetch my profile');
             }

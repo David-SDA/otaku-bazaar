@@ -8,7 +8,7 @@ export default function AnnouncementReportModal({announcementId, onClose, setRep
         e.preventDefault();
         setIsSubmitting(true);
         try{
-            const response = await fetch(`http://localhost:8000/users/reportedAnnouncements/${announcementId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/reportedAnnouncements/${announcementId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

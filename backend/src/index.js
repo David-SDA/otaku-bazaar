@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(
     {
-        origin: 'http://localhost:3000',
+        origin: `${process.env.FRONTEND_URL}`,
         credentials: true,
     }
 ));
@@ -29,5 +29,5 @@ app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log('Server is running on http://localhost:' + PORT);
+    console.log('Server is running on port' + PORT);
 });

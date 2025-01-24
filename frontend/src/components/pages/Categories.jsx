@@ -11,7 +11,7 @@ export default function Categories(){
     
     async function fetchCategories(){
         try{
-            const response = await fetch('http://localhost:8000/categories');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories`);
             if(!response.ok){
                 throw new Error('Error fetching categories');
             }

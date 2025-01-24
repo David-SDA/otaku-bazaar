@@ -8,7 +8,7 @@ export default function Wishlist(){
 
     async function fetchWishlist(){
         try {
-            const response = await fetch('http://localhost:8000/users/wishes', { credentials: 'include' });
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/wishes`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error('Failed to fetch wishlist');
             }

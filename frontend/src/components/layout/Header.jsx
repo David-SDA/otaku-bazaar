@@ -24,7 +24,7 @@ export default function Header(){
 
     async function fetchCategories(){
         try{
-            const response = await fetch('http://localhost:8000/categories');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories`);
             if(!response.ok){
                 throw new Error('Error fetching categories');
             }
@@ -38,7 +38,7 @@ export default function Header(){
 
     async function handleLogout(){
         try{
-            const response = await fetch('http://localhost:8000/auth/logout', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, {
                 method: 'POST',
                 credentials: 'include'
             });

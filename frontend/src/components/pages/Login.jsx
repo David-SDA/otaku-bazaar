@@ -18,7 +18,7 @@ export default function Login(){
         setErrorMessage('');
 
         try{
-            const response = await fetch('http://localhost:8000/auth/login', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

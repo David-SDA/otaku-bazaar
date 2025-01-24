@@ -22,7 +22,7 @@ export default function PublicUserProfile(){
     useEffect(() => {
         async function fetchUserData(){
             try{
-                const response = await fetch(`http://localhost:8000/users/${id}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`);
                 if(!response.ok){
                     throw new Error('Failed to fetch user data');
                 }
@@ -32,7 +32,7 @@ export default function PublicUserProfile(){
                 setAnnouncements(data.Announcements);
 
                 if(isAuthenticated){
-                    const reportResponse = await fetch(`http://localhost:8000/users/${user.sub}/reported`, {
+                    const reportResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${user.sub}/reported`, {
                         credentials: 'include',
                     });
 

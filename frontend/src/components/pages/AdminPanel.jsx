@@ -15,28 +15,28 @@ export default function AdminPanel(){
     useEffect(() => {
         async function fetchAdminPanel(){
             try{
-                const reportedAnnouncementsResponse = await fetch('http://localhost:8000/announcements/reported', {credentials: 'include'});
+                const reportedAnnouncementsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/announcements/reported`, {credentials: 'include'});
                 if(!reportedAnnouncementsResponse.ok){
                     throw new Error('Failed to fetch reported announcements');
                 }
                 const reportedAnnouncementsData = await reportedAnnouncementsResponse.json();
                 setReportedAnnouncements(reportedAnnouncementsData);
 
-                const reportedUsersResponse = await fetch('http://localhost:8000/users/reported', {credentials: 'include'});
+                const reportedUsersResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/reported`, {credentials: 'include'});
                 if(!reportedUsersResponse.ok){
                     throw new Error('Failed to fetch reported users');
                 }
                 const reportedUsersData = await reportedUsersResponse.json();
                 setReportedUsers(reportedUsersData);
 
-                const usersResponse = await fetch('http://localhost:8000/users?page=1&limit=100', {credentials: 'include'});
+                const usersResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?page=1&limit=100`, {credentials: 'include'});
                 if(!usersResponse.ok){
                     throw new Error('Failed to fetch users');
                 }
                 const usersData = await usersResponse.json();
                 setUsers(usersData.data);
 
-                const categoriesResponse = await fetch('http://localhost:8000/categories', {credentials: 'include'});
+                const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/categories`, {credentials: 'include'});
                 if(!categoriesResponse.ok){
                     throw new Error('Failed to fetch categories');
                 }
