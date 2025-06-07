@@ -12,7 +12,7 @@ sequelize.authenticate()
     console.log('Database connection established !');
 })
 .catch(error => {
-    console.error('Database connection failed :', error.message)
+    console.error('Database connection failed :', error.message);
 });
 
 sequelize.sync({force: false, alter: true})
