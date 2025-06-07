@@ -15,7 +15,7 @@ export default function Home(){
                 )
             }
             <AnnouncementsLineHeader
-                title={'What\'s new'}
+                title={'What\'s new pppppppppp'}
                 link={'/search'}
             />
             <AnnouncementsLine categoryId={null} />
