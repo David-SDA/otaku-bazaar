@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 export default function MyProfileModalContent({ fieldKey, currentValue, onSave }){
-    const [value, setValue] = useState(currentValue);
+    const [value, setValue] = useState();
+    setValue(currentValue);
 
     function handleSave(){
         onSave(fieldKey, value);
