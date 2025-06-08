@@ -33,11 +33,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install and test backend
+      - name: Run backend tests
         working-directory: ./backend
+        env:
+          NODE_ENV: test
         run: |
+          echo "DB_NAME=otaku_test" >> .env.test
+          echo "DB_USER=postgres" >> .env.test
+          echo "DB_PASSWORD=postgres" >> .env.test
+          echo "DB_HOST=localhost" >> .env.test
+          echo "DB_PORT=5432" >> .env.test
+          echo "DB_DIALECT=postgres" >> .env.test
           npm ci
-          NODE_ENV=test npm test
+          npm test
+
 
       - name: Install and build frontend
         working-directory: ./frontend
