@@ -2,9 +2,9 @@ name: Run API Tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
 
 jobs:
   test:
@@ -45,11 +45,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: ls
-        run: ls -la
-
       - name: Install dependencies
+        working-directory: ./backend
         run: npm ci
 
       - name: Run tests
+        working-directory: ./backend
         run: npm test
