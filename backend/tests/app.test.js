@@ -7,6 +7,7 @@ beforeAll(async () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
+    await sequelize.authenticate();
     await Users.destroy({ where: { email: 'john@example.com' } });
     await Users.destroy({ where: { email: 'john.dup@example.com' } });
 });
