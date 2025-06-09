@@ -1,4 +1,4 @@
-name: Deployment Pipeline
+name: OtakuBazaar CI/CD Pipeline
 
 on:
   push:
@@ -67,4 +67,15 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
-          script: /var/www/otaku-bazaar/deploy.sh
+          script: |
+            set -e
+            cd /var/www/otaku-bazaar
+            git fetch origin
+            git reset --hard origin/main
+            cd frontend
+            npm ci
+            npm run build
+            cd ../backend
+            npm ci
+            pm2 restart otaku_backend || pm2 start src/index.js --name otaku_backend
+            pm2 save
