@@ -41,13 +41,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies backend
+      - name: Install dependencies backend and run tests
         working-directory: ./backend
-        run: npm ci
-
-      - name: Run backend tests
-        working-directory: ./backend
-        run: npm test
+        run: |
+          npm ci
+          npm test
 
       - name: Install and build frontend
         working-directory: ./frontend
@@ -68,7 +66,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            set -e
             cd /var/www/otaku-bazaar
             git fetch origin
             git reset --hard origin/main
