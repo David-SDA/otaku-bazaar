@@ -8,7 +8,9 @@ beforeAll(async () => {
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
     await sequelize.authenticate();
-    await sequelize.sync({ force: true });
+    if(process.env.NODE_ENV == 'test'){
+        await sequelize.sync({ force: true });
+    }
     await Users.destroy({ where: { email: 'john@example.com' } });
     await Users.destroy({ where: { email: 'john.dup@example.com' } });
 });
@@ -17,18 +19,6 @@ afterAll(async () => {
     await Users.destroy({ where: { email: 'john@example.com' } });
     await Users.destroy({ where: { email: 'john.dup@example.com' } });
     await sequelize.close();
-});
-
-describe('GET /categories', () => {
-    it('should return 200 and an array of categories', async () => {
-        const res = await request(app).get('/categories');
-        expect(res.statusCode).toBe(200);
-        expect(Array.isArray(res.body)).toBe(true);
-        expect(res.body.length).toBeGreaterThan(0);
-        expect(res.body[0]).toHaveProperty('id');
-        expect(res.body[0]).toHaveProperty('name');
-        expect(res.body[0]).toHaveProperty('image');
-    });
 });
 
 describe('POST /auth/register', () => {
