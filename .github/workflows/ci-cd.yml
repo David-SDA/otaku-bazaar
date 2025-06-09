@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deployement Pipeline
 
 on:
   push:
@@ -20,8 +20,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Install and build frontend
         working-directory: ./frontend
